@@ -4,10 +4,22 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-<TextView  
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:text="@string/HelloWorldString"
+    <TextView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/Status"
     />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="fill_parent" android:layout_height="0dp"
+        android:layout_weight="1" android:gravity="top|left"
+        android:maxLength="140"
+        android:hint="@string/Text" />
+     <Button
+        android:id="@+id/buttonUpdate"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:text="@string/Update" android:textSize="20sp"
+     />
 </LinearLayout>
 
