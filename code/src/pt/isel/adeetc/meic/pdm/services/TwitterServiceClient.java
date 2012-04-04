@@ -1,6 +1,7 @@
 package pt.isel.adeetc.meic.pdm.services;
 
 import android.os.AsyncTask;
+import pt.isel.adeetc.meic.pdm.common.ExtendedAsyncTask;
 import pt.isel.adeetc.meic.pdm.common.GenericEvent;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
 import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
@@ -46,9 +47,10 @@ public final class TwitterServiceClient
         new GetUserTimelineAsyncTask().execute();
     }
 
-    public void setTwitterUsernameAndPassword(String user, String password)
+    public void configureTwiiterClient(String user, String password, String apiRootUrl)
     {
         _twitter = new Twitter(user, password);
+        _twitter.setAPIRootUrl(apiRootUrl);
     }
 
     private Twitter getTwitter()
@@ -58,7 +60,7 @@ public final class TwitterServiceClient
         return _twitter;
     }
 
-    private class UpdateStatusAsyncTask extends AsyncTask<String, Void, Twitter.Status>
+    private class UpdateStatusAsyncTask extends ExtendedAsyncTask<String, Void, Twitter.Status>
     {
 
         @Override
@@ -68,32 +70,24 @@ public final class TwitterServiceClient
         }
 
         @Override
-        protected Twitter.Status doInBackground(String... strings)
+        protected Twitter.Status doWork(String... params)
         {
-            if (strings.length == 0)
+            if (params.length == 0)
                 throw new InvalidParameterException("status");
 
-            return getTwitter().updateStatus(strings[0]);
+            return getTwitter().updateStatus(params[0]);
         }
 
         @Override
-        protected void onPostExecute(Twitter.Status _)
+        protected void onPostExecute(Twitter.Status result)
         {
-            Twitter.Status result = null;
-            Exception error = null;
+            Exception error = getError();
             _isStatusBeingUpdated = false;
-            try
-            {
-                result = get();
-            } catch (Exception e)
-            {
-                error = e;
-            }
             updateStatusCompletedEvent.invoke(TwitterServiceClient.this, new GenericEventArgs<Twitter.Status>(result, error));
         }
     }
 
-    private class GetUserTimelineAsyncTask extends AsyncTask<Void, Void, Iterable<Twitter.Status>>
+    private class GetUserTimelineAsyncTask extends ExtendedAsyncTask<Void, Void, Iterable<Twitter.Status>>
     {
 
         @Override
@@ -103,25 +97,16 @@ public final class TwitterServiceClient
         }
 
         @Override
-        protected Iterable<Twitter.Status> doInBackground(Void... voids)
+        protected Iterable<Twitter.Status> doWork(Void... params)
         {
             return getTwitter().getUserTimeline();
         }
 
         @Override
-        protected void onPostExecute(Iterable<Twitter.Status> _)
+        protected void onPostExecute(Iterable<Twitter.Status> result)
         {
             _isTimelineBeingFetched = false;
-            Iterable<Twitter.Status> result = null;
-            Exception error = null;
-            _isStatusBeingUpdated = false;
-            try
-            {
-                result = get();
-            } catch (Exception e)
-            {
-                error = e;
-            }
+            Exception error = getError();
             getUserTimelineCompletedEvent
                     .invoke(TwitterServiceClient.this, new GenericEventArgs<Iterable<Twitter.Status>>(result, error));
 
