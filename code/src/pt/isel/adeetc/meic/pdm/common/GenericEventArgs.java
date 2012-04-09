@@ -20,7 +20,7 @@ public class GenericEventArgs<T> implements IEventHandlerArgs<T>
     public T getData() throws Exception
     {
 
-        if(_error == null)
+        if(_error != null)
             throw _error;
 
         return _data;

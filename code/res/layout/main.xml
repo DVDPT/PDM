@@ -16,10 +16,26 @@
         android:layout_weight="1" android:gravity="top|left"
         android:maxLength="140"
         android:hint="@string/Text" />
-     <Button
-        android:id="@+id/buttonUpdate"
-        android:layout_width="fill_parent" android:layout_height="wrap_content"
-        android:text="@string/Update" android:textSize="20sp"
-     />
+
+    <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+        <Button
+                android:id="@+id/buttonUpdate"
+                android:layout_width="100" android:layout_height="50"
+                android:text="@string/Update" android:textSize="20sp"
+
+                />
+
+        <TextView
+                android:layout_width="fill_parent"  android:layout_height="wrap_content"
+                android:layout_margin="10dp" android:gravity="right"
+                android:text="@string/charactersCount" android:textSize="20sp"
+                android:textColor="@color/"/>
+
+
+    </TableRow>
 </LinearLayout>
 
