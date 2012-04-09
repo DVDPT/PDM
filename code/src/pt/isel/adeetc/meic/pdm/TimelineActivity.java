@@ -3,6 +3,7 @@ package pt.isel.adeetc.meic.pdm;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.DateTimeKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +11,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import pt.isel.adeetc.meic.pdm.common.IEventHandler;
-import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
-import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
-import pt.isel.adeetc.meic.pdm.common.UiHelper;
+import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.common.holders.ViewHolder3;
+import pt.isel.adeetc.meic.pdm.extensions.BaseActivity;
 import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
 import winterwell.jtwitter.Twitter;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 
 public class TimelineActivity extends YambaBaseActivity implements IEventHandler<Iterable<Twitter.Status>>, AdapterView.OnItemClickListener
@@ -47,6 +48,15 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     protected void onStart()
     {
         super.onStart();
+        if (_status.size() != 0)
+            return;
+
+        getUserTimeline();
+    }
+
+    private void getUserTimeline()
+    {
+        _status.clear();
         if (_loadingDialog == null)
         {
             _loadingDialog = ProgressDialog.show
@@ -99,9 +109,12 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
     {
-        UiHelper.showToast(String.format("Pressed %d", i));
         int objId = getNavigationMessenger().putElement(_status.get(i));
-        startActivity(new Intent(this, StatusDetailsActivity.class).putExtra("text", objId));
+
+        startActivity(
+                new Intent(this, StatusDetailsActivity.class)
+                        .putExtra(getApplicationInstance().timelineToStatusDetailsParamName, objId)
+        );
     }
 
     private class TwitterStatusAdpater extends ArrayAdapter<Twitter.Status>
@@ -132,11 +145,9 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
             } else
                 holder = (ViewHolder3<TextView, TextView, TextView>) v.getTag();
 
-
             holder.getT1().setText(_status.get(pos).getText());
             holder.getT2().setText(_status.get(pos).getUser().getName());
-            //holder.getT2().setText("User");
-            holder.getT3().setText(_status.get(pos).getCreatedAt().toLocaleString());
+            holder.getT3().setText(DateHelper.stringifyDifference(new Date(System.currentTimeMillis()), _status.get(pos).getCreatedAt()));
             return v;
         }
 

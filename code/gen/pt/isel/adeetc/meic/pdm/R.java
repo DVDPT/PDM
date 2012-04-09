@@ -11,15 +11,20 @@ public final class R {
     public static final class attr {
     }
     public static final class id {
-        public static final int timeline_status_date=0x7f040003;
-        public static final int timeline_status_message=0x7f040001;
-        public static final int timeline_status_username=0x7f040002;
-        public static final int timeline_user_status=0x7f040000;
+        public static final int status_detail_date=0x7f040003;
+        public static final int status_detail_message=0x7f040001;
+        public static final int status_detail_message_id=0x7f040002;
+        public static final int status_detail_username=0x7f040000;
+        public static final int timeline_status_date=0x7f040007;
+        public static final int timeline_status_message=0x7f040005;
+        public static final int timeline_status_username=0x7f040006;
+        public static final int timeline_user_status=0x7f040004;
     }
     public static final class layout {
         public static final int main=0x7f020000;
-        public static final int timeline=0x7f020001;
-        public static final int timeline_element=0x7f020002;
+        public static final int status_details=0x7f020001;
+        public static final int timeline=0x7f020002;
+        public static final int timeline_element=0x7f020003;
     }
     public static final class string {
         public static final int HelloWorldString=0x7f030001;

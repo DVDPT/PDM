@@ -7,7 +7,7 @@ import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
 public class YambaApplication extends BaseApplication
 {
     private TwitterServiceClient _client;
-    public static final String timelineStatusDetailsParam = "statusDetailsParam";
+    public final String timelineToStatusDetailsParamName = "statusDetailsParam";
 
     public TwitterServiceClient getTwitterClient()
     {

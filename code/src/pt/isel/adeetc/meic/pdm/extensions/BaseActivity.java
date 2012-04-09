@@ -9,12 +9,16 @@ public class BaseActivity<T extends Application> extends Activity
     private static NavigationMessenger _messenger = new NavigationMessenger();
 
     @SuppressWarnings("unchecked")
-    public T getApplicationInstance()
+    public final T getApplicationInstance()
     {
         return (T) getApplication();
     }
 
-    public NavigationMessenger getNavigationMessenger()
+    //
+    //  Should be static, but the code is more intuitive if used as
+    //  an instance method @Diogo
+    //
+    protected final NavigationMessenger getNavigationMessenger()
     {
         return _messenger;
     }

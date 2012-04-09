@@ -22,6 +22,7 @@ public final class UiHelper
                 ).show();
     }
 
+    @Deprecated
     public static void showToast(String str)
     {
         Toast.makeText
