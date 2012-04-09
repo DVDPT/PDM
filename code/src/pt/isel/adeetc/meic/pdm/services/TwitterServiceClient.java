@@ -1,11 +1,10 @@
 package pt.isel.adeetc.meic.pdm.services;
 
-import android.os.AsyncTask;
 import pt.isel.adeetc.meic.pdm.common.ExtendedAsyncTask;
 import pt.isel.adeetc.meic.pdm.common.GenericEvent;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
 import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
-import pt.isel.adeetc.meic.pdm.execptions.Constants;
+import pt.isel.adeetc.meic.pdm.exceptions.Constants;
 import winterwell.jtwitter.Twitter;
 
 import java.security.InvalidParameterException;
