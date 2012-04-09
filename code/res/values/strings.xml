@@ -2,4 +2,8 @@
 <resources>
     <string name="app_name">code</string>
     <string name="HelloWorldString">Hello World, MainActivity</string>
+    <string name="timeline_error_fetching_status">An error occurred when we where trying to fetch your status.</string>
+    <string name="timeline_display_no_status">There are no new status on your profile.</string>
+    <string name="loading">Loading</string>
+    <string name="tineline_loading_tweets">Fetching your tweets.</string>
 </resources>
