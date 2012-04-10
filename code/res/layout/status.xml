@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+    <TextView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/Status"
+    />
+    <EditText
+            android:id="@+id/editText"
+            android:layout_width="fill_parent" android:layout_height="wrap_content"
+            android:layout_weight="1" android:gravity="top|left"
+            android:maxLength="@string/MaxCount"
+            android:hint="@string/Text" />
+
+    <LinearLayout
+            android:id="@+id/Layout"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+        <Button
+                android:id="@+id/buttonUpdate"
+                android:layout_width="100sp" android:layout_height="50sp"
+                android:text="@string/Update" android:textSize="20sp"
+
+                />
+
+        <TextView
+                android:id="@+id/Count"
+                android:layout_width="wrap_content"  android:layout_height="fill_parent"
+                android:layout_margin="10dp" android:gravity="center"
+                android:text="@string/MaxCount" android:textSize="20sp"
+                android:textColor="#AA0"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
+

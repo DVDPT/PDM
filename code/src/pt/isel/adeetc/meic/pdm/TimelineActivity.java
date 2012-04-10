@@ -3,7 +3,6 @@ package pt.isel.adeetc.meic.pdm;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.DateTimeKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.common.holders.ViewHolder3;
-import pt.isel.adeetc.meic.pdm.extensions.BaseActivity;
 import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
 import winterwell.jtwitter.Twitter;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 

@@ -14,7 +14,7 @@ public class MainActivity extends YambaBaseActivity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.status);
         startActivity(new Intent(this,TimelineActivity.class));
 
     }

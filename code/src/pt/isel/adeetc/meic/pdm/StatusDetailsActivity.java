@@ -2,7 +2,6 @@ package pt.isel.adeetc.meic.pdm;
 
 import android.os.Bundle;
 import android.widget.TextView;
-import pt.isel.adeetc.meic.pdm.common.UiHelper;
 import winterwell.jtwitter.Twitter;
 
 public class StatusDetailsActivity extends YambaBaseActivity
