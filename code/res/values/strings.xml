@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">code</string>
+    <string name="app_name">Yamba PDM</string>
     <string name="HelloWorldString">Hello World, MainActivity</string>
     <string name="timeline_error_fetching_status">An error occurred when we where trying to fetch your status.</string>
     <string name="timeline_display_no_status">There are no new status on your profile.</string>
@@ -11,4 +11,7 @@
     <string name="Update">Tweet</string>
     <string name="MaxCount">142</string>
     <string name="status_error_insert_newStatus">An error ocurred when we insert a newStatus</string>
+    <string name="timeline">Timeline</string>
+    <string name="prefs">Preferences</string>
+    <string name="new_status">New Status</string>
 </resources>

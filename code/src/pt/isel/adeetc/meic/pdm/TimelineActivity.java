@@ -26,6 +26,11 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     private static final String LOG = "TimelineActivity";
     private ProgressDialog _loadingDialog;
 
+    public TimelineActivity()
+    {
+        super(true);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -45,6 +50,19 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     protected void onStart()
     {
         super.onStart();
+        onNavigatedTo();
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        onNavigatedTo();
+    }
+
+    private void onNavigatedTo()
+    {
+
         if (_status.size() != 0)
             return;
 
@@ -75,6 +93,13 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         _twitter.getUserTimelineCompletedEvent.removeEventHandler();
     }
 
+    @Override
+    protected Iterable<Integer> getActivityDisabledMenuItems()
+    {
+        LinkedList<Integer> ret = new LinkedList<Integer>();
+        ret.add(R.id.menu_timeline);
+        return ret;
+    }
 
     public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.Status>> userStatus)
     {

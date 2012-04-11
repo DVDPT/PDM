@@ -13,13 +13,8 @@ import pt.isel.adeetc.meic.pdm.common.UiHelper;
 import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
 import winterwell.jtwitter.Twitter;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Sorcha
- * Date: 04-04-2012
- * Time: 17:47
- * To change this template use File | Settings | File Templates.
- */
+import java.util.LinkedList;
+
 public class StatusActivity extends YambaBaseActivity implements IEventHandler<Twitter.Status> {
 
     private final int MAXLENGTHTWEET = 142;
@@ -28,6 +23,11 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
     private Button _update;
     private TextView _count;
     private TwitterServiceClient _twitter;
+
+    public StatusActivity()
+        {
+            super(true);
+        }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +65,14 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
 
         _twitter = getApplicationInstance().getTwitterClient();
         _twitter.updateStatusCompletedEvent.setEventHandler(this);
+    }
+
+    @Override
+    protected Iterable<Integer> getActivityDisabledMenuItems()
+    {
+        LinkedList<Integer> ret =  new LinkedList<Integer>();
+        ret.add(R.id.menu_status);
+        return ret;
     }
 
 
