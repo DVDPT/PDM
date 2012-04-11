@@ -11,4 +11,19 @@
     <string name="Update">Tweet</string>
     <string name="MaxCount">142</string>
     <string name="status_error_insert_newStatus">An error ocurred when we insert a newStatus</string>
+    <string name="TitlePrefUser">Change User Name</string>
+    <string name="SummaryPass">User Password</string>
+    <string name="TitlePrefPass">Change Password</string>
+    <string name="NameUriPref">uri</string>
+    <string name="SummaryUriPref">Base Url</string>
+    <string name="TitleUriPref">Change Url</string>
+    <string name="NameUserPref">UserName</string>
+    <string name="SummaryUserPref">User Name</string>
+    <string name="NamePassPref">Pass</string>
+    <string name="NameMaxCharactersPref">MaxCharacters</string>
+    <string name="SummaryMaxCharactersPref">Change Max Characters for Tweet</string>
+    <string name="TitleMaxCharactersPref">Change Url</string>
+    <string name="NameMaxTweetsPref">MaxTweets</string>
+    <string name="SummaryMaxTweetsPref">Max Tweets</string>
+    <string name="TitleMaxTweetsPref">Change Max Tweets</string>
 </resources>

@@ -33,8 +33,23 @@ public final class R {
     public static final class string {
         public static final int HelloWorldString=0x7f040001;
         public static final int MaxCount=0x7f040009;
+        public static final int NameMaxCharactersPref=0x7f040014;
+        public static final int NameMaxTweetsPref=0x7f040017;
+        public static final int NamePassPref=0x7f040013;
+        public static final int NameUriPref=0x7f04000e;
+        public static final int NameUserPref=0x7f040011;
         public static final int Status=0x7f040006;
+        public static final int SummaryMaxCharactersPref=0x7f040015;
+        public static final int SummaryMaxTweetsPref=0x7f040018;
+        public static final int SummaryPass=0x7f04000c;
+        public static final int SummaryUriPref=0x7f04000f;
+        public static final int SummaryUserPref=0x7f040012;
         public static final int Text=0x7f040007;
+        public static final int TitleMaxCharactersPref=0x7f040016;
+        public static final int TitleMaxTweetsPref=0x7f040019;
+        public static final int TitlePrefPass=0x7f04000d;
+        public static final int TitlePrefUser=0x7f04000b;
+        public static final int TitleUriPref=0x7f040010;
         public static final int Update=0x7f040008;
         public static final int app_name=0x7f040000;
         public static final int loading=0x7f040004;
