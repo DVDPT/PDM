@@ -1,7 +1,9 @@
 package pt.isel.adeetc.meic.pdm;
 
+
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -13,29 +15,34 @@ import pt.isel.adeetc.meic.pdm.common.UiHelper;
 import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
 import winterwell.jtwitter.Twitter;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Sorcha
- * Date: 04-04-2012
- * Time: 17:47
- * To change this template use File | Settings | File Templates.
- */
-public class StatusActivity extends YambaBaseActivity implements IEventHandler<Twitter.Status> {
+import java.util.LinkedList;
 
-    private final int MAXLENGTHTWEET = 142;
+public class StatusActivity extends YambaBaseActivity implements IEventHandler<Twitter.Status> {
 
     private EditText _status;
     private Button _update;
     private TextView _count;
     private TwitterServiceClient _twitter;
+    private String _maxCharacters;
+
+    public StatusActivity()
+        {
+            super(true);
+        }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        String maxCharacters;
         setContentView(R.layout.status);
+        _maxCharacters = getApplicationInstance().getMaxCharacter();
+
         _status = (EditText) findViewById(R.id.editText);
         _update = (Button) findViewById(R.id.buttonUpdate);
         _count = (TextView) findViewById(R.id.Count);
-        _count.setText(getApplicationInstance().getMaxCharacter());
+
+        _count.setText( Integer.getInteger(_maxCharacters));
+        //_status.setFilters(new InputFilter[] { new InputFilter.LengthFilter(Integer.getInteger(_maxCharacters)) });
 
         _status.addTextChangedListener(new TextWatcher() {
             @Override
@@ -51,7 +58,7 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
             @Override
             public void afterTextChanged(Editable editable) {
 
-                Integer currentLength = MAXLENGTHTWEET - editable.length();
+                Integer currentLength = Integer.getInteger(_maxCharacters) - editable.length();
                 _count.setText(currentLength.toString());
             }
         });
@@ -69,6 +76,14 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
         _twitter.updateStatusCompletedEvent.setEventHandler(this);
     }
 
+    @Override
+    protected Iterable<Integer> getActivityDisabledMenuItems()
+    {
+        LinkedList<Integer> ret =  new LinkedList<Integer>();
+        ret.add(R.id.menu_status);
+        return ret;
+    }
+
 
     @Override
     public void invoke(Object sender, IEventHandlerArgs<Twitter.Status> statusIEventHandlerArgs) {
@@ -80,7 +95,7 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
         }
         UiHelper.showToast(R.string.status_tweet_create);
         _status.setText("");
-        _count.setText(R.string.status_name);
+        _count.setText(_maxCharacters);
         _update.setEnabled(true);
     }
 

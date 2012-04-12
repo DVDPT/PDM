@@ -34,10 +34,12 @@
                 android:summary="@string/preferences_summary_maxCharacters"
                 android:title="@string/preferences_title_maxCharacters"
                 android:key="maxCharacters"
+                android:numeric="integer"
                 />
 
         <EditTextPreference
                 android:name="@string/preferences_name_maxTweets"
+                android:numeric="integer"
                 android:summary="@string/preferences_summary_maxTweets"
                 android:title="@string/preferences_title_maxTweets"
                 android:key="maxTweets"

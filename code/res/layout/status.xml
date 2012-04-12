@@ -14,7 +14,6 @@
             android:id="@+id/editText"
             android:layout_width="fill_parent" android:layout_height="wrap_content"
             android:layout_weight="1" android:gravity="top|left"
-            android:maxLength="@string/status_maxCharacters"
             android:hint="@string/status_display_message" />
 
     <LinearLayout
@@ -35,7 +34,7 @@
                 android:id="@+id/Count"
                 android:layout_width="wrap_content"  android:layout_height="fill_parent"
                 android:layout_margin="10dp" android:gravity="center"
-                android:text="@string/status_maxCharacters" android:textSize="20sp"
+                android:textSize="20sp"
                 android:textColor="#AA0"/>
 
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">code</string>
+    <string name="app_name">Yamba Application</string>
     <string name="HelloWorldString">Hello World, MainActivity</string>
     <string name="timeline_error_fetching_status">An error occurred when we where trying to fetch your status.</string>
     <string name="timeline_display_no_status">There are no new status on your profile.</string>
@@ -9,7 +9,6 @@
     <string name="status_name">Status</string>
     <string name="status_display_message">Insert Text</string>
     <string name="status_button_name">Tweet</string>
-    <string name="status_maxCharacters">142</string>
     <string name="status_error_insert_newStatus">An error ocurred when we insert a newStatus</string>
     <string name="status_tweet_create">Tweet has Create </string>
     <string name="preferences_title_user">Change User Name</string>
@@ -27,4 +26,11 @@
     <string name="preferences_name_maxTweets">MaxTweets</string>
     <string name="preferences_summary_maxTweets">Max Tweets</string>
     <string name="preferences_title_maxTweets">Change Max Tweets</string>
+    <string name="new_status">New Status</string>
+    <string name="prefs">Preferences</string>
+    <string name="timeline">Timeline</string>
+    <string name="status_activity">Status Activity</string>
+    <string name="timeline_activity">Timeline Activity</string>
+    <string name="statusDetails_activity">Status Details Activity</string>
+    <string name="preferences_activity">Preferences Activity</string>
 </resources>

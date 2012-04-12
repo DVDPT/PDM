@@ -1,9 +1,6 @@
 package pt.isel.adeetc.meic.pdm.services;
 
-import pt.isel.adeetc.meic.pdm.common.ExtendedAsyncTask;
-import pt.isel.adeetc.meic.pdm.common.GenericEvent;
-import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
-import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
+import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.exceptions.Constants;
 import winterwell.jtwitter.Twitter;
 
@@ -11,8 +8,8 @@ import java.security.InvalidParameterException;
 
 public final class TwitterServiceClient
 {
-    public final GenericEvent<Twitter.Status> updateStatusCompletedEvent;
-    public final GenericEvent<Iterable<Twitter.Status>> getUserTimelineCompletedEvent;
+    public final IEvent<Twitter.Status> updateStatusCompletedEvent;
+    public final IEvent<Iterable<Twitter.Status>> getUserTimelineCompletedEvent;
 
     private volatile boolean _isStatusBeingUpdated;
     private volatile boolean _isTimelineBeingFetched;
@@ -28,6 +25,11 @@ public final class TwitterServiceClient
     public boolean isStatusBeingUpdated()
     {
         return _isStatusBeingUpdated;
+    }
+
+    public boolean isValidLogin()
+    {
+        return _twitter.isValidLogin();
     }
 
     public boolean isTimelineBeingFetched()
@@ -46,6 +48,7 @@ public final class TwitterServiceClient
         new GetUserTimelineAsyncTask().execute();
     }
 
+    //TODO alterar nome do metodo
     public void configureTwiiterClient(String user, String password, String apiRootUrl)
     {
         _twitter = new Twitter(user, password);
@@ -113,3 +116,5 @@ public final class TwitterServiceClient
 
     }
 }
+
+

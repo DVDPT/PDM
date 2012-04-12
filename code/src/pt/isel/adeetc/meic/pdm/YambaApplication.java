@@ -14,9 +14,10 @@ public class YambaApplication extends BaseApplication
 
     public TwitterServiceClient getTwitterClient()
     {
-        if (_client == null)
+        if (_client == null || !_client.isValidLogin())
         {
             _client = new TwitterServiceClient();
+
             _client.configureTwiiterClient(getUserName(), getPassword(), getApiRootUrl());
         }
         return _client;
@@ -47,19 +48,19 @@ public class YambaApplication extends BaseApplication
     }
 
     
-    public int getMaxCharacter(){
+    public String getMaxCharacter(){
         _preferences = PreferenceManager
                 .getDefaultSharedPreferences(getBaseContext());
-        return _preferences.getInt("maxCharacters",0);
+        return _preferences.getString("maxCharacters","0");
         //return  _maxCharacters;
     }
 
     
-    public int getMaxTweets()
+    public String getMaxTweets()
     {
         _preferences = PreferenceManager
                 .getDefaultSharedPreferences(getBaseContext());
-        return _preferences.getInt("maxTweets",0);
+        return _preferences.getString("maxTweets","0");
         //return _maxtweets;
     }
     
