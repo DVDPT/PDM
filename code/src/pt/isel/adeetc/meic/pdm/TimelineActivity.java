@@ -71,6 +71,9 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
     private void getUserTimeline()
     {
+        if(_twitter.isTimelineBeingFetched())
+            return;
+
         _status.clear();
         if (_loadingDialog == null)
         {

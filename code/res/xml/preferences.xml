@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="User"
+            android:key="user">
+
+        <EditTextPreference
+                android:name="@string/NameUserPref"
+                android:summary="@string/SummaryUserPref"
+                android:title="@string/TitlePrefUser"
+                android:key="userName"
+                />
+        <EditTextPreference
+                android:name="@string/NamePassPref"
+                android:summary="@string/SummaryPass"
+                android:title="@string/TitlePrefPass"
+                android:key="userPass"
+                />
+
+        <EditTextPreference
+                android:name="@string/NameUriPref"
+                android:summary="@string/SummaryUriPref"
+                android:title="@string/TitleUriPref"
+                android:key="baseUrl"
+                />
+    </PreferenceCategory>
+    <PreferenceCategory
+            android:title="Tweets"
+            android:key="tweets">
+
+        <EditTextPreference
+                android:name="@string/NameMaxCharactersPref"
+                android:summary="@string/SummaryMaxCharactersPref"
+                android:title="@string/TitleMaxCharactersPref"
+                android:key="maxCharacters"
+                />
+
+        <EditTextPreference
+                android:name="@string/NameMaxTweetsPref"
+                android:summary="@string/SummaryMaxTweetsPref"
+                android:title="@string/TitleMaxTweetsPref"
+                android:key="maxTweets"
+                />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

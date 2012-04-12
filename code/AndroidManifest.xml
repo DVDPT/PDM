@@ -8,19 +8,21 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application android:label="@string/app_name"
-                 android:name="YambaApplication"
+                 android:name=".YambaApplication"
             >
 
-        <activity android:name="MainActivity"
+        <activity android:name=".MainActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="StatusActivity"/>
-        <activity android:name="TimelineActivity"/>
-        <activity android:name="StatusDetailsActivity"/>
+        <activity android:name=".StatusActivity" />
+        <activity android:name=".TimelineActivity"/>
+        <activity android:name=".StatusDetailsActivity"/>
+        <activity android:name =".PrefsActivity"/>
+
 
     </application>
 </manifest> 

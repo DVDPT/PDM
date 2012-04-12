@@ -2,6 +2,7 @@ package pt.isel.adeetc.meic.pdm;
 
 import android.content.Intent;
 import android.os.Bundle;
+import pt.isel.adeetc.meic.pdm.common.IntentHelper;
 
 public class MainActivity extends YambaBaseActivity
 {
@@ -15,8 +16,15 @@ public class MainActivity extends YambaBaseActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.status);
-        startActivity(new Intent(this,TimelineActivity.class));
 
+
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        startActivity(IntentHelper.createIntentToReorderToFrontActivity(this, TimelineActivity.class));
     }
 
 }

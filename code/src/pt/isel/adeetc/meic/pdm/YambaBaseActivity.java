@@ -1,6 +1,5 @@
 package pt.isel.adeetc.meic.pdm;
 
-import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -65,6 +64,8 @@ public class YambaBaseActivity extends BaseActivity<YambaApplication>
             case R.id.menu_status:
                 startActivity(IntentHelper.createIntentToReorderToFrontActivity(this, StatusActivity.class));
                 return true;
+            case R.id.menu_prefs:
+                startActivity(IntentHelper.createIntentToReorderToFrontActivity(this, PrefsActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

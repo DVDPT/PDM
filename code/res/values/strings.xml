@@ -14,4 +14,20 @@
     <string name="timeline">Timeline</string>
     <string name="prefs">Preferences</string>
     <string name="new_status">New Status</string>
+    <string name="NameUserPref">UserName</string>
+    <string name="SummaryUserPref">User Name</string>
+    <string name="NamePassPref">Pass</string>
+    <string name="NameMaxCharactersPref">MaxCharacters</string>
+    <string name="SummaryMaxCharactersPref">Change Max Characters for Tweet</string>
+    <string name="TitleMaxCharactersPref">Change Url</string>
+    <string name="NameMaxTweetsPref">MaxTweets</string>
+    <string name="SummaryMaxTweetsPref">Max Tweets</string>
+    <string name="TitleMaxTweetsPref">Change Max Tweets</string>
+
+    <string name="TitlePrefPass">Change Password</string>
+    <string name="TitleUriPref">Change Url</string>
+    <string name="SummaryPass">User Password</string>
+    <string name="TitlePrefUser">Change User Name</string>
+    <string name="NameUriPref">uri</string>
+    <string name="SummaryUriPref">Base Url</string>
 </resources>
