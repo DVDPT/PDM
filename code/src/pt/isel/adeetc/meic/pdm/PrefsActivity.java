@@ -1,6 +1,6 @@
 package pt.isel.adeetc.meic.pdm;
 
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.*;
 
@@ -17,6 +17,13 @@ public class PrefsActivity extends PreferenceActivity{
 
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
+    }
 
+    @Override
+    public void onStop(){
+        super.onStop();
+        Intent statusActivity = new Intent(this,
+                StatusActivity.class);
+        startActivity(statusActivity);
     }
 }

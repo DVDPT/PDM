@@ -6,22 +6,22 @@
             android:key="user">
 
         <EditTextPreference
-                android:name="@string/NameUserPref"
-                android:summary="@string/SummaryUserPref"
-                android:title="@string/TitlePrefUser"
+                android:name="@string/preferences_name_user"
+                android:summary="@string/preferences_summary_user"
+                android:title="@string/preferences_title_user"
                 android:key="userName"
                 />
         <EditTextPreference
-                android:name="@string/NamePassPref"
-                android:summary="@string/SummaryPass"
-                android:title="@string/TitlePrefPass"
+                android:name="@string/preferences_name_password"
+                android:summary="@string/preferences_summary_password"
+                android:title="@string/preferences_title_password"
                 android:key="userPass"
                 />
 
         <EditTextPreference
-                android:name="@string/NameUriPref"
-                android:summary="@string/SummaryUriPref"
-                android:title="@string/TitleUriPref"
+                android:name="@string/preferences_name_baseUri"
+                android:summary="@string/preferences_summary_baseUri"
+                android:title="@string/preferences_title_baseUri"
                 android:key="baseUrl"
                 />
     </PreferenceCategory>
@@ -30,16 +30,16 @@
             android:key="tweets">
 
         <EditTextPreference
-                android:name="@string/NameMaxCharactersPref"
-                android:summary="@string/SummaryMaxCharactersPref"
-                android:title="@string/TitleMaxCharactersPref"
+                android:name="@string/preferences_name_maxCharacters"
+                android:summary="@string/preferences_summary_maxCharacters"
+                android:title="@string/preferences_title_maxCharacters"
                 android:key="maxCharacters"
                 />
 
         <EditTextPreference
-                android:name="@string/NameMaxTweetsPref"
-                android:summary="@string/SummaryMaxTweetsPref"
-                android:title="@string/TitleMaxTweetsPref"
+                android:name="@string/preferences_name_maxTweets"
+                android:summary="@string/preferences_summary_maxTweets"
+                android:title="@string/preferences_title_maxTweets"
                 android:key="maxTweets"
                 />
 

@@ -38,7 +38,6 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
         _twitter = getApplicationInstance().getTwitterClient();
         _twitter.getUserTimelineCompletedEvent.setEventHandler(this);
-
     }
 
     @Override

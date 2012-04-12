@@ -35,6 +35,8 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
         _status = (EditText) findViewById(R.id.editText);
         _update = (Button) findViewById(R.id.buttonUpdate);
         _count = (TextView) findViewById(R.id.Count);
+        _count.setText(getApplicationInstance().getMaxCharacter());
+
         _status.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -76,8 +78,9 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
             UiHelper.showToast(R.string.status_error_insert_newStatus);
             return;
         }
+        UiHelper.showToast(R.string.status_tweet_create);
         _status.setText("");
-        _count.setText(R.string.MaxCount);
+        _count.setText(R.string.status_name);
         _update.setEnabled(true);
     }
 

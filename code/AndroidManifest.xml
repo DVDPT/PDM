@@ -20,6 +20,7 @@
         <activity android:name="TimelineActivity" />
         <activity android:name="StatusDetailsActivity" />
         <activity android:name ="PrefsActivity"/>
+        <activity android:name ="StatusActivity"/>
 
     </application>
 </manifest> 
