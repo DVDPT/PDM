@@ -1,10 +1,11 @@
 package pt.isel.adeetc.meic.pdm;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import pt.isel.adeetc.meic.pdm.common.IntentHelper;
 
-public class MainActivity extends YambaBaseActivity
+public class MainActivity extends Activity
 {
     private static final String LOG = "MainActivity";
 
