@@ -11,7 +11,7 @@ public final class IntentHelper
     public static Intent createIntentToReorderToFrontActivity(Context ctx, Class<? extends Activity> activityClass)
     {
         Intent intent = new Intent(ctx,activityClass);
-        //intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         return intent;
 
     }

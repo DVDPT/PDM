@@ -27,6 +27,11 @@ public final class TwitterServiceClient
         return _isStatusBeingUpdated;
     }
 
+    public boolean isValidLogin()
+    {
+        return _twitter.isValidLogin();
+    }
+
     public boolean isTimelineBeingFetched()
     {
         return _isTimelineBeingFetched;

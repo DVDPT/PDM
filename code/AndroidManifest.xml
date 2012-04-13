@@ -18,10 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".StatusActivity" />
-        <activity android:name=".TimelineActivity"/>
-        <activity android:name=".StatusDetailsActivity"/>
-        <activity android:name =".PrefsActivity"/>
+        <activity android:name=".StatusActivity"
+                android:label="@string/status_activity"/>
+        <activity android:name=".TimelineActivity"
+                  android:label="@string/timeline_activity"/>
+        <activity android:name=".StatusDetailsActivity"
+                android:label="@string/statusDetails_activity"/>
+        <activity android:name =".PrefsActivity"
+                  android:label="@string/preferences_activity"/>
 
 
     </application>
