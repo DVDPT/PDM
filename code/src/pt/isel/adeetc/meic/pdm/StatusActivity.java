@@ -25,10 +25,7 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
     private TwitterServiceClient _twitter;
     private String _maxCharacters;
 
-    public StatusActivity()
-        {
-            super(true);
-        }
+
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

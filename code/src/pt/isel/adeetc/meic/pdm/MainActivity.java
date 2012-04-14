@@ -23,6 +23,7 @@ public class MainActivity extends Activity
     public void onResume()
     {
         super.onResume();
+
         startActivity(IntentHelper.createIntentToReorderToFrontActivity(this, TimelineActivity.class));
     }
 

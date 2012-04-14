@@ -16,6 +16,7 @@
                 android:summary="@string/preferences_summary_password"
                 android:title="@string/preferences_title_password"
                 android:key="userPass"
+
                 />
 
         <EditTextPreference
@@ -23,6 +24,7 @@
                 android:summary="@string/preferences_summary_baseUri"
                 android:title="@string/preferences_title_baseUri"
                 android:key="baseUrl"
+                android:defaultValue="http://yamba.marakana.com/api"
                 />
     </PreferenceCategory>
     <PreferenceCategory

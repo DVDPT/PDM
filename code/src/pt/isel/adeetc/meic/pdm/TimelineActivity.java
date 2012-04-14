@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,10 +28,6 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     private static final String LOG = "TimelineActivity";
     private ProgressDialog _loadingDialog;
 
-    public TimelineActivity()
-    {
-        super(true);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -37,7 +35,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         super.onCreate(savedInstanceState);
         setContentView(R.layout.timeline);
         ListView list = (ListView) findViewById(R.id.timeline_user_status);
-        _listAdapter = new TwitterStatusAdpater();
+        _listAdapter = new TwitterStatusAdapter();
         list.setOnItemClickListener(this);
         list.setAdapter(_listAdapter);
 
@@ -70,7 +68,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
     private void getUserTimeline()
     {
-        if(_twitter.isTimelineBeingFetched())
+        if (_twitter.isTimelineBeingFetched())
             return;
 
         _status.clear();
@@ -95,13 +93,6 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         _twitter.getUserTimelineCompletedEvent.removeEventHandler();
     }
 
-    @Override
-    protected Iterable<Integer> getActivityDisabledMenuItems()
-    {
-        LinkedList<Integer> ret = new LinkedList<Integer>();
-        ret.add(R.id.menu_timeline);
-        return ret;
-    }
 
     public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.Status>> userStatus)
     {
@@ -141,10 +132,40 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         );
     }
 
-    private class TwitterStatusAdpater extends ArrayAdapter<Twitter.Status>
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu m)
     {
 
-        public TwitterStatusAdpater()
+        m.findItem(R.id.menu_refresh).setEnabled(true);
+        return super.onCreateOptionsMenu(m);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if (item.getItemId() == R.id.menu_refresh)
+        {
+            getUserTimeline();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+
+    @Override
+    protected Iterable<Integer> getActivityDisabledMenuItems()
+    {
+        LinkedList<Integer> ret = new LinkedList<Integer>();
+        ret.add(R.id.menu_timeline);
+        return ret;
+    }
+
+    private class TwitterStatusAdapter extends ArrayAdapter<Twitter.Status>
+    {
+
+        public TwitterStatusAdapter()
         {
 
             super(TimelineActivity.this, 0, _status);

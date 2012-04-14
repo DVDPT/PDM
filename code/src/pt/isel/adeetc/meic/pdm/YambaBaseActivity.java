@@ -10,64 +10,28 @@ import java.util.Collections;
 
 public class YambaBaseActivity extends BaseActivity<YambaApplication>
 {
-    private static String LOG = "YambdaBaseActivity";
 
-    private final boolean _isMenuVisible;
-
-    public YambaBaseActivity(boolean showAppMenu)
-    {
-        _isMenuVisible = showAppMenu;
-    }
-
-    public YambaBaseActivity()
-    {
-        this(false);
-    }
+    private YambaAppMenuResolver _menuResolver = YambaAppMenuResolver.getInstance();
 
     @Override
     public boolean onCreateOptionsMenu(Menu m)
     {
-        if(_isMenuVisible)
-        {
-            getMenuInflater().inflate(R.menu.app_menu, m);
-        }
-        return _isMenuVisible;
+
+        getMenuInflater().inflate(R.menu.app_menu, m);
+        return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu)
     {
-        MenuItem m;
-        for (Integer itemId : getActivityDisabledMenuItems())
-        {
-
-            m = menu.findItem(itemId);
-            if (m == null)
-            {
-                Log.w(LOG, "getActivityDisabledMenuItems returning menu items that don't exist");
-            } else
-            {
-                m.setEnabled(false);
-            }
-        }
+        _menuResolver.prepareOptionMenu(menu, getActivityDisabledMenuItems());
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId())
-        {
-            case R.id.menu_timeline:
-                startActivity(IntentHelper.createIntentToReorderToFrontActivity(this, TimelineActivity.class));
-                return true;
-            case R.id.menu_status:
-                startActivity(IntentHelper.createIntentToReorderToFrontActivity(this, StatusActivity.class));
-                return true;
-            case R.id.menu_prefs:
-                startActivity(IntentHelper.createIntentToReorderToFrontActivity(this, PrefsActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
+        return _menuResolver.onMenuItemSelected(this, item) || super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("unchecked")
@@ -75,7 +39,6 @@ public class YambaBaseActivity extends BaseActivity<YambaApplication>
     {
         return Collections.EMPTY_LIST;
     }
-
 
 
 }

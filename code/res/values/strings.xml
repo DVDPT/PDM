@@ -26,9 +26,10 @@
     <string name="preferences_name_maxTweets">MaxTweets</string>
     <string name="preferences_summary_maxTweets">Max Tweets</string>
     <string name="preferences_title_maxTweets">Change Max Tweets</string>
-    <string name="new_status">New Status</string>
-    <string name="prefs">Preferences</string>
-    <string name="timeline">Timeline</string>
+    <string name="menu_new_status">New Status</string>
+    <string name="menu_prefs">Preferences</string>
+    <string name="menu_timeline">Timeline</string>
+    <string name="menu_refresh">Refresh</string>
     <string name="status_activity">Status Activity</string>
     <string name="timeline_activity">Timeline Activity</string>
     <string name="statusDetails_activity">Status Details Activity</string>
