@@ -137,8 +137,18 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     public boolean onCreateOptionsMenu(Menu m)
     {
 
-        m.findItem(R.id.menu_refresh).setEnabled(true);
-        return super.onCreateOptionsMenu(m);
+
+        super.onCreateOptionsMenu(m);
+
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.menu_refresh).setVisible(true);
+        return true;
     }
 
     @Override
