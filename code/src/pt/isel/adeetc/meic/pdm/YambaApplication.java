@@ -16,15 +16,15 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     public void onCreate()
     {
 
-        PreferenceManager.getDefaultSharedPreferences(this)
-                .registerOnSharedPreferenceChangeListener(this);
+        _preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        _preferences.registerOnSharedPreferenceChangeListener(this);
     }
 
     public final String timelineToStatusDetailsParamName = "statusDetailsParam";
 
     public TwitterServiceClient getTwitterClient()
     {
-        if (_client == null || !_client.isValidLogin())
+        if (_client == null)
         {
             _client = new TwitterServiceClient();
 
@@ -35,25 +35,22 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
 
     public String getUserName()
     {
-        _preferences = PreferenceManager
-                .getDefaultSharedPreferences(getBaseContext());
-        //return _preferences.getString("userName", "");
-        return "PDM14";
+
+        return _preferences.getString("userName", "");
+        //return "PDM14";
     }
 
     public String getPassword()
     {
-        _preferences = PreferenceManager
-                .getDefaultSharedPreferences(getBaseContext());
-        //return _preferences.getString("userPass", "");
-        return "pdm14_";
+
+        return _preferences.getString("userPass", "");
+        //return "pdm14_";
     }
 
     public String getApiRootUrl()
     {
 
-        _preferences = PreferenceManager
-                .getDefaultSharedPreferences(getBaseContext());
+
         return _preferences.getString("baseUrl", "http://yamba.marakana.com/api");
         //return "http://yamba.marakana.com/api";
     }
@@ -61,18 +58,20 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
 
     public String getMaxCharacter()
     {
-        _preferences = PreferenceManager
-                .getDefaultSharedPreferences(getBaseContext());
+
         return _preferences.getString("maxCharacters", "0");
         //return  _maxCharacters;
     }
 
 
-    public String getMaxTweets()
+    public int getStatusMaxCharactersShowedInTimeline()
     {
-        _preferences = PreferenceManager
-                .getDefaultSharedPreferences(getBaseContext());
-        return _preferences.getString("maxTweets", "0");
+        return new Integer(_preferences.getString("maxCharsInTimeline", "100"));
+    }
+
+    public int getMaxTweets()
+    {
+        return new Integer(_preferences.getString("maxTweets", "12"));
         //return _maxtweets;
     }
 

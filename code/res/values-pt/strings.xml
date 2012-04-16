@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Yamba Application</string>
+
+    <string name="timeline_error_fetching_status">Ocorreu um erro.</string>
+    <string name="timeline_display_no_status">Não existe informação para ser mostrada.</string>
+    <string name="loading">A carregar</string>
+    <string name="tineline_loading_tweets">A carregar os tweets.</string>
+
+    <string name="status_display_message">Insira texto</string>
+    <string name="status_button_name">Tweet</string>
+    <string name="status_error_insert_newStatus">Ocorreu o erro a submeter o seu pedido.</string>
+    <string name="status_tweet_create">Tweet criado </string>
+    <string name="preferences_title_user">Alterar user</string>
+    <string name="preferences_summary_password">Alterar Password</string>
+    <string name="preferences_title_password">Alterar Password</string>
+    <string name="preferences_name_baseUri">uri</string>
+    <string name="preferences_summary_baseUri">Base Url</string>
+    <string name="preferences_title_baseUri">Alterar Url</string>
+    <string name="preferences_name_user">UserName</string>
+    <string name="preferences_summary_user">User Name</string>
+    <string name="preferences_name_password">Pass</string>
+    <string name="preferences_name_maxCharacters">Máximo nr de caracteres</string>
+    <string name="preferences_summary_maxCharacters">Alterar Máximo nr de caracteres</string>
+    <string name="preferences_title_maxCharacters">Alterar Url</string>
+    <string name="preferences_name_maxTweets">MaxTweets</string>
+    <string name="preferences_summary_maxTweets">Max Tweets</string>
+    <string name="preferences_title_maxTweets">Alterar Max Tweets</string>
+    <string name="menu_new_status">Novo Status</string>
+    <string name="menu_prefs">Preferencias</string>
+    <string name="menu_timeline">Timeline</string>
+    <string name="menu_refresh">Actualizar</string>
+    <string name="status_activity">Status Activity</string>
+    <string name="timeline_activity">Timeline Activity</string>
+    <string name="statusDetails_activity">Status Details Activity</string>
+    <string name="preferences_activity">Preferences Activity</string>
+</resources>
