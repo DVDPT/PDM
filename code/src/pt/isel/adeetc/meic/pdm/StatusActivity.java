@@ -38,8 +38,8 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
         _update = (Button) findViewById(R.id.buttonUpdate);
         _count = (TextView) findViewById(R.id.Count);
 
-        _count.setText( Integer.getInteger(_maxCharacters));
-        //_status.setFilters(new InputFilter[] { new InputFilter.LengthFilter(Integer.getInteger(_maxCharacters)) });
+        _count.setText(_maxCharacters);
+
 
         _status.addTextChangedListener(new TextWatcher() {
             @Override
