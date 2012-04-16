@@ -108,9 +108,14 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
         try
         {
+            int i = 0;
+            final int maxAllowed = getApplicationInstance().getMaxTweets();
             for (Twitter.Status status : userStatus.getData())
             {
                 _listAdapter.add(status);
+
+                if (++i == maxAllowed)
+                    break;
             }
 
             if (_status.size() == 0)
@@ -133,15 +138,6 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu m)
-    {
-
-
-        super.onCreateOptionsMenu(m);
-
-        return true;
-    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu)
@@ -200,10 +196,15 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
             } else
                 holder = (ViewHolder3<TextView, TextView, TextView>) v.getTag();
 
-            holder.getT1().setText(_status.get(pos).getText());
+            holder.getT1().setText(getSubStringOrFull(_status.get(pos).getText(), getApplicationInstance().getStatusMaxCharactersShowedInTimeline()));
             holder.getT2().setText(_status.get(pos).getUser().getName());
             holder.getT3().setText(DateHelper.stringifyDifference(new Date(System.currentTimeMillis()), _status.get(pos).getCreatedAt()));
             return v;
+        }
+
+        private String getSubStringOrFull(String text, int maxCharacters)
+        {
+            return text.length() > maxCharacters ? text.substring(0, maxCharacters) : text;
         }
 
 

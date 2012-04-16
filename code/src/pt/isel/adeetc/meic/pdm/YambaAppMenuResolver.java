@@ -47,18 +47,34 @@ public final class YambaAppMenuResolver
 
     public boolean onMenuItemSelected(Activity a, MenuItem item)
     {
-        switch (item.getItemId())
-        {
-            case R.id.menu_timeline:
-                a.startActivity(IntentHelper.createIntentToReorderToFrontActivity(a, TimelineActivity.class));
-                return true;
-            case R.id.menu_status:
-                a.startActivity(IntentHelper.createIntentToReorderToFrontActivity(a, StatusActivity.class));
-                return true;
-            case R.id.menu_prefs:
-                a.startActivity(IntentHelper.createIntentToReorderToFrontActivity(a, PrefsActivity.class));
-        }
-        return false;
+
+        /*
+      switch (item.getItemId())
+      {
+          case R.id.menu_timeline:
+              a.startActivity(IntentHelper.createIntentToReorderToFrontActivity(a, TimelineActivity.class));
+              return true;
+          case R.id.menu_status:
+              a.startActivity(IntentHelper.createIntentToReorderToFrontActivity(a, StatusActivity.class));
+              return true;
+          case R.id.menu_prefs:
+              a.startActivity(IntentHelper.createIntentToReorderToFrontActivity(a, PrefsActivity.class));
+              return true;
+          default:
+              return false;
+      }
+        */
+        int id = item.getItemId();
+        if (id == R.id.menu_timeline)
+            a.startActivity(IntentHelper.createIntentToReorderToFrontActivity(a, TimelineActivity.class));
+        else if (id == R.id.menu_status)
+            a.startActivity(IntentHelper.createIntentToReorderToFrontActivity(a, StatusActivity.class));
+        else if (id == R.id.menu_prefs)
+            a.startActivity(IntentHelper.createIntentToReorderToFrontActivity(a, PrefsActivity.class));
+        else
+            return false;
+        return true;
+
     }
 
 }

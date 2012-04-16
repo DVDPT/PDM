@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import pt.isel.adeetc.meic.pdm.common.IntentHelper;
+import pt.isel.adeetc.meic.pdm.common.StringHelper;
 
-public class MainActivity extends Activity
+public class MainActivity extends YambaBaseActivity
 {
     private static final String LOG = "MainActivity";
 
@@ -16,15 +17,17 @@ public class MainActivity extends Activity
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
     }
 
     @Override
     public void onResume()
     {
         super.onResume();
+        if(StringHelper.isNullOrEmpty(getApplicationInstance().getUserName()))
+            startActivity(IntentHelper.createIntentToReorderToFrontActivity(this, PrefsActivity.class));
 
-        startActivity(IntentHelper.createIntentToReorderToFrontActivity(this, TimelineActivity.class));
+        else
+            startActivity(IntentHelper.createIntentToReorderToFrontActivity(this, TimelineActivity.class));
     }
 
 }

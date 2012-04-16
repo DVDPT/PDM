@@ -27,10 +27,6 @@ public final class TwitterServiceClient
         return _isStatusBeingUpdated;
     }
 
-    public boolean isValidLogin()
-    {
-        return _twitter.isValidLogin();
-    }
 
     public boolean isTimelineBeingFetched()
     {
@@ -101,7 +97,9 @@ public final class TwitterServiceClient
         @Override
         protected Iterable<Twitter.Status> doWork(Void... params)
         {
+
             return getTwitter().getUserTimeline();
+
         }
 
         @Override
