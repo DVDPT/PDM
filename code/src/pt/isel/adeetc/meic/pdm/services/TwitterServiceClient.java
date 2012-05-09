@@ -2,6 +2,7 @@ package pt.isel.adeetc.meic.pdm.services;
 
 import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.exceptions.Constants;
+import pt.isel.adeetc.meic.pdm.extensions.BaseApplication;
 import winterwell.jtwitter.Twitter;
 
 import java.security.InvalidParameterException;
@@ -41,17 +42,16 @@ public final class TwitterServiceClient
     @SuppressWarnings({"unchecked"})
     public void getUserTimelineAsync()
     {
-        new GetUserTimelineAsyncTask().execute();
     }
 
     //TODO alterar nome do metodo
-    public void configureTwiiterClient(String user, String password, String apiRootUrl)
+    public void configureTwitterClient(String user, String password, String apiRootUrl)
     {
         _twitter = new Twitter(user, password);
         _twitter.setAPIRootUrl(apiRootUrl);
     }
 
-    private Twitter getTwitter()
+    public Twitter getTwitter()
     {
         if (_twitter == null)
             throw new ShouldNotHappenException(Constants.NoUserAndPasswordDefined);

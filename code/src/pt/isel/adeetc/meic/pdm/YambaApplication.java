@@ -26,7 +26,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
         {
             _client = new TwitterServiceClient();
 
-            _client.configureTwiiterClient(getUserName(), getPassword(), getApiRootUrl());
+            _client.configureTwitterClient(getUserName(), getPassword(), getApiRootUrl());
         }
         return _client;
     }
@@ -93,7 +93,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     {
         if (s.equals("userPass") || s.equals("userName"))
         {
-            getTwitterClient().configureTwiiterClient(getUserName(), getPassword(), getApiRootUrl());
+            getTwitterClient().configureTwitterClient(getUserName(), getPassword(), getApiRootUrl());
         }
     }
 
