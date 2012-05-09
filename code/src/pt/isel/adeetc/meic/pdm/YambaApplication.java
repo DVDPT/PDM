@@ -5,8 +5,6 @@ import android.preference.PreferenceManager;
 import pt.isel.adeetc.meic.pdm.extensions.BaseApplication;
 import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
 
-import java.util.prefs.Preferences;
-
 public class YambaApplication extends BaseApplication implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private TwitterServiceClient _client;
@@ -75,6 +73,21 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
         //return _maxtweets;
     }
 
+    public boolean isTimelineRefreshedAutomatically()
+    {
+        return _preferences.getBoolean("timelineFetchedAutomaticallly",false);
+    }
+
+    public int getTimelineRefreshPeriod()
+    {
+        return _preferences.getInt("timelineRefreshPeriod",10);
+    }
+
+    public int getNumberOfStatusPreserved()
+    {
+        return _preferences.getInt("numberOfStatusPreserved",10);
+    }
+
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s)
     {
@@ -83,4 +96,6 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
             getTwitterClient().configureTwiiterClient(getUserName(), getPassword(), getApiRootUrl());
         }
     }
+
+
 }

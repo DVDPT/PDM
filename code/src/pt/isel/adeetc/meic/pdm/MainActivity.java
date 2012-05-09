@@ -1,7 +1,5 @@
 package pt.isel.adeetc.meic.pdm;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import pt.isel.adeetc.meic.pdm.common.IntentHelper;
 import pt.isel.adeetc.meic.pdm.common.StringHelper;
