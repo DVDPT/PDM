@@ -21,6 +21,11 @@ public class BaseApplication extends Application
         return _instance;
     }
 
+    public static BaseApplication getInstance()
+    {
+        return _instance;
+    }
+
     //
     //  Should be static, but the code is more intuitive if used as
     //  an instance method @Diogo
@@ -29,6 +34,8 @@ public class BaseApplication extends Application
     {
         return _messenger;
     }
+
+
 
 
 }

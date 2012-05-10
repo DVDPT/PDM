@@ -20,6 +20,7 @@ public class MainActivity extends YambaBaseActivity
     @Override
     public void onResume()
     {
+
         super.onResume();
         if(StringHelper.isNullOrEmpty(getApplicationInstance().getUserName()))
             startActivity(IntentHelper.createIntentToReorderToFrontActivity(this, PrefsActivity.class));
