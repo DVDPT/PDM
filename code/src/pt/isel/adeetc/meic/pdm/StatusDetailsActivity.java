@@ -12,6 +12,14 @@ public class StatusDetailsActivity extends YambaBaseActivity
 
         setContentView(R.layout.status_details);
 
+
+    }
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
         int objectInstance = getIntent()
                 .getExtras()
                 .getInt(getApplicationInstance().timelineToStatusDetailsParamName);

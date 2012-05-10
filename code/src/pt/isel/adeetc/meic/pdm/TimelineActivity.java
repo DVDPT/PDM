@@ -68,10 +68,14 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
     private void getUserTimeline()
     {
-        if (_twitter.isTimelineBeingFetched())
-            return;
-
+        Iterable<Twitter.Status> data = _twitter.getTwitterCachedTimeline();
         _status.clear();
+        if (data != null)
+        {
+            setTimelineOnUi(data);
+            return;
+        }
+
         if (_loadingDialog == null)
         {
             _loadingDialog = ProgressDialog.show
@@ -97,6 +101,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.Status>> userStatus)
     {
         _loadingDialog.dismiss();
+
         Log.d(LOG, String.format("On async task event handler."));
 
         if (userStatus.errorOccurred())
@@ -109,22 +114,27 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         try
         {
             int i = 0;
-            final int maxAllowed = getApplicationInstance().getMaxTweets();
-            for (Twitter.Status status : userStatus.getData())
-            {
-                _listAdapter.add(status);
-
-                if (++i == maxAllowed)
-                    break;
-            }
-
-            if (_status.size() == 0)
-                UiHelper.showToast(R.string.timeline_display_no_status);
-
+            setTimelineOnUi(userStatus.getData());
         } catch (Exception e)
         {
             throw new ShouldNotHappenException(e);
         }
+    }
+
+    private void setTimelineOnUi(Iterable<Twitter.Status> statusCollection)
+    {
+        int i = 0;
+        final int maxAllowed = getApplicationInstance().getMaxTweets();
+        for (Twitter.Status status : statusCollection)
+        {
+            _listAdapter.add(status);
+
+            if (++i == maxAllowed)
+                break;
+        }
+
+        if (_status.size() == 0)
+            UiHelper.showToast(R.string.timeline_display_no_status);
     }
 
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
@@ -136,7 +146,6 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
                         .putExtra(getApplicationInstance().timelineToStatusDetailsParamName, objId)
         );
     }
-
 
 
     @Override

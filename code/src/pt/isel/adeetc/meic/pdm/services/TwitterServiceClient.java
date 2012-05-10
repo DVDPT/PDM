@@ -1,38 +1,31 @@
 package pt.isel.adeetc.meic.pdm.services;
 
+import android.content.Intent;
+import android.os.Handler;
+import pt.isel.adeetc.meic.pdm.YambaApplication;
 import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.exceptions.Constants;
-import pt.isel.adeetc.meic.pdm.extensions.BaseApplication;
 import winterwell.jtwitter.Twitter;
 
 import java.security.InvalidParameterException;
 
-public final class TwitterServiceClient
+public final class TwitterServiceClient implements IEventHandler<Iterable<Twitter.Status>>
 {
     public final IEvent<Twitter.Status> updateStatusCompletedEvent;
     public final IEvent<Iterable<Twitter.Status>> getUserTimelineCompletedEvent;
 
-    private volatile boolean _isStatusBeingUpdated;
-    private volatile boolean _isTimelineBeingFetched;
+    private Iterable<Twitter.Status> _statusCache;
 
+    private Handler _handler;
     private Twitter _twitter;
 
     public TwitterServiceClient()
     {
         updateStatusCompletedEvent = new GenericEvent<Twitter.Status>();
         getUserTimelineCompletedEvent = new GenericEvent<Iterable<Twitter.Status>>();
+        _handler = new Handler();
     }
 
-    public boolean isStatusBeingUpdated()
-    {
-        return _isStatusBeingUpdated;
-    }
-
-
-    public boolean isTimelineBeingFetched()
-    {
-        return _isTimelineBeingFetched;
-    }
 
     public void updateStatusAsync(String status)
     {
@@ -42,6 +35,15 @@ public final class TwitterServiceClient
     @SuppressWarnings({"unchecked"})
     public void getUserTimelineAsync()
     {
+        Intent timelineIntent = new Intent(YambaApplication.getContext(), TimelinePullService.class);
+        int id = YambaApplication.getInstance().getNavigationMessenger().putElement(new TimelinePullServiceMessage(this));
+        timelineIntent.putExtra("param", id);
+        YambaApplication.getContext().startService(timelineIntent);
+    }
+
+    public Iterable<Twitter.Status> getTwitterCachedTimeline()
+    {
+        return _statusCache;
     }
 
     //TODO alterar nome do metodo
@@ -58,14 +60,37 @@ public final class TwitterServiceClient
         return _twitter;
     }
 
+
+    @Override
+    public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.Status>> data)
+    {
+
+        if(data.getError() == null)
+        {
+            try
+            {
+                _statusCache = data.getData();
+            }
+            catch (Exception e)
+            {
+                throw new ShouldNotHappenException(e);
+            }
+        }
+
+        final IEventHandlerArgs<Iterable<Twitter.Status>> fdata = data;
+        _handler.post(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                getUserTimelineCompletedEvent.invoke(this, fdata);
+            }
+        });
+    }
+
     private class UpdateStatusAsyncTask extends ExtendedAsyncTask<String, Void, Twitter.Status>
     {
 
-        @Override
-        protected void onPreExecute()
-        {
-            _isStatusBeingUpdated = true;
-        }
 
         @Override
         protected Twitter.Status doWork(String... params)
@@ -80,39 +105,12 @@ public final class TwitterServiceClient
         protected void onPostExecute(Twitter.Status result)
         {
             Exception error = getError();
-            _isStatusBeingUpdated = false;
+
             updateStatusCompletedEvent.invoke(TwitterServiceClient.this, new GenericEventArgs<Twitter.Status>(result, error));
         }
     }
 
-    private class GetUserTimelineAsyncTask extends ExtendedAsyncTask<Void, Void, Iterable<Twitter.Status>>
-    {
 
-        @Override
-        protected void onPreExecute()
-        {
-            _isTimelineBeingFetched = true;
-        }
-
-        @Override
-        protected Iterable<Twitter.Status> doWork(Void... params)
-        {
-
-            return getTwitter().getUserTimeline();
-
-        }
-
-        @Override
-        protected void onPostExecute(Iterable<Twitter.Status> result)
-        {
-            _isTimelineBeingFetched = false;
-            Exception error = getError();
-            getUserTimelineCompletedEvent
-                    .invoke(TwitterServiceClient.this, new GenericEventArgs<Iterable<Twitter.Status>>(result, error));
-
-        }
-
-    }
 }
 
 
