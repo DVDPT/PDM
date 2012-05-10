@@ -11,6 +11,26 @@ import java.security.InvalidParameterException;
 
 public final class TwitterServiceClient implements IEventHandler<Iterable<Twitter.Status>>
 {
+    private class EventHandler implements IEventHandler<Twitter.Status>, Runnable
+    {
+        private IEventHandlerArgs<Twitter.Status> _args;
+
+
+        @Override
+        public void invoke(Object sender, IEventHandlerArgs<Twitter.Status> statusIEventHandlerArgs) {
+
+            _handler.post(this);
+        }
+
+        @Override
+        public void run()
+        {
+            updateStatusCompletedEvent.invoke(this,_args);
+
+        }
+    }
+
+
     public final IEvent<Twitter.Status> updateStatusCompletedEvent;
     public final IEvent<Iterable<Twitter.Status>> getUserTimelineCompletedEvent;
 
@@ -29,7 +49,11 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
 
     public void updateStatusAsync(String status)
     {
-        new UpdateStatusAsyncTask().execute(status);
+        Intent statusUpload = new Intent(YambaApplication.getContext(), StatusUploadService.class);
+        int id = YambaApplication.getInstance().getNavigationMessenger().putElement(new StatusUploadServiceMessage(new EventHandler(), status));
+        statusUpload.putExtra("params", id);
+        YambaApplication.getContext().startService(statusUpload);
+        
     }
 
     @SuppressWarnings({"unchecked"})
@@ -87,30 +111,5 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
             }
         });
     }
-
-    private class UpdateStatusAsyncTask extends ExtendedAsyncTask<String, Void, Twitter.Status>
-    {
-
-
-        @Override
-        protected Twitter.Status doWork(String... params)
-        {
-            if (params.length == 0)
-                throw new InvalidParameterException("status");
-
-            return getTwitter().updateStatus(params[0]);
-        }
-
-        @Override
-        protected void onPostExecute(Twitter.Status result)
-        {
-            Exception error = getError();
-
-            updateStatusCompletedEvent.invoke(TwitterServiceClient.this, new GenericEventArgs<Twitter.Status>(result, error));
-        }
-    }
-
-
 }
-
 
