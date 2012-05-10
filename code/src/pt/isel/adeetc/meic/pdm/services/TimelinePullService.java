@@ -6,6 +6,7 @@ import pt.isel.adeetc.meic.pdm.YambaBaseService;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
 import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
+import pt.isel.adeetc.meic.pdm.common.UiHelper;
 import winterwell.jtwitter.Twitter;
 
 import java.util.Timer;
@@ -78,6 +79,7 @@ public class TimelinePullService extends YambaBaseService
             Twitter client = getApplicationInstance().getTwitterClient().getTwitter();
             Exception error = null;
 
+            UiHelper.showToast("SISI HAHAHAHAHA");
             Iterable<Twitter.Status> statuses = null;
 
             try

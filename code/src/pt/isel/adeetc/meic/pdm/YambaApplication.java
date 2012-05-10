@@ -34,23 +34,23 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     public String getUserName()
     {
 
-        return _preferences.getString("userName", "");
-        //return "PDM14";
+        //return _preferences.getString("userName", "");
+        return "PDM14";
     }
 
     public String getPassword()
     {
 
-        return _preferences.getString("userPass", "");
-        //return "pdm14_";
+        //return _preferences.getString("userPass", "");
+        return "pdmstudent";
     }
 
     public String getApiRootUrl()
     {
 
 
-        return _preferences.getString("baseUrl", "http://yamba.marakana.com/api");
-        //return "http://yamba.marakana.com/api";
+        //return _preferences.getString("baseUrl", "http://yamba.marakana.com/api");
+        return "http://yamba.marakana.com/api";
     }
 
 
@@ -58,7 +58,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     {
 
         return _preferences.getString("maxCharacters", "0");
-        //return  _maxCharacters;
+
     }
 
 
@@ -70,7 +70,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     public int getMaxTweets()
     {
         return new Integer(_preferences.getString("maxTweets", "12"));
-        //return _maxtweets;
+
     }
 
     public boolean isTimelineRefreshedAutomatically()
@@ -80,7 +80,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
 
     public int getTimelineRefreshPeriod()
     {
-        return _preferences.getInt("timelineRefreshPeriod",10);
+        return _preferences.getInt("timelineRefreshPeriod",1);
     }
 
     public int getNumberOfStatusPreserved()

@@ -11,6 +11,7 @@
                  android:name=".YambaApplication"
             >
 
+        <service android:name=".services.TimelinePullService" />
         <activity android:name=".MainActivity"
                   android:label="@string/app_name">
             <intent-filter>

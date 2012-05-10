@@ -4,6 +4,9 @@ import org.joda.time.Period;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 public final class DateHelper
 {
@@ -22,6 +25,7 @@ public final class DateHelper
 
     public static String stringifyDifference(Date d1, Date d2)
     {
+        Logger.global.log(new LogRecord(Level.ALL,String.format("DATAs: %s - %s", d1.toString(), d2.toString())));
         Period sub = new Period(d2.getTime(),d1.getTime());
 
 
