@@ -69,7 +69,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     private void getUserTimeline()
     {
         Iterable<Twitter.Status> data = _twitter.getTwitterCachedTimeline();
-        _status.clear();
+
         if (data != null)
         {
             setTimelineOnUi(data);
@@ -100,6 +100,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
     public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.Status>> userStatus)
     {
+
         _loadingDialog.dismiss();
 
         Log.d(LOG, String.format("On async task event handler."));
@@ -113,7 +114,6 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
         try
         {
-            int i = 0;
             setTimelineOnUi(userStatus.getData());
         } catch (Exception e)
         {
@@ -123,6 +123,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
     private void setTimelineOnUi(Iterable<Twitter.Status> statusCollection)
     {
+        _status.clear();
         int i = 0;
         final int maxAllowed = getApplicationInstance().getMaxTweets();
         for (Twitter.Status status : statusCollection)
