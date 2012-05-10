@@ -15,4 +15,6 @@ public abstract class BaseService<T extends BaseApplication> extends Service
     {
         return getApplicationInstance().getNavigationMessenger();
     }
+
+
 }
