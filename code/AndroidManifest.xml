@@ -20,13 +20,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".StatusActivity"
-                android:label="@string/status_activity"/>
+                  android:label="@string/status_activity"/>
         <activity android:name=".TimelineActivity"
                   android:label="@string/timeline_activity"/>
         <activity android:name=".StatusDetailsActivity"
-                android:label="@string/statusDetails_activity"/>
+                  android:label="@string/statusDetails_activity"/>
         <activity android:name =".PrefsActivity"
                   android:label="@string/preferences_activity"/>
+        <activity android:name=".UserInfoActivity"
+                  android:label="@string/user_info_activity"    />
 
 
     </application>

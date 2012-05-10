@@ -34,4 +34,11 @@
     <string name="timeline_activity">Timeline Activity</string>
     <string name="statusDetails_activity">Status Details Activity</string>
     <string name="preferences_activity">Preferences Activity</string>
+    <string name="user_info"> User Info</string>
+    <string name="user_info_editName">Change Name</string>
+    <string name="user_info_name">User Name</string>
+    <string name="user_info_activity">User Info Activity</string>
+    <string name="user_info_numberOfTweets">Number Of Tweets</string>
+    <string name="user_info_followers">FOLLOWERS</string>
+    <string name="user_info_following">FOLLOWING</string>
 </resources>

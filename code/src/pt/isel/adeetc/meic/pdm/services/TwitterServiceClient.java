@@ -20,11 +20,13 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
         public void invoke(Object sender, IEventHandlerArgs<Twitter.Status> statusIEventHandlerArgs) {
 
             _handler.post(this);
+            _args = statusIEventHandlerArgs;
         }
 
         @Override
         public void run()
         {
+
             updateStatusCompletedEvent.invoke(this,_args);
 
         }
@@ -53,6 +55,7 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
         int id = YambaApplication.getInstance().getNavigationMessenger().putElement(new StatusUploadServiceMessage(new EventHandler(), status));
         statusUpload.putExtra("params", id);
         YambaApplication.getContext().startService(statusUpload);
+        YambaApplication.getContext().stopService(statusUpload);
         
     }
 

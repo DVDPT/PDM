@@ -32,7 +32,7 @@ public class StatusUploadService extends YambaBaseService {
     public int onStartCommand(Intent e, int flags, int id)
     {
         super.onStartCommand(e,flags,id);
-        int paramId = e.getIntExtra("param", -1);
+        int paramId = e.getIntExtra("params", -1);
         if (paramId == -1)
             throw new ShouldNotHappenException("StatusUploadService.onStartCommand : param is -1");
 

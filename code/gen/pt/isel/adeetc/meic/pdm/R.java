@@ -15,10 +15,10 @@ public final class R {
         public static final int Layout=0x7f060001;
         public static final int buttonUpdate=0x7f060002;
         public static final int editText=0x7f060000;
-        public static final int menu_prefs=0x7f06000d;
-        public static final int menu_refresh=0x7f06000f;
-        public static final int menu_status=0x7f06000e;
-        public static final int menu_timeline=0x7f06000c;
+        public static final int menu_prefs=0x7f060012;
+        public static final int menu_refresh=0x7f060014;
+        public static final int menu_status=0x7f060013;
+        public static final int menu_timeline=0x7f060011;
         public static final int status_detail_date=0x7f060007;
         public static final int status_detail_message=0x7f060005;
         public static final int status_detail_message_id=0x7f060006;
@@ -27,6 +27,11 @@ public final class R {
         public static final int timeline_status_message=0x7f060009;
         public static final int timeline_status_username=0x7f06000a;
         public static final int timeline_user_status=0x7f060008;
+        public static final int user_info_following=0x7f06000f;
+        public static final int user_info_follwers=0x7f06000e;
+        public static final int user_info_image=0x7f060010;
+        public static final int user_info_name=0x7f06000c;
+        public static final int user_info_tweets=0x7f06000d;
     }
     public static final class layout {
         public static final int main=0x7f020000;
@@ -34,6 +39,7 @@ public final class R {
         public static final int status_details=0x7f020002;
         public static final int timeline=0x7f020003;
         public static final int timeline_element=0x7f020004;
+        public static final int user_info=0x7f020005;
     }
     public static final class menu {
         public static final int app_menu=0x7f050000;
@@ -73,6 +79,13 @@ public final class R {
         public static final int timeline_display_no_status=0x7f040003;
         public static final int timeline_error_fetching_status=0x7f040002;
         public static final int tineline_loading_tweets=0x7f040005;
+        public static final int user_info=0x7f040022;
+        public static final int user_info_activity=0x7f040025;
+        public static final int user_info_editName=0x7f040023;
+        public static final int user_info_followers=0x7f040027;
+        public static final int user_info_following=0x7f040028;
+        public static final int user_info_name=0x7f040024;
+        public static final int user_info_numberOfTweets=0x7f040026;
     }
     public static final class xml {
         public static final int preferences=0x7f030000;
