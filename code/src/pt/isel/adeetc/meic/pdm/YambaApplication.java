@@ -42,7 +42,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     {
 
         //return _preferences.getString("userPass", "");
-        return "pdmstudent";
+        return "pdm14_";
     }
 
     public String getApiRootUrl()

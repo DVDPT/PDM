@@ -44,9 +44,16 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     }
 
     @Override
-    protected void onStart()
+    protected void onPause()
     {
-        super.onStart();
+        super.onPause();
+        _loadingDialog.dismiss();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
         onNavigatedTo();
     }
 

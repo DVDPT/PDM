@@ -4,12 +4,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import pt.isel.adeetc.meic.pdm.YambaBaseService;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
-import pt.isel.adeetc.meic.pdm.common.IEventHandler;
 import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.

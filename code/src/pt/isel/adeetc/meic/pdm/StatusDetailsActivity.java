@@ -1,6 +1,7 @@
 package pt.isel.adeetc.meic.pdm;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.TextView;
 import winterwell.jtwitter.Twitter;
 
@@ -16,9 +17,9 @@ public class StatusDetailsActivity extends YambaBaseActivity
     }
 
     @Override
-    protected void onStart()
+    protected void onResume()
     {
-        super.onStart();
+        super.onResume();
 
         int objectInstance = getIntent()
                 .getExtras()
@@ -37,5 +38,11 @@ public class StatusDetailsActivity extends YambaBaseActivity
 
         textRef = (TextView) findViewById(R.id.status_detail_date);
         textRef.setText(selectedStatus.getCreatedAt().toLocaleString());
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        return false;
     }
 }
