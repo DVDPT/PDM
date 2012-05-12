@@ -19,6 +19,7 @@ public final class R {
         public static final int menu_refresh=0x7f060014;
         public static final int menu_status=0x7f060013;
         public static final int menu_timeline=0x7f060011;
+        public static final int menu_user_info=0x7f060015;
         public static final int status_detail_date=0x7f060007;
         public static final int status_detail_message=0x7f060005;
         public static final int status_detail_message_id=0x7f060006;
@@ -52,6 +53,7 @@ public final class R {
         public static final int menu_prefs=0x7f04001b;
         public static final int menu_refresh=0x7f04001d;
         public static final int menu_timeline=0x7f04001c;
+        public static final int menu_user_info=0x7f040029;
         public static final int preferences_activity=0x7f040021;
         public static final int preferences_name_baseUri=0x7f04000e;
         public static final int preferences_name_maxCharacters=0x7f040014;

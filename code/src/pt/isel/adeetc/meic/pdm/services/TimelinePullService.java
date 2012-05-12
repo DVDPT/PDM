@@ -79,7 +79,7 @@ public class TimelinePullService extends YambaBaseService
             Twitter client = getApplicationInstance().getTwitterClient().getTwitter();
             Exception error = null;
 
-            UiHelper.showToast("SISI HAHAHAHAHA");
+
             Iterable<Twitter.Status> statuses = null;
 
             try

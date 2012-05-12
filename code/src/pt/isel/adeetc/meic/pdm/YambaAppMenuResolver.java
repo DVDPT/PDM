@@ -71,6 +71,8 @@ public final class YambaAppMenuResolver
             a.startActivity(IntentHelper.createIntentToReorderToFrontActivity(a, StatusActivity.class));
         else if (id == R.id.menu_prefs)
             a.startActivity(IntentHelper.createIntentToReorderToFrontActivity(a, PrefsActivity.class));
+        else if(id == R.id.menu_user_info)
+            a.startActivity(IntentHelper.createIntentToReorderToFrontActivity(a,UserInfoActivity.class));
         else
             return false;
         return true;

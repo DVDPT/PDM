@@ -1,12 +1,10 @@
 package pt.isel.adeetc.meic.pdm;
 
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import pt.isel.adeetc.meic.pdm.common.IntentHelper;
 import pt.isel.adeetc.meic.pdm.extensions.BaseActivity;
 
-import java.util.Collections;
+import java.util.LinkedList;
 
 public class YambaBaseActivity extends BaseActivity<YambaApplication>
 {
@@ -37,7 +35,9 @@ public class YambaBaseActivity extends BaseActivity<YambaApplication>
     @SuppressWarnings("unchecked")
     protected Iterable<Integer> getActivityDisabledMenuItems()
     {
-        return Collections.EMPTY_LIST;
+        LinkedList<Integer> ret = new LinkedList<Integer>();
+        ret.add(R.id.menu_user_info);
+        return ret;
     }
 
 

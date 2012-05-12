@@ -11,10 +11,17 @@
                  android:name=".YambaApplication"
             >
 
-        <service android:name=".services.TimelinePullService" />
-        <service android:name=".services.StatusUploadService" />
+        <service android:name=".services.TimelinePullService"/>
+        <service android:name=".services.StatusUploadService"/>
+
+        <service android:name=".services.UserInfoPullService"
+                 android:process="pt.isel.adeetc.meic.pdm.userinfopullservice"/>
+
         <activity android:name=".MainActivity"
-                  android:label="@string/app_name">
+                  android:label="@string/app_name"
+                  android:theme="@android:style/Theme.NoDisplay"
+                  android:noHistory="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -26,10 +33,10 @@
                   android:label="@string/timeline_activity"/>
         <activity android:name=".StatusDetailsActivity"
                   android:label="@string/statusDetails_activity"/>
-        <activity android:name =".PrefsActivity"
+        <activity android:name=".PrefsActivity"
                   android:label="@string/preferences_activity"/>
         <activity android:name=".UserInfoActivity"
-                  android:label="@string/user_info_activity"    />
+                  android:label="@string/user_info_activity"/>
 
 
     </application>
