@@ -38,6 +38,15 @@ public class YambaUserInfo implements Parcelable
         return _photoUri;
     }
 
+    public YambaUserInfo()
+    {
+        this._name = null;
+        this._nrOfTweets = 0;
+        this._followers = 0;
+        this._following = 0;
+        this._photoUri = null;
+    }
+
     public YambaUserInfo(Twitter.User user)
     {
         this._name = user.getName();
@@ -55,8 +64,6 @@ public class YambaUserInfo implements Parcelable
         _following = parcel.readInt();
         _photoUri = Uri.parse(parcel.readString());
     }
-
-
 
 
     @Override

@@ -7,39 +7,17 @@ import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.exceptions.Constants;
 import winterwell.jtwitter.Twitter;
 
-import java.security.InvalidParameterException;
-
 public final class TwitterServiceClient implements IEventHandler<Iterable<Twitter.Status>>
 {
-    private class EventHandler implements IEventHandler<Twitter.Status>, Runnable
-    {
-        private IEventHandlerArgs<Twitter.Status> _args;
-
-
-        @Override
-        public void invoke(Object sender, IEventHandlerArgs<Twitter.Status> statusIEventHandlerArgs) {
-
-            _handler.post(this);
-            _args = statusIEventHandlerArgs;
-        }
-
-        @Override
-        public void run()
-        {
-
-            updateStatusCompletedEvent.invoke(this,_args);
-
-        }
-    }
-
-
     public final IEvent<Twitter.Status> updateStatusCompletedEvent;
     public final IEvent<Iterable<Twitter.Status>> getUserTimelineCompletedEvent;
 
     private Iterable<Twitter.Status> _statusCache;
+    private final StatusEventHandler _statusEventHandler = new StatusEventHandler();
 
     private Handler _handler;
     private Twitter _twitter;
+
 
     public TwitterServiceClient()
     {
@@ -52,16 +30,17 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
     public void updateStatusAsync(String status)
     {
         Intent statusUpload = new Intent(YambaApplication.getContext(), StatusUploadService.class);
-        int id = YambaApplication.getInstance().getNavigationMessenger().putElement(new StatusUploadServiceMessage(new EventHandler(), status));
+        int id = YambaApplication.getInstance().getNavigationMessenger().putElement(new StatusUploadServiceMessage(_statusEventHandler, status));
         statusUpload.putExtra("params", id);
         YambaApplication.getContext().startService(statusUpload);
         YambaApplication.getContext().stopService(statusUpload);
-        
+
     }
 
     @SuppressWarnings({"unchecked"})
     public void getUserTimelineAsync()
     {
+
         Intent timelineIntent = new Intent(YambaApplication.getContext(), TimelinePullService.class);
         int id = YambaApplication.getInstance().getNavigationMessenger().putElement(new TimelinePullServiceMessage(this));
         timelineIntent.putExtra("param", id);
@@ -92,13 +71,12 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
     public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.Status>> data)
     {
 
-        if(data.getError() == null)
+        if (data.getError() == null)
         {
             try
             {
                 _statusCache = data.getData();
-            }
-            catch (Exception e)
+            } catch (Exception e)
             {
                 throw new ShouldNotHappenException(e);
             }
@@ -113,6 +91,28 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
                 getUserTimelineCompletedEvent.invoke(this, fdata);
             }
         });
+    }
+
+    private class StatusEventHandler implements IEventHandler<Twitter.Status>, Runnable
+    {
+        private IEventHandlerArgs<Twitter.Status> _args;
+
+
+        @Override
+        public void invoke(Object sender, IEventHandlerArgs<Twitter.Status> statusIEventHandlerArgs)
+        {
+
+            _handler.post(this);
+            _args = statusIEventHandlerArgs;
+        }
+
+        @Override
+        public void run()
+        {
+
+            updateStatusCompletedEvent.invoke(this, _args);
+
+        }
     }
 }
 
