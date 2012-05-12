@@ -31,8 +31,8 @@ public class UserInfoActivity extends YambaBaseActivity
     {
         public void handleMessage(Message message)
         {
-
-            YambaUserInfo info = (YambaUserInfo) message.getData().getParcelable("result");
+            message.getData().setClassLoader(getClassLoader());
+            YambaUserInfo info = (YambaUserInfo) message.getData().get("result");
             changeUserInfo(
                     info.getName(),
                     info.getNrOfTweets(),
@@ -48,6 +48,7 @@ public class UserInfoActivity extends YambaBaseActivity
 
     public void onCreate(Bundle savedInstanceState)
     {
+        YambaUserInfo a = new YambaUserInfo();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info);
 
