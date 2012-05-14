@@ -29,19 +29,12 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        String maxCharacters;
         setContentView(R.layout.status);
-        _maxCharacters = getApplicationInstance().getMaxCharacter();
+
 
         _status = (EditText) findViewById(R.id.editText);
         _update = (Button) findViewById(R.id.buttonUpdate);
         _count = (TextView) findViewById(R.id.Count);
-
-        _count.setText( _maxCharacters);
-
-
-        _status.setFilters(new InputFilter[] { new InputFilter.LengthFilter(new Integer(_maxCharacters)) });
 
         _status.addTextChangedListener(new TextWatcher() {
             @Override
@@ -70,9 +63,19 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
                 _twitter.updateStatusAsync(newStatus);
             }
         });
-
         _twitter = getApplicationInstance().getTwitterClient();
         _twitter.updateStatusCompletedEvent.setEventHandler(this);
+    }
+
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        String maxCharacters;
+        _maxCharacters = getApplicationInstance().getMaxCharacter();
+        _count.setText( _maxCharacters);
+        _status.setFilters(new InputFilter[] { new InputFilter.LengthFilter(new Integer(_maxCharacters)) });
+
     }
 
     @Override
@@ -90,6 +93,7 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
         if(statusIEventHandlerArgs.errorOccurred())
         {
             UiHelper.showToast(R.string.status_error_insert_newStatus);
+            _update.setEnabled(true);
             return;
         }
         UiHelper.showToast(R.string.status_tweet_create);

@@ -75,17 +75,18 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
 
     public boolean isTimelineRefreshedAutomatically()
     {
-        return _preferences.getBoolean(YambaPreferences.timeLineFetchedAutomaticallyPropName, true);
+        return _preferences.getBoolean(YambaPreferences.timeLineFetchedAutomaticallyPropName, false);
+
     }
 
     public int getTimelineRefreshPeriod()
     {
-        return _preferences.getInt(YambaPreferences.timelineRefreshPeriodPropName, 1);
+        return new Integer(_preferences.getString(YambaPreferences.timelineRefreshPeriodPropName, "1"));
     }
 
     public int getNumberOfStatusPreserved()
     {
-        return _preferences.getInt(YambaPreferences.numberOfStatusPreservedPropName, 10);
+        return new Integer(_preferences.getString(YambaPreferences.numberOfStatusPreservedPropName, "10"));
     }
 
     @Override

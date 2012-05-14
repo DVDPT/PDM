@@ -31,10 +31,12 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
     public void updateStatusAsync(String status)
     {
         Intent statusUpload = new Intent(YambaApplication.getContext(), StatusUploadService.class);
+
         int id = YambaApplication.getInstance().getNavigationMessenger().putElement(new StatusUploadServiceMessage(_statusEventHandler, status));
+
         statusUpload.putExtra("params", id);
+
         YambaApplication.getContext().startService(statusUpload);
-        YambaApplication.getContext().stopService(statusUpload);
 
     }
 
@@ -98,11 +100,9 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
     {
         private IEventHandlerArgs<Twitter.Status> _args;
 
-
         @Override
         public void invoke(Object sender, IEventHandlerArgs<Twitter.Status> statusIEventHandlerArgs)
         {
-
             _handler.post(this);
             _args = statusIEventHandlerArgs;
         }
@@ -110,7 +110,6 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
         @Override
         public void run()
         {
-
             updateStatusCompletedEvent.invoke(this, _args);
 
         }
