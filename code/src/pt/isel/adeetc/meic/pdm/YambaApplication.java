@@ -47,8 +47,6 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
 
     public String getApiRootUrl()
     {
-
-
         //return _preferences.getString("baseUrl", "http://yamba.marakana.com/api");
         return "http://yamba.marakana.com/api";
     }
@@ -56,11 +54,8 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
 
     public String getMaxCharacter()
     {
-
         return _preferences.getString("maxCharacters", "0");
-
     }
-
 
     public int getStatusMaxCharactersShowedInTimeline()
     {

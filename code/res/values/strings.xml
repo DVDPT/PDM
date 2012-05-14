@@ -22,7 +22,7 @@
     <string name="preferences_name_password">Pass</string>
     <string name="preferences_name_maxCharacters">MaxCharacters</string>
     <string name="preferences_summary_maxCharacters">Change Max Characters for Tweet</string>
-    <string name="preferences_title_maxCharacters">Change Url</string>
+    <string name="preferences_title_maxCharacters">Change Max Characters</string>
     <string name="preferences_name_maxTweets">MaxTweets</string>
     <string name="preferences_summary_maxTweets">Max Tweets</string>
     <string name="preferences_title_maxTweets">Change Max Tweets</string>
@@ -42,4 +42,12 @@
     <string name="user_info_followers">FOLLOWERS</string>
     <string name="user_info_following">FOLLOWING</string>
     <string name="menu_user_info">User Info</string>
+    <string name="preferences_title_update_timeline">TimelineUpdate </string>
+    <string name="preferences_summary_update_timeline">Automatic Timeline Update</string>
+    <string name="preferences_name_update_period_time"> TimePeriod</string>
+    <string name="preferences_summary_update_period_time">Time Period for Update</string>
+    <string name="preferences_title_update_period_time"> Time Period </string>
+    <string name="preferences_name_update_maxTweets"> UpdateMaxTweets</string>
+    <string name="preferences_summary_update_maxTweets">Max tweets for update</string>
+    <string name="preferences_title_update_maxTweets">Max tweets to save</string>
 </resources>

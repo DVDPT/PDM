@@ -46,6 +46,26 @@
                 android:title="@string/preferences_title_maxTweets"
                 android:key="maxTweets"
                 />
+        <CheckBoxPreference
+                android:key="updateTimeline"
+                android:title="@string/preferences_title_update_timeline"
+                android:summary="@string/preferences_summary_update_timeline" />
+
+        <EditTextPreference
+                android:name="@string/preferences_name_update_period_time"
+                android:numeric="integer"
+                android:summary="@string/preferences_summary_update_period_time"
+                android:title="@string/preferences_title_update_period_time"
+                android:key="updatePeriodTime"
+                />
+
+        <EditTextPreference
+                android:name="@string/preferences_name_update_maxTweets"
+                android:numeric="integer"
+                android:summary="@string/preferences_summary_update_maxTweets"
+                android:title="@string/preferences_title_update_maxTweets"
+                android:key="updateMaxTweets"
+                />
 
     </PreferenceCategory>
 
