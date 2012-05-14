@@ -23,7 +23,7 @@ public class StatusDetailsActivity extends YambaBaseActivity
 
         int objectInstance = getIntent()
                 .getExtras()
-                .getInt(getApplicationInstance().timelineToStatusDetailsParamName);
+                .getInt(YambaNavigation.timelineToStatusDetailsParamName);
 
         Twitter.Status selectedStatus = (Twitter.Status) getNavigationMessenger().getElement(objectInstance);
 

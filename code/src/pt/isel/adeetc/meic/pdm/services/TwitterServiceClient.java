@@ -3,6 +3,7 @@ package pt.isel.adeetc.meic.pdm.services;
 import android.content.Intent;
 import android.os.Handler;
 import pt.isel.adeetc.meic.pdm.YambaApplication;
+import pt.isel.adeetc.meic.pdm.YambaNavigation;
 import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.exceptions.Constants;
 import winterwell.jtwitter.Twitter;
@@ -43,7 +44,7 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
 
         Intent timelineIntent = new Intent(YambaApplication.getContext(), TimelinePullService.class);
         int id = YambaApplication.getInstance().getNavigationMessenger().putElement(new TimelinePullServiceMessage(this));
-        timelineIntent.putExtra("param", id);
+        timelineIntent.putExtra(YambaNavigation.timelineServiceParamName, id);
         YambaApplication.getContext().startService(timelineIntent);
     }
 

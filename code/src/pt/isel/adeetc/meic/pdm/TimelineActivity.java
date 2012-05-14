@@ -146,7 +146,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
         startActivity(
                 new Intent(this, StatusDetailsActivity.class)
-                        .putExtra(getApplicationInstance().timelineToStatusDetailsParamName, objId)
+                        .putExtra(YambaNavigation.timelineToStatusDetailsParamName, objId)
         );
     }
 
