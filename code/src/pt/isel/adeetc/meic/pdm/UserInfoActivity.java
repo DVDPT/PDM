@@ -86,6 +86,7 @@ public class UserInfoActivity extends YambaBaseActivity
             _messenger = new Messenger(iBinder);
             try
             {
+
                 Message m = Message.obtain();
                 m.replyTo = _callback;
                 _messenger.send(m);
