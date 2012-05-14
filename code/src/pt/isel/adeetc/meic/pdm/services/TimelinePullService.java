@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import pt.isel.adeetc.meic.pdm.YambaBaseService;
+import pt.isel.adeetc.meic.pdm.YambaNavigation;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
 import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
@@ -46,8 +47,14 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
     @Override
     public int onStartCommand(Intent e, int flags, int id)
     {
-        super.onStartCommand(e,flags,id);
-        int paramId = e.getIntExtra("param", -1);
+        super.onStartCommand(e, flags, id);
+        launchOperation(e);
+        return START_STICKY;
+    }
+
+    private void launchOperation(Intent e)
+    {
+        int paramId = e.getIntExtra(YambaNavigation.timelineServiceParamName, -1);
         if (paramId == -1)
             throw new ShouldNotHappenException("TimelinePullService.onStartCommand : param is -1");
 
@@ -55,14 +62,15 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
 
         _callback = message.getCallback();
 
-        if (_task == null)
+        if (getApplicationInstance().isTimelineRefreshedAutomatically())
         {
-
-            _task = new TimelinePullServiceTimerTask();
-            _timer.scheduleAtFixedRate(_task, 0, getApplicationInstance().getTimelineRefreshPeriod() * 60 * 1000);
+            if (_task == null)
+            {
+                _task = new TimelinePullServiceTimerTask();
+                _timer.scheduleAtFixedRate(_task, 0, getApplicationInstance().getTimelineRefreshPeriod() * 60 * 1000);
+            }
         }
 
-        return START_STICKY;
     }
 
     @Override
@@ -77,7 +85,7 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
     {
         super.onDestroy();
 
-        if(_task == null)
+        if (_task == null)
             return;
 
         _task.cancel();
@@ -85,7 +93,6 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
         _timer = null;
         _task = null;
     }
-
 
 
     @Override
@@ -122,7 +129,7 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
                 ///
                 /// If the service was destroyed.
                 ///
-                if(_task != null)
+                if (_task != null)
                     return;
 
                 throw new ShouldNotHappenException("TimelinePullService.TimelinePullServiceTimerTask.run: callback is null");

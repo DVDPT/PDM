@@ -18,7 +18,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
         _preferences.registerOnSharedPreferenceChangeListener(this);
     }
 
-    public final String timelineToStatusDetailsParamName = "statusDetailsParam";
+
 
     public TwitterServiceClient getTwitterClient()
     {
