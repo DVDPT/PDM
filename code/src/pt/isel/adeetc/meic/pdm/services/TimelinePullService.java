@@ -4,21 +4,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import pt.isel.adeetc.meic.pdm.YambaBaseService;
 import pt.isel.adeetc.meic.pdm.YambaNavigation;
+import pt.isel.adeetc.meic.pdm.YambaPreferences;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
 import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class TimelinePullService extends YambaBaseService implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static String LOG = "TimelinePullService";
-    private Timer _timer;
-    private TimerTask _task;
+
+    private Thread _task;
+    private volatile boolean _isCancelled = false;
     IEventHandler<Iterable<Twitter.Status>> _callback;
 
     @Override
@@ -29,14 +29,6 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
                 .registerOnSharedPreferenceChangeListener(this);
     }
 
-    @Override
-    public boolean onUnbind(Intent intent)
-    {
-
-        PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
-                .unregisterOnSharedPreferenceChangeListener(this);
-        return super.onUnbind(intent);
-    }
 
     @Override
     public IBinder onBind(Intent intent)
@@ -62,22 +54,28 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
 
         _callback = message.getCallback();
 
-        if (getApplicationInstance().isTimelineRefreshedAutomatically())
+
+        if(!getApplicationInstance().isTimelineRefreshedAutomatically())
         {
-            if (_task == null)
-            {
-                _task = new TimelinePullServiceTimerTask();
-                _timer.scheduleAtFixedRate(_task, 0, getApplicationInstance().getTimelineRefreshPeriod() * 60 * 1000);
-            }
+            new TimelinePullServiceTimerTask().start();
+            return;
         }
 
+        if(_task == null)
+        {
+            _task = new TimelinePullServiceTimerTask();
+            _task.start();
+        }
+        else
+        {
+            _task.interrupt();
+        }
     }
 
     @Override
     public void onCreate()
     {
         super.onCreate();
-        _timer = new Timer();
     }
 
     @Override
@@ -85,56 +83,87 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
     {
         super.onDestroy();
 
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                .unregisterOnSharedPreferenceChangeListener(this);
+
+
+        cancelTask();
+    }
+
+    private void cancelTask()
+    {
         if (_task == null)
             return;
 
-        _task.cancel();
-        _timer.cancel();
-        _timer = null;
+        _isCancelled = true;
+        _task.interrupt();
         _task = null;
     }
 
 
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s)
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key)
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+        if(key.equals(YambaPreferences.timeLineFetchedAutomaticallyPropName))
+            cancelTask();
+
     }
 
 
-    private class TimelinePullServiceTimerTask extends TimerTask
+    private class TimelinePullServiceTimerTask extends Thread
     {
 
         @Override
         public void run()
         {
-            Twitter client = getApplicationInstance().getTwitterClient().getTwitter();
-            Exception error = null;
-
-
-            Iterable<Twitter.Status> statuses = null;
-
-            try
+            do
             {
-                statuses = client.getUserTimeline();
-
-            } catch (Exception e)
-            {
-                error = e;
-            }
+                Log.d(LOG,"Running Task");
+                Twitter client = getApplicationInstance().getTwitterClient().getTwitter();
+                Exception error = null;
 
 
-            if (_callback == null)
-            {
-                ///
-                /// If the service was destroyed.
-                ///
-                if (_task != null)
-                    return;
+                Iterable<Twitter.Status> statuses = null;
 
-                throw new ShouldNotHappenException("TimelinePullService.TimelinePullServiceTimerTask.run: callback is null");
-            }
-            _callback.invoke(this, new GenericEventArgs<Iterable<Twitter.Status>>(statuses, error));
+                try
+                {
+                    statuses = client.getUserTimeline();
+
+                } catch (Exception e)
+                {
+                    error = e;
+                }
+
+
+                if (_callback == null)
+                {
+                    ///
+                    /// If the service was destroyed.
+                    ///
+                    if (_isCancelled)
+                        return;
+
+                    throw new ShouldNotHappenException("TimelinePullService.TimelinePullServiceTimerTask.run: callback is null");
+                }
+
+                _callback.invoke(this, new GenericEventArgs<Iterable<Twitter.Status>>(statuses, error));
+
+
+                if (_isCancelled || !getApplicationInstance().isTimelineRefreshedAutomatically())
+                    break;
+
+                try
+                {
+                    Log.d(LOG,"Going to sleep.");
+                    Thread.sleep(getApplicationInstance().getTimelineRefreshPeriod() * 60 * 1000);
+                } catch (InterruptedException e)
+                {
+                    if (_isCancelled)
+                        break;
+                }
+            } while (true);
+
+            _isCancelled = false;
         }
     }
 }

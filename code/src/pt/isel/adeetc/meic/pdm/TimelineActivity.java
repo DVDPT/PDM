@@ -71,14 +71,14 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         if (_status.size() != 0)
             return;
 
-        getUserTimeline();
+        getUserTimeline(true);
     }
 
-    private void getUserTimeline()
+    private void getUserTimeline(boolean isResuming)
     {
         Iterable<Twitter.Status> data = _twitter.getTwitterCachedTimeline();
 
-        if (data != null)
+        if (data != null && isResuming)
         {
             setTimelineOnUi(data);
             return;
@@ -164,7 +164,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     {
         if (item.getItemId() == R.id.menu_refresh)
         {
-            getUserTimeline();
+            getUserTimeline(false);
             return true;
         }
         return super.onOptionsItemSelected(item);
