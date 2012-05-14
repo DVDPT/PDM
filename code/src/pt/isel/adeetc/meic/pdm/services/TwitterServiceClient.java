@@ -37,7 +37,6 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
         statusUpload.putExtra("params", id);
 
         YambaApplication.getContext().startService(statusUpload);
-
     }
 
     @SuppressWarnings({"unchecked"})
