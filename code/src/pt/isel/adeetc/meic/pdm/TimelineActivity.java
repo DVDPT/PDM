@@ -48,6 +48,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     {
         super.onPause();
         _loadingDialog.dismiss();
+        _twitter.getUserTimelineCompletedEvent.removeEventHandler();
     }
 
     @Override
@@ -97,12 +98,6 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         _twitter.getUserTimelineAsync();
     }
 
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-        _twitter.getUserTimelineCompletedEvent.removeEventHandler();
-    }
 
 
     public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.Status>> userStatus)
