@@ -29,9 +29,10 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        String maxCharacters;
         setContentView(R.layout.status);
+
+
+        String maxCharacters;
         _maxCharacters = getApplicationInstance().getMaxCharacter();
 
         _status = (EditText) findViewById(R.id.editText);
@@ -73,6 +74,12 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
 
         _twitter = getApplicationInstance().getTwitterClient();
         _twitter.updateStatusCompletedEvent.setEventHandler(this);
+    }
+
+
+    @Override
+    protected void onResume(){
+
     }
 
     @Override
