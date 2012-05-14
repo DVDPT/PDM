@@ -8,7 +8,7 @@
     <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:text="@string/user_info"
-            android:background="#FFF6"
+            android:background="#fffacd"
             android:textSize="8pt"/>
 
 
@@ -21,7 +21,7 @@
     <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:text="@string/user_info_numberOfTweets"
-              android:background="#FFF6"
+              android:background="#fffacd"
               android:textSize="8pt"/>
 
 
@@ -29,31 +29,31 @@
             android:id="@+id/user_info_tweets"
             android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
-                  android:text="sdajkkkkksdd"  />
+                   />
 
     <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:text="@string/user_info_followers"
-              android:background="#FFF6"
+              android:background="#fffacd"
               android:textSize="8pt"/>
 
      <TextView
              android:id="@+id/user_info_follwers"
              android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
-                  android:text="asdasdasdsa"  />
+                   />
 
     <TextView android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:text="@string/user_info_following"
-              android:background="#FFF6"
+              android:background="#fffacd"
               android:textSize="8pt"/>
 
     <TextView
             android:id="@+id/user_info_following"
             android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:text="asdasdasdsa"  />
+               />
 
          <ImageView android:id="@+id/user_info_image"
                     android:layout_width="wrap_content"
