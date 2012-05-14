@@ -47,7 +47,7 @@
                 android:key="maxTweets"
                 />
         <CheckBoxPreference
-                android:key="updateTimeline"
+                android:key="timelineFetchedAutomaticallly"
                 android:title="@string/preferences_title_update_timeline"
                 android:summary="@string/preferences_summary_update_timeline" />
 
@@ -56,7 +56,7 @@
                 android:numeric="integer"
                 android:summary="@string/preferences_summary_update_period_time"
                 android:title="@string/preferences_title_update_period_time"
-                android:key="updatePeriodTime"
+                android:key="timelineRefreshPeriod"
                 />
 
         <EditTextPreference
@@ -64,7 +64,7 @@
                 android:numeric="integer"
                 android:summary="@string/preferences_summary_update_maxTweets"
                 android:title="@string/preferences_title_update_maxTweets"
-                android:key="updateMaxTweets"
+                android:key="numberOfStatusPreserved"
                 />
 
     </PreferenceCategory>

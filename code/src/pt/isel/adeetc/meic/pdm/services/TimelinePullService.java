@@ -1,18 +1,19 @@
 package pt.isel.adeetc.meic.pdm.services;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import pt.isel.adeetc.meic.pdm.YambaBaseService;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
 import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
-import pt.isel.adeetc.meic.pdm.common.UiHelper;
 import winterwell.jtwitter.Twitter;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TimelinePullService extends YambaBaseService
+public class TimelinePullService extends YambaBaseService implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static String LOG = "TimelinePullService";
     private Timer _timer;
@@ -20,9 +21,25 @@ public class TimelinePullService extends YambaBaseService
     IEventHandler<Iterable<Twitter.Status>> _callback;
 
     @Override
-    public IBinder onBind(Intent intent)
+    public void onStart(Intent intent, int startId)
+    {
+        super.onStart(intent, startId);
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                .registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent)
     {
 
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext())
+                .unregisterOnSharedPreferenceChangeListener(this);
+        return super.onUnbind(intent);
+    }
+
+    @Override
+    public IBinder onBind(Intent intent)
+    {
         return null;
     }
 
@@ -67,6 +84,14 @@ public class TimelinePullService extends YambaBaseService
         _timer.cancel();
         _timer = null;
         _task = null;
+    }
+
+
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s)
+    {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 
 
