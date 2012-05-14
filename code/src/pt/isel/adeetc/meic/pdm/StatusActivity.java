@@ -75,6 +75,7 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
         _maxCharacters = getApplicationInstance().getMaxCharacter();
         _count.setText( _maxCharacters);
         _status.setFilters(new InputFilter[] { new InputFilter.LengthFilter(new Integer(_maxCharacters)) });
+
     }
 
     @Override
@@ -92,6 +93,7 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
         if(statusIEventHandlerArgs.errorOccurred())
         {
             UiHelper.showToast(R.string.status_error_insert_newStatus);
+            _update.setEnabled(true);
             return;
         }
         UiHelper.showToast(R.string.status_tweet_create);
