@@ -22,12 +22,17 @@ import java.util.LinkedList;
 
 public class TimelineActivity extends YambaBaseActivity implements IEventHandler<Iterable<Twitter.Status>>, AdapterView.OnItemClickListener
 {
-    private TwitterServiceClient _twitter;
+
     private final LinkedList<Twitter.Status> _status = new LinkedList<Twitter.Status>();
     private ArrayAdapter<Twitter.Status> _listAdapter;
     private static final String LOG = "TimelineActivity";
     private ProgressDialog _loadingDialog;
 
+
+    private TwitterServiceClient getTwitter()
+    {
+        return getApplicationInstance().getTwitterClient();
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -39,8 +44,8 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         list.setOnItemClickListener(this);
         list.setAdapter(_listAdapter);
 
-        _twitter = getApplicationInstance().getTwitterClient();
-        _twitter.getUserTimelineCompletedEvent.setEventHandler(this);
+
+        getTwitter().getUserTimelineCompletedEvent.setEventHandler(this);
     }
 
     @Override
@@ -48,7 +53,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     {
         super.onPause();
         _loadingDialog.dismiss();
-        _twitter.getUserTimelineCompletedEvent.removeEventHandler();
+        getTwitter().getUserTimelineCompletedEvent.removeEventHandler();
     }
 
     @Override
@@ -76,7 +81,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
     private void getUserTimeline(boolean isResuming)
     {
-        Iterable<Twitter.Status> data = _twitter.getTwitterCachedTimeline();
+        Iterable<Twitter.Status> data = getTwitter().getTwitterCachedTimeline();
 
         if (data != null && isResuming)
         {
@@ -95,7 +100,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         } else
             _loadingDialog.show();
 
-        _twitter.getUserTimelineAsync();
+        getTwitter().getUserTimelineAsync();
     }
 
 

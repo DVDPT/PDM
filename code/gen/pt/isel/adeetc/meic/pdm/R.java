@@ -28,8 +28,8 @@ public final class R {
         public static final int timeline_status_message=0x7f060009;
         public static final int timeline_status_username=0x7f06000a;
         public static final int timeline_user_status=0x7f060008;
+        public static final int user_info_followers=0x7f06000e;
         public static final int user_info_following=0x7f06000f;
-        public static final int user_info_follwers=0x7f06000e;
         public static final int user_info_image=0x7f060010;
         public static final int user_info_name=0x7f06000c;
         public static final int user_info_tweets=0x7f06000d;

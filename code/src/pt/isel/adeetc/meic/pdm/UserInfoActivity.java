@@ -32,7 +32,7 @@ public class UserInfoActivity extends YambaBaseActivity
         public void handleMessage(Message message)
         {
             message.getData().setClassLoader(getClassLoader());
-            YambaUserInfo info = (YambaUserInfo) message.getData().get("result");
+            YambaUserInfo info = (YambaUserInfo) message.getData().get(YambaNavigation.userInfoServiceParamName);
             changeUserInfo(
                     info.getName(),
                     info.getNrOfTweets(),
@@ -48,15 +48,12 @@ public class UserInfoActivity extends YambaBaseActivity
 
     public void onCreate(Bundle savedInstanceState)
     {
-        YambaUserInfo a = new YambaUserInfo();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_info);
-
-
         _userName = (TextView) findViewById(R.id.user_info_name);
         _numberOfTweets = (TextView) findViewById(R.id.user_info_tweets);
-        _numberOfFollowers = (TextView) findViewById(R.id.user_info_follwers);
-        _numberOfFollowings = (TextView) findViewById(R.id.user_info_follwers);
+        _numberOfFollowers = (TextView) findViewById(R.id.user_info_followers);
+        _numberOfFollowings = (TextView) findViewById(R.id.user_info_following);
         _userImage = (ImageView) findViewById(R.id.user_info_image);
 
 

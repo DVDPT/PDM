@@ -38,7 +38,7 @@
               android:textSize="8pt"/>
 
      <TextView
-             android:id="@+id/user_info_follwers"
+             android:id="@+id/user_info_followers"
              android:layout_width="fill_parent"
                   android:layout_height="wrap_content"
                    />

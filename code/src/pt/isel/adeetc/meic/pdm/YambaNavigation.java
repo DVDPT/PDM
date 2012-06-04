@@ -7,4 +7,5 @@ public final class YambaNavigation
 
     public static final String timelineServiceParamName = "TimeLineServiceParam";
     public static final String timelineToStatusDetailsParamName = "statusDetailsParam";
+    public static final String userInfoServiceParamName = "UserInfoServiceParamName";
 }

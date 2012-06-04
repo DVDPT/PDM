@@ -4,11 +4,11 @@ import android.content.Intent;
 import android.os.*;
 import android.util.Log;
 import pt.isel.adeetc.meic.pdm.YambaBaseService;
+import pt.isel.adeetc.meic.pdm.YambaNavigation;
 import winterwell.jtwitter.Twitter;
 
 public class UserInfoPullService extends YambaBaseService
 {
-
 
 
     Handler userInfoHandler = new Handler()
@@ -24,7 +24,7 @@ public class UserInfoPullService extends YambaBaseService
 
             Message m = Message.obtain();
 
-            m.getData().putParcelable("result",userInfo);
+            m.getData().putParcelable(YambaNavigation.userInfoServiceParamName, userInfo);
 
             try
             {

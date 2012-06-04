@@ -71,7 +71,6 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
     @Override
     protected void onResume(){
         super.onResume();
-        String maxCharacters;
         _maxCharacters = getApplicationInstance().getMaxCharacter();
         _count.setText( _maxCharacters);
         _status.setFilters(new InputFilter[] { new InputFilter.LengthFilter(new Integer(_maxCharacters)) });
