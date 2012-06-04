@@ -35,9 +35,7 @@ public class YambaBaseActivity extends BaseActivity<YambaApplication>
     @SuppressWarnings("unchecked")
     protected Iterable<Integer> getActivityDisabledMenuItems()
     {
-        LinkedList<Integer> ret = new LinkedList<Integer>();
-        ret.add(R.id.menu_user_info);
-        return ret;
+        return new LinkedList<Integer>();
     }
 
 
