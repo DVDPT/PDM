@@ -17,7 +17,7 @@ import winterwell.jtwitter.Twitter;
 
 import java.util.LinkedList;
 
-public class StatusActivity extends YambaBaseActivity implements IEventHandler<Twitter.ITweet> {
+public class StatusActivity extends YambaBaseActivity implements IEventHandler<Twitter.ITweet>,TextWatcher, View.OnClickListener {
 
     private EditText _status;
     private Button _update;
@@ -36,33 +36,10 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
         _update = (Button) findViewById(R.id.buttonUpdate);
         _count = (TextView) findViewById(R.id.Count);
 
-        _status.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
+        _status.addTextChangedListener(this);
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
 
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                Integer currentLength = new Integer(_maxCharacters) - editable.length();
-                _count.setText(currentLength.toString());
-            }
-        });
-
-        _update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String newStatus = _status.getText().toString();
-                _update.setEnabled(false);
-                _twitter.updateStatusAsync(newStatus);
-            }
-        });
+        _update.setOnClickListener(this);
         _twitter = getApplicationInstance().getTwitterClient();
         _twitter.updateStatusCompletedEvent.setEventHandler(this);
     }
@@ -105,5 +82,28 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
     protected void onDestroy(){
         super.onDestroy();
         _twitter.updateStatusCompletedEvent.removeEventHandler();
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        Integer currentLength = new Integer(_maxCharacters) - editable.length();
+        _count.setText(currentLength.toString());
+    }
+
+    @Override
+    public void onClick(View view) {
+        String newStatus = _status.getText().toString();
+        _update.setEnabled(false);
+        _twitter.updateStatusAsync(newStatus);
     }
 }

@@ -38,6 +38,10 @@
         <activity android:name=".UserInfoActivity"
                   android:label="@string/user_info_activity"/>
 
-
+        <receiver android:name=".WifiReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest> 
