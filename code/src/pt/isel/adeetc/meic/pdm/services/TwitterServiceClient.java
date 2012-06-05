@@ -2,14 +2,19 @@ package pt.isel.adeetc.meic.pdm.services;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.util.Log;
+import com.google.common.collect.Iterables;
 import pt.isel.adeetc.meic.pdm.YambaApplication;
 import pt.isel.adeetc.meic.pdm.YambaNavigation;
 import pt.isel.adeetc.meic.pdm.common.*;
+import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import pt.isel.adeetc.meic.pdm.exceptions.Constants;
 import winterwell.jtwitter.Twitter;
 
 public final class TwitterServiceClient implements IEventHandler<Iterable<Twitter.ITweet>>
 {
+    private static final String LOG = "TwitterServiceClient";
+
     public final IEvent<Twitter.ITweet> updateStatusCompletedEvent;
     public final IEvent<Iterable<Twitter.ITweet>> getUserTimelineCompletedEvent;
 
@@ -18,10 +23,12 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
 
     private Handler _handler;
     private Twitter _twitter;
+    private final IDbSet<Twitter.ITweet> _tweetDb;
 
 
-    public TwitterServiceClient()
+    public TwitterServiceClient(IDbSet<Twitter.ITweet> tweetDb)
     {
+        _tweetDb = tweetDb;
         updateStatusCompletedEvent = new GenericEvent<Twitter.ITweet>();
         getUserTimelineCompletedEvent = new GenericEvent<Iterable<Twitter.ITweet>>();
         _handler = new Handler();
@@ -75,6 +82,7 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
     public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.ITweet>> data)
     {
 
+        Log.d(LOG, "on timeline handler.");
         if (data.getError() == null)
         {
             try
@@ -86,7 +94,11 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
             }
         }
 
+        _tweetDb.add(Iterables.getFirst(_statusCache, null));
+        _statusCache = _tweetDb;
+
         final IEventHandlerArgs<Iterable<Twitter.ITweet>> fdata = data;
+        Log.d(LOG, "calling user handler.");
         _handler.post(new Runnable()
         {
             @Override

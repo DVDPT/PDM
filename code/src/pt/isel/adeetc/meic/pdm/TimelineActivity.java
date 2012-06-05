@@ -45,7 +45,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         list.setAdapter(_listAdapter);
 
 
-        getTwitter().getUserTimelineCompletedEvent.setEventHandler(this);
+
     }
 
     @Override
@@ -82,7 +82,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     private void getUserTimeline(boolean isResuming)
     {
         Iterable<Twitter.ITweet> data = getTwitter().getTwitterCachedTimeline();
-
+        getTwitter().getUserTimelineCompletedEvent.setEventHandler(this);
         if (data != null && isResuming)
         {
             setTimelineOnUi(data);
@@ -107,9 +107,10 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.ITweet>> userStatus)
     {
 
+        Log.d(LOG, String.format("On event task event handler."));
         _loadingDialog.dismiss();
 
-        Log.d(LOG, String.format("On async task event handler."));
+
 
         if (userStatus.errorOccurred())
         {

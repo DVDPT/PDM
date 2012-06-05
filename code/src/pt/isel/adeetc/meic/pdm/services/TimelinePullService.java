@@ -146,9 +146,11 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
                     if (_isCancelled)
                         return;
 
+                    Log.d(LOG,"Error on task.");
                     throw new ShouldNotHappenException("TimelinePullService.TimelinePullServiceTimerTask.run: callback is null");
                 }
 
+                Log.d(LOG,"Calling event handler");
                 _callback.invoke(this, new GenericEventArgs<Iterable<Twitter.ITweet>>(statuses, error));
 
 

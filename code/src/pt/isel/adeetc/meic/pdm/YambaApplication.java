@@ -2,6 +2,7 @@ package pt.isel.adeetc.meic.pdm;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import pt.isel.adeetc.meic.pdm.db.StatusDatabaseDataSource;
 import pt.isel.adeetc.meic.pdm.extensions.BaseApplication;
 import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
 
@@ -9,23 +10,31 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
 {
     private TwitterServiceClient _client;
     private SharedPreferences _preferences;
+    private StatusDatabaseDataSource _tweetDb;
 
-
-    public void onCreate()
+    @Override
+    public void onTerminate()
     {
-
-        _preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        _preferences.registerOnSharedPreferenceChangeListener(this);
+        super.onTerminate();
+        _tweetDb.close();
     }
 
+    @Override
+    public void onCreate()
+    {
+        super.onCreate();
+        _preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        _preferences.registerOnSharedPreferenceChangeListener(this);
+        _tweetDb = new StatusDatabaseDataSource(getContext());
+        _tweetDb.open();
+    }
 
 
     public TwitterServiceClient getTwitterClient()
     {
         if (_client == null)
         {
-            _client = new TwitterServiceClient();
-
+            _client = new TwitterServiceClient(_tweetDb);
             _client.configureTwitterClient(getUserName(), getPassword(), getApiRootUrl());
         }
         return _client;
@@ -57,7 +66,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     public String getMaxCharacter()
     {
 
-        return _preferences.getString(YambaPreferences.maxCharactersOnStatus, "0");
+        return _preferences.getString(YambaPreferences.maxCharactersOnStatus, "100");
 
     }
 
