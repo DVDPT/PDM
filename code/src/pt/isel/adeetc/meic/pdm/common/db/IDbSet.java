@@ -7,9 +7,9 @@ public interface IDbSet<T> extends Iterable<T>
     static int DBSET_OPERATION_ADD = 1;
     static int DBSET_OPERATION_REMOVE = 2;
     static int DBSET_OPERATION_CLEAR_ALL = 3;
-
+    static int DBSET_OPERATION_GET_ALL = 3;
     T create();
-    IEvent getOnOperationCompleted();
+    IEvent<DbSetOnCompletedOperationEventData> getOnOperationCompletedEvent();
 
     boolean add(T t);
     void addAsync(T t);
@@ -19,6 +19,8 @@ public interface IDbSet<T> extends Iterable<T>
 
     boolean clearAll();
     void clearAllAsync();
+
+    void getAllAsync();
 
 
 

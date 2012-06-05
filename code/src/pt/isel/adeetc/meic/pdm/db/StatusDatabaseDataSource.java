@@ -5,35 +5,41 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import pt.isel.adeetc.meic.pdm.common.GenericEvent;
-import pt.isel.adeetc.meic.pdm.common.IEvent;
+import com.google.common.collect.Iterables;
+import pt.isel.adeetc.meic.pdm.common.*;
+import pt.isel.adeetc.meic.pdm.common.db.DbSetOnCompletedOperationEventData;
 import pt.isel.adeetc.meic.pdm.common.db.IDataSource;
 import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import winterwell.jtwitter.Twitter;
 
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class StatusDatabaseDataSource implements IDbSet<Twitter.ITweet>, IDataSource
 {
     private static final String LOG = "StatusDatabaseDataSource";
     private final StatusDatabaseHelper _statusHelper;
     private SQLiteDatabase _database;
-    private final IEvent _onCompletedOperationEvent;
+    private final IEvent<DbSetOnCompletedOperationEventData> _onCompletedOperationEvent;
 
 
     public StatusDatabaseDataSource(Context ctx)
     {
         _statusHelper = new StatusDatabaseHelper(ctx);
-        _onCompletedOperationEvent = new GenericEvent();
+        _onCompletedOperationEvent = new GenericEvent<DbSetOnCompletedOperationEventData>();
     }
 
     @Override
     public void open()
     {
+        if(_database != null)
+            throw new ShouldNotHappenException("StatusDatabaseDataSource:open method called twice.");
         _database = _statusHelper.getWritableDatabase();
+    }
+
+    @Override
+    public boolean isOpen()
+    {
+        return _database != null;
     }
 
     @Override
@@ -50,7 +56,7 @@ public class StatusDatabaseDataSource implements IDbSet<Twitter.ITweet>, IDataSo
     }
 
     @Override
-    public IEvent getOnOperationCompleted()
+    public IEvent<DbSetOnCompletedOperationEventData> getOnOperationCompletedEvent()
     {
         return _onCompletedOperationEvent;
     }
@@ -70,7 +76,20 @@ public class StatusDatabaseDataSource implements IDbSet<Twitter.ITweet>, IDataSo
     @Override
     public void addAsync(Twitter.ITweet iTweet)
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+        final Twitter.ITweet tweet = iTweet;
+        EventHelper.executeAndCallHandlerAsync(
+                getOnOperationCompletedEvent(),
+                new Func<DbSetOnCompletedOperationEventData>()
+                {
+                    @Override
+                    public DbSetOnCompletedOperationEventData perform()
+                    {
+                        DbSetOnCompletedOperationEventData ret = new DbSetOnCompletedOperationEventData(DBSET_OPERATION_ADD);
+                        ret.setData(add(tweet));
+                        return ret;
+                    }
+                },
+                this);
     }
 
     @Override
@@ -85,7 +104,20 @@ public class StatusDatabaseDataSource implements IDbSet<Twitter.ITweet>, IDataSo
     @Override
     public void removeAsync(Twitter.ITweet iTweet)
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+        final Twitter.ITweet tweet = iTweet;
+        EventHelper.executeAndCallHandlerAsync(
+                getOnOperationCompletedEvent(),
+                new Func<DbSetOnCompletedOperationEventData>()
+                {
+                    @Override
+                    public DbSetOnCompletedOperationEventData perform()
+                    {
+                        DbSetOnCompletedOperationEventData ret = new DbSetOnCompletedOperationEventData(DBSET_OPERATION_REMOVE);
+                        ret.setData(remove(tweet));
+                        return ret;
+                    }
+                },
+                this);
     }
 
     @Override
@@ -98,7 +130,44 @@ public class StatusDatabaseDataSource implements IDbSet<Twitter.ITweet>, IDataSo
     @Override
     public void clearAllAsync()
     {
-        //To change body of implemented methods use File | Settings | File Templates.
+
+        EventHelper.executeAndCallHandlerAsync(
+                getOnOperationCompletedEvent(),
+                new Func<DbSetOnCompletedOperationEventData>()
+                {
+                    @Override
+                    public DbSetOnCompletedOperationEventData perform()
+                    {
+                        DbSetOnCompletedOperationEventData ret = new DbSetOnCompletedOperationEventData(DBSET_OPERATION_CLEAR_ALL);
+                        clearAll();
+                        return ret;
+                    }
+                },
+                this);
+    }
+
+    @Override
+    public void getAllAsync()
+    {
+        EventHelper.executeAndCallHandlerAsync(
+                getOnOperationCompletedEvent(),
+                new Func<DbSetOnCompletedOperationEventData>()
+                {
+                    @Override
+                    public DbSetOnCompletedOperationEventData perform()
+                    {
+                        DbSetOnCompletedOperationEventData ret = new DbSetOnCompletedOperationEventData(DBSET_OPERATION_GET_ALL);
+                        Iterator<Twitter.ITweet> tweets = iterator();
+                        Collection<Twitter.ITweet> returnCollection = new LinkedList<>();
+                        //
+                        //  Force the read into the db;
+                        //
+                        Iterables.addAll(returnCollection,StatusDatabaseDataSource.this);
+                        ret.setData(returnCollection);
+                        return ret;
+                    }
+                },
+                this);
     }
 
 
