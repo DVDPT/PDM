@@ -10,13 +10,13 @@ import winterwell.jtwitter.Twitter;
  * Time: 18:07
  * To change this template use File | Settings | File Templates.
  */
-public class StatusUploadServiceMessage implements IServiceMessage<String,Twitter.Status> 
+public class StatusUploadServiceMessage implements IServiceMessage<String,Twitter.ITweet>
 {
     
-    private final IEventHandler<Twitter.Status> _callBack;
+    private final IEventHandler<Twitter.ITweet> _callBack;
     private String _data;
 
-    public StatusUploadServiceMessage(IEventHandler<Twitter.Status> _callBack, String status) {
+    public StatusUploadServiceMessage(IEventHandler<Twitter.ITweet> _callBack, String status) {
         this._callBack = _callBack;
         _data = status;
         
@@ -28,7 +28,7 @@ public class StatusUploadServiceMessage implements IServiceMessage<String,Twitte
     }
 
     @Override
-    public IEventHandler<Twitter.Status> getCallback() {
+    public IEventHandler<Twitter.ITweet> getCallback() {
         return _callBack;
     }
 }

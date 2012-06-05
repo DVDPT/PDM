@@ -17,7 +17,7 @@ import winterwell.jtwitter.Twitter;
 
 import java.util.LinkedList;
 
-public class StatusActivity extends YambaBaseActivity implements IEventHandler<Twitter.Status> {
+public class StatusActivity extends YambaBaseActivity implements IEventHandler<Twitter.ITweet> {
 
     private EditText _status;
     private Button _update;
@@ -87,7 +87,7 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
 
 
     @Override
-    public void invoke(Object sender, IEventHandlerArgs<Twitter.Status> statusIEventHandlerArgs) {
+    public void invoke(Object sender, IEventHandlerArgs<Twitter.ITweet> statusIEventHandlerArgs) {
 
         if(statusIEventHandlerArgs.errorOccurred())
         {

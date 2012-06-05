@@ -10,6 +10,7 @@ import pt.isel.adeetc.meic.pdm.YambaNavigation;
 import pt.isel.adeetc.meic.pdm.YambaPreferences;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
+import pt.isel.adeetc.meic.pdm.common.IterableHelper;
 import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
 
@@ -19,7 +20,7 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
 
     private Thread _task;
     private volatile boolean _isCancelled = false;
-    IEventHandler<Iterable<Twitter.Status>> _callback;
+    IEventHandler<Iterable<Twitter.ITweet>> _callback;
 
     @Override
     public void onStart(Intent intent, int startId)
@@ -110,6 +111,8 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
     }
 
 
+
+
     private class TimelinePullServiceTimerTask extends Thread
     {
 
@@ -123,11 +126,11 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
                 Exception error = null;
 
 
-                Iterable<Twitter.Status> statuses = null;
+                Iterable<Twitter.ITweet> statuses = null;
 
                 try
                 {
-                    statuses = client.getUserTimeline();
+                    statuses =  IterableHelper.getSuperIterable(client.getUserTimeline(), Twitter.ITweet.class);
 
                 } catch (Exception e)
                 {
@@ -146,7 +149,7 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
                     throw new ShouldNotHappenException("TimelinePullService.TimelinePullServiceTimerTask.run: callback is null");
                 }
 
-                _callback.invoke(this, new GenericEventArgs<Iterable<Twitter.Status>>(statuses, error));
+                _callback.invoke(this, new GenericEventArgs<Iterable<Twitter.ITweet>>(statuses, error));
 
 
                 if (_isCancelled || !getApplicationInstance().isTimelineRefreshedAutomatically())

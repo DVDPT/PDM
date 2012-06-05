@@ -33,7 +33,7 @@ public class StatusUploadService extends YambaBaseService {
             throw new ShouldNotHappenException("StatusUploadService.onStartCommand : param is -1");
 
         Exception error = null;
-        Twitter.Status status = null;
+        Twitter.ITweet status = null;
 
         StatusUploadServiceMessage statusMessage = (StatusUploadServiceMessage) getNavigationMessenger().getElement(paramId);
 
@@ -46,7 +46,7 @@ public class StatusUploadService extends YambaBaseService {
         {
              error = ex;
         }
-        statusMessage.getCallback().invoke(this,new GenericEventArgs<Twitter.Status>(status, error));
+        statusMessage.getCallback().invoke(this,new GenericEventArgs<Twitter.ITweet>(status, error));
         return START_STICKY;
     }
 }

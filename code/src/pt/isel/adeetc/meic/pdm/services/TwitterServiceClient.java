@@ -8,12 +8,12 @@ import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.exceptions.Constants;
 import winterwell.jtwitter.Twitter;
 
-public final class TwitterServiceClient implements IEventHandler<Iterable<Twitter.Status>>
+public final class TwitterServiceClient implements IEventHandler<Iterable<Twitter.ITweet>>
 {
-    public final IEvent<Twitter.Status> updateStatusCompletedEvent;
-    public final IEvent<Iterable<Twitter.Status>> getUserTimelineCompletedEvent;
+    public final IEvent<Twitter.ITweet> updateStatusCompletedEvent;
+    public final IEvent<Iterable<Twitter.ITweet>> getUserTimelineCompletedEvent;
 
-    private Iterable<Twitter.Status> _statusCache;
+    private Iterable<Twitter.ITweet> _statusCache;
     private final StatusEventHandler _statusEventHandler = new StatusEventHandler();
 
     private Handler _handler;
@@ -22,8 +22,8 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
 
     public TwitterServiceClient()
     {
-        updateStatusCompletedEvent = new GenericEvent<Twitter.Status>();
-        getUserTimelineCompletedEvent = new GenericEvent<Iterable<Twitter.Status>>();
+        updateStatusCompletedEvent = new GenericEvent<Twitter.ITweet>();
+        getUserTimelineCompletedEvent = new GenericEvent<Iterable<Twitter.ITweet>>();
         _handler = new Handler();
     }
 
@@ -32,7 +32,8 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
     {
         Intent statusUpload = new Intent(YambaApplication.getContext(), StatusUploadService.class);
 
-        int id = YambaApplication.getInstance().getNavigationMessenger().putElement(new StatusUploadServiceMessage(_statusEventHandler, status));
+        int id = YambaApplication.getInstance().getNavigationMessenger()
+                .putElement(new StatusUploadServiceMessage(_statusEventHandler, status));
 
         statusUpload.putExtra("params", id);
 
@@ -44,17 +45,18 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
     {
 
         Intent timelineIntent = new Intent(YambaApplication.getContext(), TimelinePullService.class);
-        int id = YambaApplication.getInstance().getNavigationMessenger().putElement(new TimelinePullServiceMessage(this));
+        int id = YambaApplication.getInstance().getNavigationMessenger()
+                .putElement(new TimelinePullServiceMessage(this));
         timelineIntent.putExtra(YambaNavigation.timelineServiceParamName, id);
         YambaApplication.getContext().startService(timelineIntent);
     }
 
-    public Iterable<Twitter.Status> getTwitterCachedTimeline()
+    public Iterable<Twitter.ITweet> getTwitterCachedTimeline()
     {
         return _statusCache;
     }
 
-    //TODO alterar nome do metodo
+
     public void configureTwitterClient(String user, String password, String apiRootUrl)
     {
         _twitter = new Twitter(user, password);
@@ -70,7 +72,7 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
 
 
     @Override
-    public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.Status>> data)
+    public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.ITweet>> data)
     {
 
         if (data.getError() == null)
@@ -84,7 +86,7 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
             }
         }
 
-        final IEventHandlerArgs<Iterable<Twitter.Status>> fdata = data;
+        final IEventHandlerArgs<Iterable<Twitter.ITweet>> fdata = data;
         _handler.post(new Runnable()
         {
             @Override
@@ -95,12 +97,12 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
         });
     }
 
-    private class StatusEventHandler implements IEventHandler<Twitter.Status>, Runnable
+    private class StatusEventHandler implements IEventHandler<Twitter.ITweet>, Runnable
     {
-        private IEventHandlerArgs<Twitter.Status> _args;
+        private IEventHandlerArgs<Twitter.ITweet> _args;
 
         @Override
-        public void invoke(Object sender, IEventHandlerArgs<Twitter.Status> statusIEventHandlerArgs)
+        public void invoke(Object sender, IEventHandlerArgs<Twitter.ITweet> statusIEventHandlerArgs)
         {
             _handler.post(this);
             _args = statusIEventHandlerArgs;

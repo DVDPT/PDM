@@ -20,11 +20,11 @@ import winterwell.jtwitter.Twitter;
 import java.util.Date;
 import java.util.LinkedList;
 
-public class TimelineActivity extends YambaBaseActivity implements IEventHandler<Iterable<Twitter.Status>>, AdapterView.OnItemClickListener
+public class TimelineActivity extends YambaBaseActivity implements IEventHandler<Iterable<Twitter.ITweet>>, AdapterView.OnItemClickListener
 {
 
-    private final LinkedList<Twitter.Status> _status = new LinkedList<Twitter.Status>();
-    private ArrayAdapter<Twitter.Status> _listAdapter;
+    private final LinkedList<Twitter.ITweet> _status = new LinkedList<Twitter.ITweet>();
+    private ArrayAdapter<Twitter.ITweet> _listAdapter;
     private static final String LOG = "TimelineActivity";
     private ProgressDialog _loadingDialog;
 
@@ -81,7 +81,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
     private void getUserTimeline(boolean isResuming)
     {
-        Iterable<Twitter.Status> data = getTwitter().getTwitterCachedTimeline();
+        Iterable<Twitter.ITweet> data = getTwitter().getTwitterCachedTimeline();
 
         if (data != null && isResuming)
         {
@@ -104,8 +104,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     }
 
 
-
-    public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.Status>> userStatus)
+    public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.ITweet>> userStatus)
     {
 
         _loadingDialog.dismiss();
@@ -128,12 +127,12 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         }
     }
 
-    private void setTimelineOnUi(Iterable<Twitter.Status> statusCollection)
+    private void setTimelineOnUi(Iterable<? extends Twitter.ITweet> statusCollection)
     {
         _status.clear();
         int i = 0;
         final int maxAllowed = getApplicationInstance().getMaxTweets();
-        for (Twitter.Status status : statusCollection)
+        for (Twitter.ITweet status : statusCollection)
         {
             _listAdapter.add(status);
 
@@ -185,7 +184,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         return ret;
     }
 
-    private class TwitterStatusAdapter extends ArrayAdapter<Twitter.Status>
+    private class TwitterStatusAdapter extends ArrayAdapter<Twitter.ITweet>
     {
 
         public TwitterStatusAdapter()
@@ -198,7 +197,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         @SuppressWarnings("unchecked")
         public View getView(int pos, View cView, ViewGroup parent)
         {
-            Log.d(LOG,"On TwitterStatusAdapter drawing some element.");
+            Log.d(LOG, "On TwitterStatusAdapter drawing some element.");
             View v = cView;
             ViewHolder3<TextView, TextView, TextView> holder;
             if (v == null)
