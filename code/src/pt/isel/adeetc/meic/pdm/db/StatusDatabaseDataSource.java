@@ -5,28 +5,27 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import com.google.common.collect.Iterables;
-import pt.isel.adeetc.meic.pdm.common.*;
-import pt.isel.adeetc.meic.pdm.common.db.DbSetOnCompletedOperationEventData;
+
 import pt.isel.adeetc.meic.pdm.common.db.IDataSource;
 import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
 
-import java.util.*;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class StatusDatabaseDataSource implements IDbSet<Twitter.ITweet>, IDataSource
 {
     private static final String LOG = "StatusDatabaseDataSource";
     private final StatusDatabaseHelper _statusHelper;
     private SQLiteDatabase _database;
-    private final IEvent<DbSetOnCompletedOperationEventData> _onCompletedOperationEvent;
 
 
     public StatusDatabaseDataSource(Context ctx)
     {
         _statusHelper = new StatusDatabaseHelper(ctx);
-        _onCompletedOperationEvent = new GenericEvent<DbSetOnCompletedOperationEventData>();
+
     }
 
     @Override
@@ -56,11 +55,6 @@ public class StatusDatabaseDataSource implements IDbSet<Twitter.ITweet>, IDataSo
         throw new UnsupportedOperationException("StatusDatabaseDataSource.create");
     }
 
-    @Override
-    public IEvent<DbSetOnCompletedOperationEventData> getOnOperationCompletedEvent()
-    {
-        return _onCompletedOperationEvent;
-    }
 
     @Override
     public boolean add(Twitter.ITweet status)
@@ -75,23 +69,13 @@ public class StatusDatabaseDataSource implements IDbSet<Twitter.ITweet>, IDataSo
     }
 
     @Override
-    public void addAsync(Twitter.ITweet iTweet)
+    public void addAll(Iterable<Twitter.ITweet> tweets)
     {
-        final Twitter.ITweet tweet = iTweet;
-        EventHelper.executeAndCallHandlerAsync(
-                getOnOperationCompletedEvent(),
-                new Func<DbSetOnCompletedOperationEventData>()
-                {
-                    @Override
-                    public DbSetOnCompletedOperationEventData perform()
-                    {
-                        DbSetOnCompletedOperationEventData ret = new DbSetOnCompletedOperationEventData(DBSET_OPERATION_ADD);
-                        ret.setData(add(tweet));
-                        return ret;
-                    }
-                },
-                this);
+        boolean ret = false;
+        for (Twitter.ITweet t : tweets)
+            add(t);
     }
+
 
     @Override
     public boolean remove(Twitter.ITweet status)
@@ -103,77 +87,14 @@ public class StatusDatabaseDataSource implements IDbSet<Twitter.ITweet>, IDataSo
     }
 
     @Override
-    public void removeAsync(Twitter.ITweet iTweet)
-    {
-        final Twitter.ITweet tweet = iTweet;
-        EventHelper.executeAndCallHandlerAsync(
-                getOnOperationCompletedEvent(),
-                new Func<DbSetOnCompletedOperationEventData>()
-                {
-                    @Override
-                    public DbSetOnCompletedOperationEventData perform()
-                    {
-                        DbSetOnCompletedOperationEventData ret = new DbSetOnCompletedOperationEventData(DBSET_OPERATION_REMOVE);
-                        ret.setData(remove(tweet));
-                        return ret;
-                    }
-                },
-                this);
-    }
-
-    @Override
     public boolean clearAll()
     {
         _database.delete(StatusTable.TABLE_STATUS, null, null);
-        return false;  //To change body of implemented methods use File | Settings | File Templates.
+        return true;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public void clearAllAsync()
-    {
-
-        EventHelper.executeAndCallHandlerAsync(
-                getOnOperationCompletedEvent(),
-                new Func<DbSetOnCompletedOperationEventData>()
-                {
-                    @Override
-                    public DbSetOnCompletedOperationEventData perform()
-                    {
-                        DbSetOnCompletedOperationEventData ret = new DbSetOnCompletedOperationEventData(DBSET_OPERATION_CLEAR_ALL);
-                        clearAll();
-                        return ret;
-                    }
-                },
-                this);
-    }
-
-    @Override
-    public void getAllAsync()
-    {
-        EventHelper.executeAndCallHandlerAsync(
-                getOnOperationCompletedEvent(),
-                new Func<DbSetOnCompletedOperationEventData>()
-                {
-                    @Override
-                    public DbSetOnCompletedOperationEventData perform()
-                    {
-                        DbSetOnCompletedOperationEventData ret = new DbSetOnCompletedOperationEventData(DBSET_OPERATION_GET_ALL);
-                        Iterator<Twitter.ITweet> tweets = iterator();
-                        Collection<Twitter.ITweet> returnCollection = new LinkedList<Twitter.ITweet>();
-                        //
-                        //  Force the read into the db;
-                        //
-                        Iterables.addAll(returnCollection,StatusDatabaseDataSource.this);
-                        ret.setData(returnCollection);
-                        return ret;
-                    }
-                },
-                this);
-    }
-
-
-    @Override
-    public Iterator<Twitter.ITweet> iterator()
+    public Iterable<Twitter.ITweet> getAll()
     {
         List<Twitter.ITweet> tweets = new LinkedList<Twitter.ITweet>();
 
@@ -188,7 +109,7 @@ public class StatusDatabaseDataSource implements IDbSet<Twitter.ITweet>, IDataSo
             cursor.moveToNext();
         }
         cursor.close();
-        return tweets.iterator();
+        return tweets;
     }
 
     private Twitter.ITweet cursorToTweet(Cursor cursor)

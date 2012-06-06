@@ -7,7 +7,6 @@ public class GenericEventArgs<T> implements IEventHandlerArgs<T>
 
     public GenericEventArgs(T result, Exception error)
     {
-
         this._data = result;
         _error = error;
     }

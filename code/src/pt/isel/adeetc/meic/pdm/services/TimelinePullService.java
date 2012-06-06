@@ -10,11 +10,12 @@ import pt.isel.adeetc.meic.pdm.YambaNavigation;
 import pt.isel.adeetc.meic.pdm.YambaPreferences;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
+import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
 import pt.isel.adeetc.meic.pdm.common.IterableHelper;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
 
-public class TimelinePullService extends YambaBaseService implements SharedPreferences.OnSharedPreferenceChangeListener
+public class TimelinePullService extends YambaBaseService implements SharedPreferences.OnSharedPreferenceChangeListener , IEventHandler<Boolean>
 {
     private static String LOG = "TimelinePullService";
 
@@ -108,6 +109,15 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
         if(key.equals(YambaPreferences.timeLineFetchedAutomaticallyPropName))
             cancelTask();
 
+    }
+
+    @Override
+    public void invoke(Object sender, IEventHandlerArgs<Boolean> arg) {
+        try {
+            getApplicationInstance().setNetworkState(arg.getData());
+        } catch (Exception e) {
+            throw new ShouldNotHappenException();
+        }
     }
 
     private class TimelinePullServiceTimerTask extends Thread

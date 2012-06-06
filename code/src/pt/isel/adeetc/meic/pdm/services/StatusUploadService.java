@@ -4,19 +4,15 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.wifi.WifiManager;
 import android.os.IBinder;
 import pt.isel.adeetc.meic.pdm.NetworkReceiver;
 import pt.isel.adeetc.meic.pdm.YambaBaseService;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
 import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
-import pt.isel.adeetc.meic.pdm.common.IEventReceiver;
-import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
 
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 
 /**
@@ -26,7 +22,7 @@ import java.util.LinkedList;
  * Time: 18:04
  * To change this template use File | Settings | File Templates.
  */
-public class StatusUploadService extends YambaBaseService implements IEventReceiver<Void> {
+public class StatusUploadService extends YambaBaseService implements IEventHandler<Boolean> {
 
     private static String LOG = "StatusUploadService";
     
@@ -34,18 +30,16 @@ public class StatusUploadService extends YambaBaseService implements IEventRecei
     private static Integer WAIT = 2;
 
     private LinkedList<String> _status = new LinkedList<String>();
-    private BroadcastReceiver rec;
+    //private BroadcastReceiver rec;
 
     //private IntentFilter filter = new IntentFilter(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION);
 
-    //private IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+   // private IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
 
     @Override
     public void onCreate()
     {
-
-        //rec = new NetworkReceiver();
-        //registerReceiver(rec, filter);
+        getApplicationInstance().addEventHandler(this);
     }
 
     @Override
@@ -54,7 +48,11 @@ public class StatusUploadService extends YambaBaseService implements IEventRecei
 
     }
 
-
+    @Override
+    public void onDestroy()
+    {
+        getApplicationInstance().removeEventHandler(this);
+    }
     @Override
     public int onStartCommand(Intent e, int flags, int id)
     {
@@ -66,6 +64,7 @@ public class StatusUploadService extends YambaBaseService implements IEventRecei
         Exception error = null;
         Twitter.ITweet status = null;
         StatusUploadServiceMessage statusMessage = (StatusUploadServiceMessage) getNavigationMessenger().getElement(paramId);
+
 
         if(getApplicationInstance().getNetworkState())
         {
@@ -91,13 +90,16 @@ public class StatusUploadService extends YambaBaseService implements IEventRecei
     }
 
     @Override
-    public void invoke(Object sender, IEventHandlerArgs<Void> arg) {
+    public void invoke(Object sender, IEventHandlerArgs<Boolean> arg)
+    {
        Twitter client =  getApplicationInstance().getTwitterClient().getTwitter();
-       
-       for(String message : _status)
-       {
-           client.setStatus(message);
-       }
-
+        try {
+            for(String message : _status)
+            {
+                client.setStatus(message);
+            }
+        } catch (Exception e) {
+            throw new ShouldNotHappenException();
+        }
     }
 }

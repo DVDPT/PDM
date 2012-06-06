@@ -12,14 +12,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.google.common.collect.Lists;
 import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.common.holders.ViewHolder3;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
 import winterwell.jtwitter.Twitter;
 
-import java.util.Date;
-import java.util.LinkedList;
+import java.util.*;
 
 public class TimelineActivity extends YambaBaseActivity implements IEventHandler<Iterable<Twitter.ITweet>>, AdapterView.OnItemClickListener
 {
@@ -28,6 +28,14 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     private ArrayAdapter<Twitter.ITweet> _listAdapter;
     private static final String LOG = "TimelineActivity";
     private ProgressDialog _loadingDialog;
+    private Comparator<Twitter.ITweet> _tweetComparator = new Comparator<Twitter.ITweet>()
+    {
+        @Override
+        public int compare(Twitter.ITweet t1, Twitter.ITweet t2)
+        {
+            return (int) (t2.getCreatedAt().getTime() - t1.getCreatedAt().getTime());
+        }
+    };
 
 
     private TwitterServiceClient getTwitter()
@@ -45,13 +53,16 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         list.setOnItemClickListener(this);
         list.setAdapter(_listAdapter);
 
+
     }
 
     @Override
     protected void onPause()
     {
         super.onPause();
-        _loadingDialog.dismiss();
+
+        if (_loadingDialog != null)
+            _loadingDialog.dismiss();
         getTwitter().getUserTimelineCompletedEvent.removeEventHandler();
     }
 
@@ -110,7 +121,6 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         _loadingDialog.dismiss();
 
 
-
         if (userStatus.errorOccurred())
         {
             UiHelper.showToast(R.string.timeline_error_fetching_status);
@@ -132,7 +142,10 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         _status.clear();
         int i = 0;
         final int maxAllowed = getApplicationInstance().getMaxTweets();
-        for (Twitter.ITweet status : statusCollection)
+        List<Twitter.ITweet> tweets = Lists.newLinkedList(statusCollection);
+        Collections.sort(tweets, _tweetComparator);
+
+        for (Twitter.ITweet status : tweets)
         {
             _listAdapter.add(status);
 

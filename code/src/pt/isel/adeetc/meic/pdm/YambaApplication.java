@@ -1,17 +1,30 @@
 package pt.isel.adeetc.meic.pdm;
 
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.preference.PreferenceManager;
-import pt.isel.adeetc.meic.pdm.db.YambaStatusDatabase;
+import pt.isel.adeetc.meic.pdm.common.IEventHandler;
+import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
+import pt.isel.adeetc.meic.pdm.common.IEventReceives;
+import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
+import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import pt.isel.adeetc.meic.pdm.extensions.BaseApplication;
+import pt.isel.adeetc.meic.pdm.services.TimelineContentProviderClient;
 import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
+import winterwell.jtwitter.Twitter;
 
-public class YambaApplication extends BaseApplication implements SharedPreferences.OnSharedPreferenceChangeListener
+import java.util.LinkedList;
+
+public class YambaApplication extends BaseApplication implements SharedPreferences.OnSharedPreferenceChangeListener, IEventReceives<Boolean>
 {
     private TwitterServiceClient _client;
     private SharedPreferences _preferences;
-    private YambaStatusDatabase _tweetDb;
-    private boolean isNetwortUp;
+    private IDbSet<Twitter.ITweet> _tweetDb;
+    private boolean _networkState;
+    private LinkedList<IEventHandler> _handlers;
+    private BroadcastReceiver _netReceive;
 
 
     @Override
@@ -20,15 +33,20 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
         super.onCreate();
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         _preferences.registerOnSharedPreferenceChangeListener(this);
-        _tweetDb = new YambaStatusDatabase(getContext());
-        _tweetDb.open();
+        _handlers = new LinkedList<IEventHandler>();
+
+        //StatusDatabaseDataSource tweetDb = new StatusDatabaseDataSource(getContext());
+        //tweetDb.open();
+        _tweetDb = new TimelineContentProviderClient(getContext());
+        _netReceive =  new NetworkReceiver();
+        registerReceiver(_netReceive, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     @Override
     public void onTerminate()
     {
         super.onTerminate();
-        _tweetDb.close();
+        //_tweetDb.close();
     }
 
 
@@ -109,14 +127,45 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
         }
     }
 
-    public void changeNetworkState(boolean state){
-        isNetwortUp = state;
+    public void setNetworkState(boolean newState)
+    {
+        _networkState=newState;
     }
 
     public boolean getNetworkState()
     {
-        return isNetwortUp;
+        return _networkState;
     }
 
+    @Override
+    public void invoke(Object sender, IEventHandlerArgs<Boolean> arg) {
 
+        try {
+            _networkState = arg.getData();
+            for(IEventHandler ev : _handlers)
+            {
+                ev.invoke(sender, arg);
+            }
+        } catch (Exception e) {
+           throw new ShouldNotHappenException();
+        }
+
+    }
+
+    @Override
+    public void removeEventHandler(IEventHandler event)
+    {
+        _handlers.remove(event);
+    }
+
+    @Override
+    public void addEventHandler(IEventHandler event) {
+
+        _handlers.add(event);
+    }
+
+    @Override
+    public void onEventHandlerChanged(IEventHandler event) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

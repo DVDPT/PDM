@@ -1,11 +1,9 @@
 package pt.isel.adeetc.meic.pdm.services;
 
-import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 import com.google.common.collect.Iterables;
-import pt.isel.adeetc.meic.pdm.NetworkReceiver;
 import pt.isel.adeetc.meic.pdm.YambaApplication;
 import pt.isel.adeetc.meic.pdm.YambaNavigation;
 import pt.isel.adeetc.meic.pdm.common.*;
@@ -14,16 +12,18 @@ import pt.isel.adeetc.meic.pdm.exceptions.Constants;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
 
-public final class TwitterServiceClient implements IEventHandler<Iterable<Twitter.ITweet>>
+import java.util.LinkedList;
+
+public final class TwitterServiceClient
 {
     private static final String LOG = "TwitterServiceClient";
 
     public final IEvent<Integer> updateStatusCompletedEvent;
     public final IEvent<Iterable<Twitter.ITweet>> getUserTimelineCompletedEvent;
 
-    private Iterable<Twitter.ITweet> _statusCache;
-
+    private Iterable<Twitter.ITweet> _statusCache= new LinkedList<Twitter.ITweet>();
     private final StatusEventHandler _statusEventHandler = new StatusEventHandler();
+    private final TimelineServiceEventHandler _timelineServiceEventHandler = new TimelineServiceEventHandler();
 
     private Handler _handler;
     private Twitter _twitter;
@@ -32,11 +32,32 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
 
     public TwitterServiceClient(IDbSet<Twitter.ITweet> tweetDb)
     {
-
         _tweetDb = tweetDb;
+        _handler = new Handler();
         updateStatusCompletedEvent = new GenericEvent<Integer>();
         getUserTimelineCompletedEvent = new GenericEvent<Iterable<Twitter.ITweet>>();
-        _handler = new Handler();
+        ThreadPool.QueueUserWorkItem(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                Iterable<Twitter.ITweet> status = _tweetDb.getAll();
+                Log.d(LOG, "Retrieved saved status.");
+                if (_statusCache != null)
+                    return;
+
+                synchronized (this)
+                {
+                    if (_statusCache != null || Iterables.size(status) == 0)
+                        return;
+
+                    Log.d(LOG, "Setting on cached.");
+
+                    _statusCache = status;
+                }
+            }
+        });
+
     }
 
 
@@ -57,8 +78,11 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
     {
 
         Intent timelineIntent = new Intent(YambaApplication.getContext(), TimelinePullService.class);
-        int id = YambaApplication.getInstance().getNavigationMessenger()
-                .putElement(new TimelinePullServiceMessage(this));
+        int id = YambaApplication
+                .getInstance()
+                .getNavigationMessenger()
+                .putElement(new TimelinePullServiceMessage(_timelineServiceEventHandler));
+
         timelineIntent.putExtra(YambaNavigation.timelineServiceParamName, id);
         YambaApplication.getContext().startService(timelineIntent);
     }
@@ -82,42 +106,52 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
         return _twitter;
     }
 
-
-    @Override
-    public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.ITweet>> data)
+    private final class TimelineServiceEventHandler implements IEventHandler<Iterable<Twitter.ITweet>>, Runnable
     {
+        private volatile IEventHandlerArgs<Iterable<Twitter.ITweet>> _eventData = null;
 
-        Log.d(LOG, "on timeline handler.");
-        if (data.getError() == null)
+        @Override
+        public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.ITweet>> data)
         {
-            try
+            Log.d(LOG, "on timeline handler.");
+            if (data.getError() == null)
             {
-                _statusCache = data.getData();
-            } catch (Exception e)
-            {
-                throw new ShouldNotHappenException(e);
+                Iterable<Twitter.ITweet> oldCacheRef = _statusCache;
+                try
+                {
+                    synchronized (this)
+                    {
+                        _statusCache = data.getData();
+                    }
+                } catch (Exception e)
+                {
+                    throw new ShouldNotHappenException(e);
+                }
+                Log.d(LOG, "TimelineServiceEventHandler - persisting statuses.");
+                _tweetDb.addAll(IterableHelper.except(_statusCache, oldCacheRef));
             }
+
+
+            _eventData = data;
+            Log.d(LOG, "TimelineServiceEventHandler - scheduling user handler.");
+            _handler.post(this);
         }
 
-        _tweetDb.add(Iterables.getFirst(_statusCache, null));
-        _statusCache = _tweetDb;
-
-        final IEventHandlerArgs<Iterable<Twitter.ITweet>> fdata = new GenericEventArgs<Iterable<Twitter.ITweet>>(_statusCache, data.getError());
-        //final IEventHandlerArgs<Iterable<Twitter.ITweet>> fdata = data;
-        Log.d(LOG, "calling user handler.");
-        _handler.post(new Runnable()
+        @Override
+        public void run()
         {
-            @Override
-            public void run()
-            {
-                getUserTimelineCompletedEvent.invoke(this, fdata);
-            }
-        });
+            Log.d(LOG, "TimelineServiceEventHandler - calling user handler.");
+            if (_eventData == null)
+                throw new ShouldNotHappenException("TwitterServiceClient::TimelineServiceEventHandler._event is null.");
+
+            getUserTimelineCompletedEvent.invoke(this, _eventData);
+            _eventData = null;
+        }
     }
 
     private class StatusEventHandler implements IEventHandler<Integer>, Runnable
     {
-        private IEventHandlerArgs<Integer> _args;
+        private volatile IEventHandlerArgs<Integer> _args;
 
         @Override
         public void invoke(Object sender, IEventHandlerArgs<Integer> statusIEventHandlerArgs)
