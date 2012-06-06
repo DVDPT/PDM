@@ -7,7 +7,7 @@ public final class StatusTable
 {
 
 
-    public static final String TABLE_STATUS = "todo";
+    public static final String TABLE_STATUS = "status";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_USERNAME = "username";
     public static final String COLUMN_MESSAGE = "message";

@@ -97,7 +97,8 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
         _tweetDb.add(Iterables.getFirst(_statusCache, null));
         _statusCache = _tweetDb;
 
-        final IEventHandlerArgs<Iterable<Twitter.ITweet>> fdata = data;
+        final IEventHandlerArgs<Iterable<Twitter.ITweet>> fdata = new GenericEventArgs<Iterable<Twitter.ITweet>>(_statusCache, data.getError());
+        //final IEventHandlerArgs<Iterable<Twitter.ITweet>> fdata = data;
         Log.d(LOG, "calling user handler.");
         _handler.post(new Runnable()
         {
