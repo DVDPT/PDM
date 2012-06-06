@@ -38,6 +38,18 @@
             android:layout_height="wrap_content"
             android:text="date"
             />
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            >
+        <Button
+                android:id="@+id/status_detail_button"
+                android:layout_width="200sp" android:layout_height="50sp"
+                android:text="@string/status_button_send_mail" android:textSize="20sp"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                />
+    </RelativeLayout>
 
 
 </LinearLayout>

@@ -37,12 +37,16 @@ public final class NavigationMessenger
         if (!_references.containsKey(id))
             throw new NoSuchElementException(String.format(_noElementFoundFormat, id));
 
-        Object obj =  _references.get(id).get();
+        Object obj = _references.get(id).get();
 
-        if(obj == null)
-            Log.v("NavigationMessenger",String.format("Returning null object with id %d",id));
+        if (obj == null)
+            Log.v("NavigationMessenger", String.format("Returning null object with id %d", id));
         return obj;
     }
 
+    public Object remove(int id)
+    {
+        return getElement(id);
+    }
 
 }

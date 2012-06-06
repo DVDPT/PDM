@@ -50,4 +50,5 @@
     <string name="preferences_name_update_maxTweets"> UpdateMaxTweets</string>
     <string name="preferences_summary_update_maxTweets">Max tweets for update</string>
     <string name="preferences_title_update_maxTweets">Max tweets to save</string>
+    <string name="status_button_send_mail">Send Email</string>
 </resources>

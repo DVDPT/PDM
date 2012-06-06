@@ -15,24 +15,25 @@ public final class R {
         public static final int Layout=0x7f060001;
         public static final int buttonUpdate=0x7f060002;
         public static final int editText=0x7f060000;
-        public static final int menu_prefs=0x7f060012;
-        public static final int menu_refresh=0x7f060014;
-        public static final int menu_status=0x7f060013;
-        public static final int menu_timeline=0x7f060011;
-        public static final int menu_user_info=0x7f060015;
+        public static final int menu_prefs=0x7f060013;
+        public static final int menu_refresh=0x7f060015;
+        public static final int menu_status=0x7f060014;
+        public static final int menu_timeline=0x7f060012;
+        public static final int menu_user_info=0x7f060016;
+        public static final int status_detail_button=0x7f060008;
         public static final int status_detail_date=0x7f060007;
         public static final int status_detail_message=0x7f060005;
         public static final int status_detail_message_id=0x7f060006;
         public static final int status_detail_username=0x7f060004;
-        public static final int timeline_status_date=0x7f06000b;
-        public static final int timeline_status_message=0x7f060009;
-        public static final int timeline_status_username=0x7f06000a;
-        public static final int timeline_user_status=0x7f060008;
-        public static final int user_info_followers=0x7f06000e;
-        public static final int user_info_following=0x7f06000f;
-        public static final int user_info_image=0x7f060010;
-        public static final int user_info_name=0x7f06000c;
-        public static final int user_info_tweets=0x7f06000d;
+        public static final int timeline_status_date=0x7f06000c;
+        public static final int timeline_status_message=0x7f06000a;
+        public static final int timeline_status_username=0x7f06000b;
+        public static final int timeline_user_status=0x7f060009;
+        public static final int user_info_followers=0x7f06000f;
+        public static final int user_info_following=0x7f060010;
+        public static final int user_info_image=0x7f060011;
+        public static final int user_info_name=0x7f06000d;
+        public static final int user_info_tweets=0x7f06000e;
     }
     public static final class layout {
         public static final int main=0x7f020000;
@@ -81,6 +82,7 @@ public final class R {
         public static final int statusDetails_activity=0x7f040020;
         public static final int status_activity=0x7f04001e;
         public static final int status_button_name=0x7f040008;
+        public static final int status_button_send_mail=0x7f040032;
         public static final int status_display_message=0x7f040007;
         public static final int status_error_insert_newStatus=0x7f040009;
         public static final int status_name=0x7f040006;

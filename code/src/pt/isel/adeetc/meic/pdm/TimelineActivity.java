@@ -209,7 +209,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         @SuppressWarnings("unchecked")
         public View getView(int pos, View cView, ViewGroup parent)
         {
-            Log.d(LOG, "On TwitterStatusAdapter drawing some element.");
+            Log.d(LOG, "On TwitterStatusAdapter drawing some element. ID:" + pos);
             View v = cView;
             ViewHolder3<TextView, TextView, TextView> holder;
             if (v == null)

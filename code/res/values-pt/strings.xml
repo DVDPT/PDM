@@ -34,4 +34,5 @@
     <string name="timeline_activity">Timeline Activity</string>
     <string name="statusDetails_activity">Status Details Activity</string>
     <string name="preferences_activity">Preferences Activity</string>
+    <string name="status_button_send_mail">Enviar Email</string>
 </resources>

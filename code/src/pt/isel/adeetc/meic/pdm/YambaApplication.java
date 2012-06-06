@@ -4,6 +4,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import pt.isel.adeetc.meic.pdm.extensions.BaseApplication;
+import pt.isel.adeetc.meic.pdm.services.IEmailSender;
+import pt.isel.adeetc.meic.pdm.services.SimpleEmailSender;
 import pt.isel.adeetc.meic.pdm.services.TimelineContentProviderClient;
 import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
 import winterwell.jtwitter.Twitter;
@@ -13,6 +15,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     private TwitterServiceClient _client;
     private SharedPreferences _preferences;
     private IDbSet<Twitter.ITweet> _tweetDb;
+    private IEmailSender _emailSender;
 
 
     @Override
@@ -44,6 +47,15 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
             _client.configureTwitterClient(getUserName(), getPassword(), getApiRootUrl());
         }
         return _client;
+    }
+
+    public IEmailSender getEmailSender()
+    {
+        if (_emailSender == null)
+        {
+            _emailSender = new SimpleEmailSender(getContext());
+        }
+        return _emailSender;
     }
 
     public String getUserName()
@@ -90,7 +102,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
 
     public boolean isTimelineRefreshedAutomatically()
     {
-        return _preferences.getBoolean(YambaPreferences.timeLineFetchedAutomaticallyPropName, false);
+        return _preferences.getBoolean(YambaPreferences.timeLineFetchedAutomaticallyPropName, true);
 
     }
 
