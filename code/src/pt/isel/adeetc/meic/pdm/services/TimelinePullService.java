@@ -110,9 +110,6 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
 
     }
 
-
-
-
     private class TimelinePullServiceTimerTask extends Thread
     {
 

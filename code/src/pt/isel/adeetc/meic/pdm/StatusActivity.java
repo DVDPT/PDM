@@ -1,6 +1,9 @@
 package pt.isel.adeetc.meic.pdm;
 
 
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -26,11 +29,9 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<I
     private String _maxCharacters;
 
 
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.status);
-
 
         _status = (EditText) findViewById(R.id.editText);
         _update = (Button) findViewById(R.id.buttonUpdate);
@@ -38,12 +39,10 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<I
 
         _status.addTextChangedListener(this);
 
-
         _update.setOnClickListener(this);
         _twitter = getApplicationInstance().getTwitterClient();
         _twitter.updateStatusCompletedEvent.setEventHandler(this);
     }
-
 
     @Override
     protected void onResume(){
@@ -86,8 +85,6 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<I
         } catch (Exception e) {
             UiHelper.showToast(R.string.status_error_insert_newStatus);
         }
-
-
         _status.setText("");
         _count.setText(_maxCharacters);
         _update.setEnabled(true);
