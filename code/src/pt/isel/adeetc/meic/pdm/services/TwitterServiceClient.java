@@ -1,24 +1,28 @@
 package pt.isel.adeetc.meic.pdm.services;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.os.Handler;
 import android.util.Log;
 import com.google.common.collect.Iterables;
+import pt.isel.adeetc.meic.pdm.NetworkReceiver;
 import pt.isel.adeetc.meic.pdm.YambaApplication;
 import pt.isel.adeetc.meic.pdm.YambaNavigation;
 import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import pt.isel.adeetc.meic.pdm.exceptions.Constants;
+import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
 
 public final class TwitterServiceClient implements IEventHandler<Iterable<Twitter.ITweet>>
 {
     private static final String LOG = "TwitterServiceClient";
 
-    public final IEvent<Twitter.ITweet> updateStatusCompletedEvent;
+    public final IEvent<Integer> updateStatusCompletedEvent;
     public final IEvent<Iterable<Twitter.ITweet>> getUserTimelineCompletedEvent;
 
     private Iterable<Twitter.ITweet> _statusCache;
+
     private final StatusEventHandler _statusEventHandler = new StatusEventHandler();
 
     private Handler _handler;
@@ -28,8 +32,9 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
 
     public TwitterServiceClient(IDbSet<Twitter.ITweet> tweetDb)
     {
+
         _tweetDb = tweetDb;
-        updateStatusCompletedEvent = new GenericEvent<Twitter.ITweet>();
+        updateStatusCompletedEvent = new GenericEvent<Integer>();
         getUserTimelineCompletedEvent = new GenericEvent<Iterable<Twitter.ITweet>>();
         _handler = new Handler();
     }
@@ -110,12 +115,12 @@ public final class TwitterServiceClient implements IEventHandler<Iterable<Twitte
         });
     }
 
-    private class StatusEventHandler implements IEventHandler<Twitter.ITweet>, Runnable
+    private class StatusEventHandler implements IEventHandler<Integer>, Runnable
     {
-        private IEventHandlerArgs<Twitter.ITweet> _args;
+        private IEventHandlerArgs<Integer> _args;
 
         @Override
-        public void invoke(Object sender, IEventHandlerArgs<Twitter.ITweet> statusIEventHandlerArgs)
+        public void invoke(Object sender, IEventHandlerArgs<Integer> statusIEventHandlerArgs)
         {
             _handler.post(this);
             _args = statusIEventHandlerArgs;

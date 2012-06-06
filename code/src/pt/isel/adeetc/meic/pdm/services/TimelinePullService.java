@@ -11,7 +11,7 @@ import pt.isel.adeetc.meic.pdm.YambaPreferences;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
 import pt.isel.adeetc.meic.pdm.common.IterableHelper;
-import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
+import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
 
 public class TimelinePullService extends YambaBaseService implements SharedPreferences.OnSharedPreferenceChangeListener

@@ -17,7 +17,7 @@ import winterwell.jtwitter.Twitter;
 
 import java.util.LinkedList;
 
-public class StatusActivity extends YambaBaseActivity implements IEventHandler<Twitter.ITweet>,TextWatcher, View.OnClickListener {
+public class StatusActivity extends YambaBaseActivity implements IEventHandler<Integer>,TextWatcher, View.OnClickListener {
 
     private EditText _status;
     private Button _update;
@@ -64,7 +64,7 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
 
 
     @Override
-    public void invoke(Object sender, IEventHandlerArgs<Twitter.ITweet> statusIEventHandlerArgs) {
+    public void invoke(Object sender, IEventHandlerArgs<Integer> statusIEventHandlerArgs) {
 
         if(statusIEventHandlerArgs.errorOccurred())
         {
@@ -72,7 +72,22 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
             _update.setEnabled(true);
             return;
         }
-        UiHelper.showToast(R.string.status_tweet_create);
+
+        try {
+            switch (statusIEventHandlerArgs.getData())
+            {
+                case 1:
+                    UiHelper.showToast(R.string.status_tweet_create);
+                    break;
+                case 2:
+                    UiHelper.showToast(R.string.status_tweet_delay);
+                    break;
+            }
+        } catch (Exception e) {
+            UiHelper.showToast(R.string.status_error_insert_newStatus);
+        }
+
+
         _status.setText("");
         _count.setText(_maxCharacters);
         _update.setEnabled(true);

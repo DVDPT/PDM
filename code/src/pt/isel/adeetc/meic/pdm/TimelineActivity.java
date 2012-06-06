@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.common.holders.ViewHolder3;
+import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
 import winterwell.jtwitter.Twitter;
 
@@ -43,8 +44,6 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         _listAdapter = new TwitterStatusAdapter();
         list.setOnItemClickListener(this);
         list.setAdapter(_listAdapter);
-
-
 
     }
 

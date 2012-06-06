@@ -1,4 +1,4 @@
-package pt.isel.adeetc.meic.pdm.common;
+package pt.isel.adeetc.meic.pdm.exceptions;
 
 public class ShouldNotHappenException extends RuntimeException
 {

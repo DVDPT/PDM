@@ -15,8 +15,6 @@ public class YambaStatusDatabase extends StatusDatabaseDataSource
     public YambaStatusDatabase(Context ctx)
     {
         super(ctx);
-
-
     }
 
     private Twitter.ITweet getLastTweetInserted()

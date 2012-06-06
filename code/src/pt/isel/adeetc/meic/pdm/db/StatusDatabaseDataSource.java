@@ -10,6 +10,7 @@ import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.common.db.DbSetOnCompletedOperationEventData;
 import pt.isel.adeetc.meic.pdm.common.db.IDataSource;
 import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
+import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
 
 import java.util.*;
@@ -158,7 +159,7 @@ public class StatusDatabaseDataSource implements IDbSet<Twitter.ITweet>, IDataSo
                     {
                         DbSetOnCompletedOperationEventData ret = new DbSetOnCompletedOperationEventData(DBSET_OPERATION_GET_ALL);
                         Iterator<Twitter.ITweet> tweets = iterator();
-                        Collection<Twitter.ITweet> returnCollection = new LinkedList<>();
+                        Collection<Twitter.ITweet> returnCollection = new LinkedList<Twitter.ITweet>();
                         //
                         //  Force the read into the db;
                         //

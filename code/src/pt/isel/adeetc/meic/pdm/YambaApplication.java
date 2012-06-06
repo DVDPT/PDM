@@ -11,6 +11,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     private TwitterServiceClient _client;
     private SharedPreferences _preferences;
     private YambaStatusDatabase _tweetDb;
+    private boolean isNetwortUp;
 
 
     @Override
@@ -106,6 +107,15 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
         {
             getTwitterClient().configureTwitterClient(getUserName(), getPassword(), getApiRootUrl());
         }
+    }
+
+    public void changeNetworkState(boolean state){
+        isNetwortUp = state;
+    }
+
+    public boolean getNetworkState()
+    {
+        return isNetwortUp;
     }
 
 

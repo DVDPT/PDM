@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.os.IBinder;
 import pt.isel.adeetc.meic.pdm.YambaBaseService;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
-import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
+import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
+import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
+
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,10 +21,16 @@ import winterwell.jtwitter.Twitter;
 public class StatusUploadService extends YambaBaseService {
 
     private static String LOG = "StatusUploadService";
+    
+    private static Integer OK = 1;
+    private static Integer WAIT = 2;
+
+    private LinkedList<String> _status = new LinkedList<String>();
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+
     }
 
 
@@ -34,19 +44,28 @@ public class StatusUploadService extends YambaBaseService {
 
         Exception error = null;
         Twitter.ITweet status = null;
-
         StatusUploadServiceMessage statusMessage = (StatusUploadServiceMessage) getNavigationMessenger().getElement(paramId);
 
-        Twitter client = getApplicationInstance().getTwitterClient().getTwitter();
-        
-        try{
-            status = client.setStatus(statusMessage.getData());
-            
-        }catch (Exception ex)
+        if(getApplicationInstance().getNetworkState())
         {
-             error = ex;
+            Twitter client = getApplicationInstance().getTwitterClient().getTwitter();
+
+            try{
+                status = client.setStatus(statusMessage.getData());
+                statusMessage.getCallback().invoke(this,new GenericEventArgs<Integer>(OK, error));
+
+            }catch (Exception ex)
+            {
+                error = ex;
+            }
+
         }
-        statusMessage.getCallback().invoke(this,new GenericEventArgs<Twitter.ITweet>(status, error));
+        else
+        {
+             _status.add(statusMessage.getData());
+             statusMessage.getCallback().invoke(this,new GenericEventArgs<Integer>(WAIT, error));
+        }
+
         return START_STICKY;
     }
 }

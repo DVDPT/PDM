@@ -11,6 +11,7 @@
     <string name="status_button_name">Tweet</string>
     <string name="status_error_insert_newStatus">Ocorreu o erro a submeter o seu pedido.</string>
     <string name="status_tweet_create">Tweet criado </string>
+    <string name="status_tweet_delay">Not exist net. Delay creation of Tweet.</string>
     <string name="preferences_title_user">Alterar user</string>
     <string name="preferences_summary_password">Alterar Password</string>
     <string name="preferences_title_password">Alterar Password</string>
@@ -34,4 +35,5 @@
     <string name="timeline_activity">Timeline Activity</string>
     <string name="statusDetails_activity">Status Details Activity</string>
     <string name="preferences_activity">Preferences Activity</string>
+
 </resources>

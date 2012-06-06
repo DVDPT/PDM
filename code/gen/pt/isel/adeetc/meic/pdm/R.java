@@ -85,6 +85,7 @@ public final class R {
         public static final int status_error_insert_newStatus=0x7f040009;
         public static final int status_name=0x7f040006;
         public static final int status_tweet_create=0x7f04000a;
+        public static final int status_tweet_delay=0x7f040032;
         public static final int timeline_activity=0x7f04001f;
         public static final int timeline_display_no_status=0x7f040003;
         public static final int timeline_error_fetching_status=0x7f040002;

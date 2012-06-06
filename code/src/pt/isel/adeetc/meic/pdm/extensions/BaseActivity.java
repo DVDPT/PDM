@@ -5,8 +5,6 @@ import pt.isel.adeetc.meic.pdm.common.NavigationMessenger;
 
 public class BaseActivity<T extends BaseApplication> extends Activity
 {
-
-
     @SuppressWarnings("unchecked")
     public final T getApplicationInstance()
     {
@@ -17,7 +15,4 @@ public class BaseActivity<T extends BaseApplication> extends Activity
     {
         return getApplicationInstance().getNavigationMessenger();
     }
-
-
-
 }
