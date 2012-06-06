@@ -2,15 +2,17 @@ package pt.isel.adeetc.meic.pdm;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import pt.isel.adeetc.meic.pdm.db.YambaStatusDatabase;
+import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import pt.isel.adeetc.meic.pdm.extensions.BaseApplication;
+import pt.isel.adeetc.meic.pdm.services.TimelineContentProviderClient;
 import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
+import winterwell.jtwitter.Twitter;
 
 public class YambaApplication extends BaseApplication implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private TwitterServiceClient _client;
     private SharedPreferences _preferences;
-    private YambaStatusDatabase _tweetDb;
+    private IDbSet<Twitter.ITweet> _tweetDb;
 
 
     @Override
@@ -19,15 +21,18 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
         super.onCreate();
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         _preferences.registerOnSharedPreferenceChangeListener(this);
-        _tweetDb = new YambaStatusDatabase(getContext());
-        _tweetDb.open();
+
+        //StatusDatabaseDataSource tweetDb = new StatusDatabaseDataSource(getContext());
+        //tweetDb.open();
+        _tweetDb = new TimelineContentProviderClient(getContext());
+
     }
 
     @Override
     public void onTerminate()
     {
         super.onTerminate();
-        _tweetDb.close();
+        //_tweetDb.close();
     }
 
 

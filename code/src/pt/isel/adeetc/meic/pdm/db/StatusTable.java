@@ -5,8 +5,6 @@ import android.util.Log;
 
 public final class StatusTable
 {
-
-
     public static final String TABLE_STATUS = "status";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_USERNAME = "username";
