@@ -5,8 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
-import pt.isel.adeetc.meic.pdm.common.IEventHandler;
-import pt.isel.adeetc.meic.pdm.common.IEventReceives;
+import pt.isel.adeetc.meic.pdm.common.IMultipleEvent;
 
 public class NetworkReceiver extends BroadcastReceiver
 {
@@ -24,7 +23,7 @@ public class NetworkReceiver extends BroadcastReceiver
         }  */
 
         boolean isNetworkDown = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY,false);
-        IEventReceives<Boolean> r = (IEventReceives<Boolean>) context;
-        ((IEventReceives) context).invoke(this,new GenericEventArgs<Boolean>(isNetworkDown,null));
+
+        ((YambaApplication)(YambaApplication.getInstance())).getNetworkEvent().invoke(this,new GenericEventArgs<Boolean>(isNetworkDown,null));
     }
 }

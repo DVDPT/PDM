@@ -1,13 +1,16 @@
 package pt.isel.adeetc.meic.pdm;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import pt.isel.adeetc.meic.pdm.common.GenericMultipleEvent;
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
 import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
-import pt.isel.adeetc.meic.pdm.common.IEventReceives;
+import pt.isel.adeetc.meic.pdm.common.IMultipleEvent;
 import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import pt.isel.adeetc.meic.pdm.extensions.BaseApplication;
@@ -17,15 +20,14 @@ import winterwell.jtwitter.Twitter;
 
 import java.util.LinkedList;
 
-public class YambaApplication extends BaseApplication implements SharedPreferences.OnSharedPreferenceChangeListener, IEventReceives<Boolean>
+public class YambaApplication extends BaseApplication implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private TwitterServiceClient _client;
     private SharedPreferences _preferences;
     private IDbSet<Twitter.ITweet> _tweetDb;
     private boolean _networkState;
-    private LinkedList<IEventHandler> _handlers;
-    private BroadcastReceiver _netReceive;
 
+    private IMultipleEvent<Boolean> _networkEvent;
 
     @Override
     public void onCreate()
@@ -33,13 +35,11 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
         super.onCreate();
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
         _preferences.registerOnSharedPreferenceChangeListener(this);
-        _handlers = new LinkedList<IEventHandler>();
+        _networkEvent= new GenericMultipleEvent<Boolean>();
 
         //StatusDatabaseDataSource tweetDb = new StatusDatabaseDataSource(getContext());
         //tweetDb.open();
         _tweetDb = new TimelineContentProviderClient(getContext());
-        _netReceive =  new NetworkReceiver();
-        registerReceiver(_netReceive, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
     @Override
@@ -127,45 +127,16 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
         }
     }
 
-    public void setNetworkState(boolean newState)
-    {
-        _networkState=newState;
-    }
-
     public boolean getNetworkState()
     {
-        return _networkState;
-    }
-
-    @Override
-    public void invoke(Object sender, IEventHandlerArgs<Boolean> arg) {
-
-        try {
-            _networkState = arg.getData();
-            for(IEventHandler ev : _handlers)
-            {
-                ev.invoke(sender, arg);
-            }
-        } catch (Exception e) {
-           throw new ShouldNotHappenException();
-        }
+        ConnectivityManager connectivityManager =  (ConnectivityManager)
+                this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiNetwork = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        return wifiNetwork.isAvailable();
 
     }
 
-    @Override
-    public void removeEventHandler(IEventHandler event)
-    {
-        _handlers.remove(event);
-    }
-
-    @Override
-    public void addEventHandler(IEventHandler event) {
-
-        _handlers.add(event);
-    }
-
-    @Override
-    public void onEventHandlerChanged(IEventHandler event) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public IMultipleEvent<Boolean> getNetworkEvent(){
+        return _networkEvent;
     }
 }

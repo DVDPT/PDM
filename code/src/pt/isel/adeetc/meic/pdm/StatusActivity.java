@@ -15,6 +15,7 @@ import android.widget.TextView;
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
 import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
 import pt.isel.adeetc.meic.pdm.common.UiHelper;
+import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
 import winterwell.jtwitter.Twitter;
 
@@ -63,27 +64,12 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<I
 
 
     @Override
-    public void invoke(Object sender, IEventHandlerArgs<Integer> statusIEventHandlerArgs) {
-
-        if(statusIEventHandlerArgs.errorOccurred())
-        {
-            UiHelper.showToast(R.string.status_error_insert_newStatus);
-            _update.setEnabled(true);
-            return;
-        }
-
+    public void invoke(Object sender, IEventHandlerArgs<Integer> statusIEventHandlerArgs)
+    {
         try {
-            switch (statusIEventHandlerArgs.getData())
-            {
-                case 1:
-                    UiHelper.showToast(R.string.status_tweet_create);
-                    break;
-                case 2:
-                    UiHelper.showToast(R.string.status_tweet_delay);
-                    break;
-            }
+            UiHelper.showToast(statusIEventHandlerArgs.getData());
         } catch (Exception e) {
-            UiHelper.showToast(R.string.status_error_insert_newStatus);
+            throw new ShouldNotHappenException(e);
         }
         _status.setText("");
         _count.setText(_maxCharacters);

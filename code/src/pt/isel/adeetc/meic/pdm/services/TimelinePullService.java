@@ -15,7 +15,7 @@ import pt.isel.adeetc.meic.pdm.common.IterableHelper;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
 
-public class TimelinePullService extends YambaBaseService implements SharedPreferences.OnSharedPreferenceChangeListener , IEventHandler<Boolean>
+public class TimelinePullService extends YambaBaseService implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private static String LOG = "TimelinePullService";
 
@@ -111,14 +111,6 @@ public class TimelinePullService extends YambaBaseService implements SharedPrefe
 
     }
 
-    @Override
-    public void invoke(Object sender, IEventHandlerArgs<Boolean> arg) {
-        try {
-            getApplicationInstance().setNetworkState(arg.getData());
-        } catch (Exception e) {
-            throw new ShouldNotHappenException();
-        }
-    }
 
     private class TimelinePullServiceTimerTask extends Thread
     {
