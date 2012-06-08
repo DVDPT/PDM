@@ -5,9 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
+
 import pt.isel.adeetc.meic.pdm.common.db.IDataSource;
 import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
+import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
 
 import java.util.Date;

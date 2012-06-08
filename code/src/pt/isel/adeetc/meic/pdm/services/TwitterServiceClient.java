@@ -2,37 +2,39 @@ package pt.isel.adeetc.meic.pdm.services;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.util.Log;
-import com.google.common.collect.Iterables;
 import pt.isel.adeetc.meic.pdm.YambaApplication;
-import pt.isel.adeetc.meic.pdm.YambaNavigation;
-import pt.isel.adeetc.meic.pdm.common.*;
+import pt.isel.adeetc.meic.pdm.common.GenericEvent;
+import pt.isel.adeetc.meic.pdm.common.IEvent;
+import pt.isel.adeetc.meic.pdm.common.IEventHandler;
+import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
 import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import pt.isel.adeetc.meic.pdm.exceptions.Constants;
+import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
 
 public final class TwitterServiceClient
 {
     private static final String LOG = "TwitterServiceClient";
 
-    public final IEvent<Twitter.ITweet> updateStatusCompletedEvent;
+    public final IEvent<Integer> updateStatusCompletedEvent;
     public final IEvent<Iterable<Twitter.ITweet>> getUserTimelineCompletedEvent;
 
-    private Iterable<Twitter.ITweet> _statusCache;
     private final StatusEventHandler _statusEventHandler = new StatusEventHandler();
-    private final TimelineServiceEventHandler _timelineServiceEventHandler = new TimelineServiceEventHandler();
 
     private Handler _handler;
     private Twitter _twitter;
     private final IDbSet<Twitter.ITweet> _tweetDb;
+    private final TimelineServiceController _timelineController;
 
 
     public TwitterServiceClient(IDbSet<Twitter.ITweet> tweetDb)
     {
         _tweetDb = tweetDb;
         _handler = new Handler();
-        updateStatusCompletedEvent = new GenericEvent<Twitter.ITweet>();
+        updateStatusCompletedEvent = new GenericEvent<Integer>();
         getUserTimelineCompletedEvent = new GenericEvent<Iterable<Twitter.ITweet>>();
+        _timelineController = new TimelineServiceController();
+        /*
         ThreadPool.QueueUserWorkItem(new Runnable()
         {
             @Override
@@ -54,7 +56,7 @@ public final class TwitterServiceClient
                 }
             }
         });
-
+           */
     }
 
 
@@ -73,20 +75,12 @@ public final class TwitterServiceClient
     @SuppressWarnings({"unchecked"})
     public void getUserTimelineAsync()
     {
-
-        Intent timelineIntent = new Intent(YambaApplication.getContext(), TimelinePullService.class);
-        int id = YambaApplication
-                .getInstance()
-                .getNavigationMessenger()
-                .putElement(new TimelinePullServiceMessage(_timelineServiceEventHandler));
-
-        timelineIntent.putExtra(YambaNavigation.timelineServiceParamName, id);
-        YambaApplication.getContext().startService(timelineIntent);
+        _timelineController.getUserTimelineAsync();
     }
 
     public Iterable<Twitter.ITweet> getTwitterCachedTimeline()
     {
-        return _statusCache;
+        return _timelineController.getStatusCache();
     }
 
 
@@ -103,55 +97,23 @@ public final class TwitterServiceClient
         return _twitter;
     }
 
-    private final class TimelineServiceEventHandler implements IEventHandler<Iterable<Twitter.ITweet>>, Runnable
+    IDbSet<Twitter.ITweet> getTweetDbSet()
     {
-        private volatile IEventHandlerArgs<Iterable<Twitter.ITweet>> _eventData = null;
-
-        @Override
-        public void invoke(Object sender, IEventHandlerArgs<Iterable<Twitter.ITweet>> data)
-        {
-            Log.d(LOG, "on timeline handler.");
-            if (data.getError() == null)
-            {
-                Iterable<Twitter.ITweet> oldCacheRef = _statusCache;
-                try
-                {
-                    synchronized (this)
-                    {
-                        _statusCache = data.getData();
-                    }
-                } catch (Exception e)
-                {
-                    throw new ShouldNotHappenException(e);
-                }
-                Log.d(LOG, "TimelineServiceEventHandler - persisting statuses.");
-                _tweetDb.addAll(IterableHelper.except(_statusCache, oldCacheRef));
-            }
-
-
-            _eventData = data;
-            Log.d(LOG, "TimelineServiceEventHandler - scheduling user handler.");
-            _handler.post(this);
-        }
-
-        @Override
-        public void run()
-        {
-            Log.d(LOG, "TimelineServiceEventHandler - calling user handler.");
-            if (_eventData == null)
-                throw new ShouldNotHappenException("TwitterServiceClient::TimelineServiceEventHandler._event is null.");
-
-            getUserTimelineCompletedEvent.invoke(this, _eventData);
-            _eventData = null;
-        }
+        return _tweetDb;
     }
 
-    private class StatusEventHandler implements IEventHandler<Twitter.ITweet>, Runnable
+    Handler getHandler()
     {
-        private volatile IEventHandlerArgs<Twitter.ITweet> _args;
+        return _handler;
+    }
+
+
+    private class StatusEventHandler implements IEventHandler<Integer>, Runnable
+    {
+        private volatile IEventHandlerArgs<Integer> _args;
 
         @Override
-        public void invoke(Object sender, IEventHandlerArgs<Twitter.ITweet> statusIEventHandlerArgs)
+        public void invoke(Object sender, IEventHandlerArgs<Integer> statusIEventHandlerArgs)
         {
             _handler.post(this);
             _args = statusIEventHandlerArgs;

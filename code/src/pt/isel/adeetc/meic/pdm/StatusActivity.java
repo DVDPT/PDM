@@ -1,6 +1,9 @@
 package pt.isel.adeetc.meic.pdm;
 
 
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -17,7 +20,7 @@ import winterwell.jtwitter.Twitter;
 
 import java.util.LinkedList;
 
-public class StatusActivity extends YambaBaseActivity implements IEventHandler<Twitter.ITweet> {
+public class StatusActivity extends YambaBaseActivity implements IEventHandler<Integer>,TextWatcher, View.OnClickListener {
 
     private EditText _status;
     private Button _update;
@@ -26,47 +29,20 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
     private String _maxCharacters;
 
 
-
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.status);
-
 
         _status = (EditText) findViewById(R.id.editText);
         _update = (Button) findViewById(R.id.buttonUpdate);
         _count = (TextView) findViewById(R.id.Count);
 
-        _status.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
+        _status.addTextChangedListener(this);
 
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //To change body of implemented methods use File | Settings | File Templates.
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                Integer currentLength = new Integer(_maxCharacters) - editable.length();
-                _count.setText(currentLength.toString());
-            }
-        });
-
-        _update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String newStatus = _status.getText().toString();
-                _update.setEnabled(false);
-                _twitter.updateStatusAsync(newStatus);
-            }
-        });
+        _update.setOnClickListener(this);
         _twitter = getApplicationInstance().getTwitterClient();
         _twitter.updateStatusCompletedEvent.setEventHandler(this);
     }
-
 
     @Override
     protected void onResume(){
@@ -87,7 +63,7 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
 
 
     @Override
-    public void invoke(Object sender, IEventHandlerArgs<Twitter.ITweet> statusIEventHandlerArgs) {
+    public void invoke(Object sender, IEventHandlerArgs<Integer> statusIEventHandlerArgs) {
 
         if(statusIEventHandlerArgs.errorOccurred())
         {
@@ -95,7 +71,20 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
             _update.setEnabled(true);
             return;
         }
-        UiHelper.showToast(R.string.status_tweet_create);
+
+        try {
+            switch (statusIEventHandlerArgs.getData())
+            {
+                case 1:
+                    UiHelper.showToast(R.string.status_tweet_create);
+                    break;
+                case 2:
+                    UiHelper.showToast(R.string.status_tweet_delay);
+                    break;
+            }
+        } catch (Exception e) {
+            UiHelper.showToast(R.string.status_error_insert_newStatus);
+        }
         _status.setText("");
         _count.setText(_maxCharacters);
         _update.setEnabled(true);
@@ -105,5 +94,28 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<T
     protected void onDestroy(){
         super.onDestroy();
         _twitter.updateStatusCompletedEvent.removeEventHandler();
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+        Integer currentLength = new Integer(_maxCharacters) - editable.length();
+        _count.setText(currentLength.toString());
+    }
+
+    @Override
+    public void onClick(View view) {
+        String newStatus = _status.getText().toString();
+        _update.setEnabled(false);
+        _twitter.updateStatusAsync(newStatus);
     }
 }

@@ -1,11 +1,19 @@
 package pt.isel.adeetc.meic.pdm.services;
 
+import android.content.BroadcastReceiver;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.IBinder;
+import pt.isel.adeetc.meic.pdm.NetworkReceiver;
 import pt.isel.adeetc.meic.pdm.YambaBaseService;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
-import pt.isel.adeetc.meic.pdm.common.ShouldNotHappenException;
+import pt.isel.adeetc.meic.pdm.common.IEventHandler;
+import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
+import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
+
+import java.util.LinkedList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,16 +22,37 @@ import winterwell.jtwitter.Twitter;
  * Time: 18:04
  * To change this template use File | Settings | File Templates.
  */
-public class StatusUploadService extends YambaBaseService {
+public class StatusUploadService extends YambaBaseService implements IEventHandler<Boolean> {
 
     private static String LOG = "StatusUploadService";
+    
+    private static Integer OK = 1;
+    private static Integer WAIT = 2;
+
+    private LinkedList<String> _status = new LinkedList<String>();
+    //private BroadcastReceiver rec;
+
+    //private IntentFilter filter = new IntentFilter(WifiManager.SUPPLICANT_CONNECTION_CHANGE_ACTION);
+
+   // private IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+
+    @Override
+    public void onCreate()
+    {
+        getApplicationInstance().addEventHandler(this);
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+
     }
 
-
+    @Override
+    public void onDestroy()
+    {
+        getApplicationInstance().removeEventHandler(this);
+    }
     @Override
     public int onStartCommand(Intent e, int flags, int id)
     {
@@ -34,19 +63,43 @@ public class StatusUploadService extends YambaBaseService {
 
         Exception error = null;
         Twitter.ITweet status = null;
-
         StatusUploadServiceMessage statusMessage = (StatusUploadServiceMessage) getNavigationMessenger().getElement(paramId);
 
-        Twitter client = getApplicationInstance().getTwitterClient().getTwitter();
-        
-        try{
-            status = client.setStatus(statusMessage.getData());
-            
-        }catch (Exception ex)
+
+        if(getApplicationInstance().getNetworkState())
         {
-             error = ex;
+            Twitter client = getApplicationInstance().getTwitterClient().getTwitter();
+
+            try{
+                status = client.setStatus(statusMessage.getData());
+                statusMessage.getCallback().invoke(this,new GenericEventArgs<Integer>(OK, error));
+
+            }catch (Exception ex)
+            {
+                error = ex;
+            }
+
         }
-        statusMessage.getCallback().invoke(this,new GenericEventArgs<Twitter.ITweet>(status, error));
+        else
+        {
+             _status.add(statusMessage.getData());
+             statusMessage.getCallback().invoke(this,new GenericEventArgs<Integer>(WAIT, error));
+        }
+
         return START_STICKY;
+    }
+
+    @Override
+    public void invoke(Object sender, IEventHandlerArgs<Boolean> arg)
+    {
+       Twitter client =  getApplicationInstance().getTwitterClient().getTwitter();
+        try {
+            for(String message : _status)
+            {
+                client.setStatus(message);
+            }
+        } catch (Exception e) {
+            throw new ShouldNotHappenException();
+        }
     }
 }

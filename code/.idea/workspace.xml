@@ -14,17 +14,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80885f38-dac8-4565-8bc5-af0dd5f35b4d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/IEmailSender.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/SimpleEmailSender.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/NetworkReceiver.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/IEventReceives.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelineServiceController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code.iml" afterPath="$PROJECT_DIR$/code.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/pt/isel/adeetc/meic/pdm/R.java" afterPath="$PROJECT_DIR$/gen/pt/isel/adeetc/meic/pdm/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/status_details.xml" afterPath="$PROJECT_DIR$/res/layout/status_details.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-pt/strings.xml" afterPath="$PROJECT_DIR$/res/values-pt/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/StatusDetailsActivity.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/StatusDetailsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/PrefsActivity.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/PrefsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/StatusActivity.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/StatusActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/TimelineActivity.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/TimelineActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/YambaApplication.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/YambaApplication.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/NavigationMessenger.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/NavigationMessenger.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/DateHelper.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/DateHelper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/GenericEvent.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/GenericEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/GenericEventArgs.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/GenericEventArgs.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/IEvent.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/IEvent.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/IEventHandler.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/IEventHandler.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/db/StatusDatabaseDataSource.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/db/StatusDatabaseDataSource.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/extensions/BaseActivity.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/extensions/BaseActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/extensions/BaseService.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/extensions/BaseService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/StatusUploadService.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/StatusUploadService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/StatusUploadServiceMessage.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/StatusUploadServiceMessage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelinePullService.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelinePullService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TwitterServiceClient.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TwitterServiceClient.java" />
+      <change type="MOVED" beforePath="D:\FAC\LEIC\PDM\Trabalhos\working-copy\code\src\pt\isel\adeetc\meic\pdm\common\ShouldNotHappenException.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/exceptions/ShouldNotHappenException.java" />
     </list>
     <ignored path="code.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -128,94 +144,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AndroidManifest.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+      <file leaf-file-name="TwitterServiceClient.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TwitterServiceClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="62" selection-start="912" selection-end="912" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="YambaApplication.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/YambaApplication.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="108" column="97" selection-start="2989" selection-end="2989" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StatusUploadService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/StatusUploadService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="52" selection-start="512" selection-end="512" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="YambaBaseService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/YambaBaseService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="51" selection-start="141" selection-end="141" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BaseService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/extensions/BaseService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="22" selection-start="155" selection-end="155" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="status_details.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/status_details.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="55" selection-start="1886" selection-end="1886" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimpleEmailSender.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/SimpleEmailSender.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="62" selection-start="770" selection-end="770" vertical-scroll-proportion="0.0">
+            <state line="65" column="18" selection-start="2241" selection-end="2241" vertical-scroll-proportion="0.0">
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#2529#2561#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StatusDetailsActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/StatusDetailsActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="56" column="58" selection-start="1663" selection-end="1663" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TimelinePullService.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="TimelinePullService.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelinePullService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="13" selection-start="636" selection-end="636" vertical-scroll-proportion="-0.60390764">
+            <state line="86" column="80" selection-start="2439" selection-end="2509" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TimelineActivity.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/TimelineActivity.java">
+      <file leaf-file-name="TimelineServiceController.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelineServiceController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="141" column="77" selection-start="3898" selection-end="3898" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="39" column="13" selection-start="1438" selection-end="1438" vertical-scroll-proportion="0.75438595">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -233,12 +188,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/db/StatusDatabaseDataSource.java" />
-        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/IterableHelper.java" />
-        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TwitterServiceClient.java" />
-        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/Arrays.java" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelineContentProvider.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelineContentProviderClient.java" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/res/values-pt/strings.xml" />
@@ -249,6 +198,12 @@
         <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/StatusDetailsActivity.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/TimelineActivity.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/YambaApplication.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/IEvent.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/IEventReceives.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/GenericEvent.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelinePullService.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TwitterServiceClient.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelineServiceController.java" />
       </list>
     </option>
   </component>
@@ -291,20 +246,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="code" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="code" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -552,6 +493,20 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="code" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
       <pane id="Favorites" />
     </panes>
   </component>
@@ -570,8 +525,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -803,9 +758,7 @@
       <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928678" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852808" sideWeight="0.36019737" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962178" sideWeight="0.67154473" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6809211" sideWeight="0.4969651" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -813,18 +766,20 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.4939302" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.63980263" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32701063" sideWeight="0.32401314" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39939487" sideWeight="0.67154473" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852808" sideWeight="0.36019737" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32852808" sideWeight="0.36019737" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30592105" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Phing Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.67154473" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24962063" sideWeight="0.67105263" order="5" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32852808" sideWeight="0.36019737" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.4939302" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Android Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3284553" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -890,91 +845,9 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/res/values-pt/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="55" selection-start="2250" selection-end="2250" vertical-scroll-proportion="0.75133216">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="4" selection-start="3483" selection-end="3541" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/IEmailSender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="62" selection-start="137" selection-end="137" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelineContentProviderClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="85" selection-start="540" selection-end="540" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1637#1653#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="62" selection-start="912" selection-end="912" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/SimpleEmailSender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="62" selection-start="770" selection-end="770" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/NavigationMessenger.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="5" selection-start="1268" selection-end="1268" vertical-scroll-proportion="0.81705153">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/extensions/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="27" selection-start="364" selection-end="364" vertical-scroll-proportion="0.4973357">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/status_details.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="55" selection-start="1886" selection-end="1886" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/TimelineActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="141" column="77" selection-start="3898" selection-end="3898" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/YambaApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="97" selection-start="2989" selection-end="2989" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/StatusUploadService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="52" selection-start="512" selection-end="512" vertical-scroll-proportion="0.0">
+        <state line="16" column="52" selection-start="617" selection-end="617" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -993,6 +866,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/status_details.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="55" selection-start="1886" selection-end="1886" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/SimpleEmailSender.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="62" selection-start="770" selection-end="770" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/StatusDetailsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="56" column="58" selection-start="1663" selection-end="1663" vertical-scroll-proportion="0.0">
@@ -1000,10 +887,77 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/TimelineActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="141" column="77" selection-start="3947" selection-end="3947" vertical-scroll-proportion="0.034305315">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/YambaApplication.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="123" selection-start="1016" selection-end="1016" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/IEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="42" selection-start="220" selection-end="220" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/IEventReceives.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="34" selection-start="76" selection-end="76" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/common/GenericEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="21" selection-start="768" selection-end="768" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/NetworkReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="14" selection-start="424" selection-end="424" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelinePullServiceMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="24" selection-start="491" selection-end="491" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TwitterServiceClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="18" selection-start="2241" selection-end="2241" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#2529#2561#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelinePullService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="13" selection-start="636" selection-end="636" vertical-scroll-proportion="-0.60390764">
+        <state line="86" column="80" selection-start="2439" selection-end="2509" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelineServiceController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="13" selection-start="1438" selection-end="1438" vertical-scroll-proportion="0.75438595">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

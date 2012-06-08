@@ -16,7 +16,6 @@ public final class DateHelper
 
     }
 
-
     public static Calendar subtract(Date d1, Date d2)
     {
         Calendar c1 = Calendar.getInstance();
