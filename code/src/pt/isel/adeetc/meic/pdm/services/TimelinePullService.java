@@ -6,6 +6,7 @@ import android.util.Log;
 import pt.isel.adeetc.meic.pdm.YambaBaseIntentService;
 import pt.isel.adeetc.meic.pdm.YambaNavigation;
 import pt.isel.adeetc.meic.pdm.common.IterableHelper;
+import pt.isel.adeetc.meic.pdm.controllers.TimelineContentProviderClient;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import winterwell.jtwitter.Twitter;
 

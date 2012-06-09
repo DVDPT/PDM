@@ -1,9 +1,6 @@
 package pt.isel.adeetc.meic.pdm;
 
 
-import android.content.BroadcastReceiver;
-import android.content.IntentFilter;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -16,8 +13,7 @@ import pt.isel.adeetc.meic.pdm.common.IEventHandler;
 import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
 import pt.isel.adeetc.meic.pdm.common.UiHelper;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
-import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
-import winterwell.jtwitter.Twitter;
+import pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient;
 
 import java.util.LinkedList;
 

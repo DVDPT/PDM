@@ -1,4 +1,4 @@
-package pt.isel.adeetc.meic.pdm.services;
+package pt.isel.adeetc.meic.pdm.controllers;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -8,6 +8,7 @@ import android.net.Uri;
 import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import pt.isel.adeetc.meic.pdm.db.StatusTable;
 import pt.isel.adeetc.meic.pdm.db.YambaTweet;
+import pt.isel.adeetc.meic.pdm.services.TimelineContentProvider;
 import winterwell.jtwitter.Twitter;
 
 import java.util.Date;

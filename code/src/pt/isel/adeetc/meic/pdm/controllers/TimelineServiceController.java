@@ -1,4 +1,4 @@
-package pt.isel.adeetc.meic.pdm.services;
+package pt.isel.adeetc.meic.pdm.controllers;
 
 import android.app.AlarmManager;
 import android.app.Application;
@@ -18,6 +18,8 @@ import pt.isel.adeetc.meic.pdm.common.IEventHandler;
 import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import pt.isel.adeetc.meic.pdm.extensions.BoundedServiceClient;
+import pt.isel.adeetc.meic.pdm.services.TimelineContentProvider;
+import pt.isel.adeetc.meic.pdm.services.TimelinePullService;
 import winterwell.jtwitter.Twitter;
 
 import java.util.LinkedList;

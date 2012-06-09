@@ -1,4 +1,4 @@
-package pt.isel.adeetc.meic.pdm.services;
+package pt.isel.adeetc.meic.pdm.controllers;
 
 import android.accounts.NetworkErrorException;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import pt.isel.adeetc.meic.pdm.exceptions.Constants;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
+import pt.isel.adeetc.meic.pdm.services.StatusUploadService;
+import pt.isel.adeetc.meic.pdm.services.StatusUploadServiceMessage;
 import winterwell.jtwitter.Twitter;
 
 public final class TwitterServiceClient

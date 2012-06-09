@@ -17,7 +17,7 @@ import com.google.common.collect.Lists;
 import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.common.holders.ViewHolder3;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
-import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
+import pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient;
 import winterwell.jtwitter.Twitter;
 
 import java.util.*;

@@ -13,8 +13,8 @@ import pt.isel.adeetc.meic.pdm.common.handler.CustomHandlerThread;
 import pt.isel.adeetc.meic.pdm.extensions.BaseApplication;
 import pt.isel.adeetc.meic.pdm.services.IEmailSender;
 import pt.isel.adeetc.meic.pdm.services.SimpleEmailSender;
-import pt.isel.adeetc.meic.pdm.services.TimelineContentProviderClient;
-import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
+import pt.isel.adeetc.meic.pdm.controllers.TimelineContentProviderClient;
+import pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient;
 import winterwell.jtwitter.Twitter;
 
 public class YambaApplication extends BaseApplication implements SharedPreferences.OnSharedPreferenceChangeListener
