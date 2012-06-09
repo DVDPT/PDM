@@ -10,6 +10,7 @@ import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import pt.isel.adeetc.meic.pdm.exceptions.Constants;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 import pt.isel.adeetc.meic.pdm.services.StatusUploadService;
+import pt.isel.adeetc.meic.pdm.services.YambaUserInfo;
 import winterwell.jtwitter.Twitter;
 
 public final class TwitterServiceClient
@@ -18,6 +19,7 @@ public final class TwitterServiceClient
 
     public final IEvent<Integer> updateStatusCompletedEvent;
     public final IEvent<Iterable<Twitter.ITweet>> getUserTimelineCompletedEvent;
+    public final IEvent<YambaUserInfo> getUserInfo;
 
     public final IEventHandler<Boolean> _publisherEvent;
 
@@ -32,8 +34,11 @@ public final class TwitterServiceClient
     {
         _tweetDb = tweetDb;
         _app = app;
+
         updateStatusCompletedEvent = new GenericEvent<Integer>();
         getUserTimelineCompletedEvent = new GenericEvent<Iterable<Twitter.ITweet>>();
+        getUserInfo = new GenericEvent<YambaUserInfo>();
+
         _timelineController = new TimelineServiceController(this, _app.getGeneralPurposeHandler());
         _statusController = new StatusServiceController(_app, this);
         _publisherEvent = new PublisherEventHandler();

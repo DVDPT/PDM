@@ -29,6 +29,7 @@ public class StatusServiceController extends BoundedServiceClient implements IEv
         _app = app;
         _twitterFacade = client;
         setCallServiceWhenConnected(true);
+        _twitterFacade.updateStatusCompletedEvent.setOnEventHandlerChanged(this);
     }
 
     public void updateStatusAsync(String status)
