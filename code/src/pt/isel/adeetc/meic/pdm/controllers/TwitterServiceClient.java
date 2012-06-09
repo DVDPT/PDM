@@ -19,7 +19,7 @@ public final class TwitterServiceClient
 
     public final IEvent<Integer> updateStatusCompletedEvent;
     public final IEvent<Iterable<Twitter.ITweet>> getUserTimelineCompletedEvent;
-    public final IEvent<YambaUserInfo> getUserInfo;
+    public final IEvent<YambaUserInfo> getUserInfoEvent;
 
     public final IEventHandler<Boolean> _publisherEvent;
 
@@ -28,6 +28,7 @@ public final class TwitterServiceClient
     private final YambaApplication _app;
     private final TimelineServiceController _timelineController;
     private final StatusServiceController _statusController;
+    private final UserInfoServiceController _userInfoController;
 
 
     public TwitterServiceClient(IDbSet<Twitter.ITweet> tweetDb, YambaApplication app)
@@ -37,10 +38,11 @@ public final class TwitterServiceClient
 
         updateStatusCompletedEvent = new GenericEvent<Integer>();
         getUserTimelineCompletedEvent = new GenericEvent<Iterable<Twitter.ITweet>>();
-        getUserInfo = new GenericEvent<YambaUserInfo>();
+        getUserInfoEvent = new GenericEvent<YambaUserInfo>();
 
         _timelineController = new TimelineServiceController(this, _app.getGeneralPurposeHandler());
         _statusController = new StatusServiceController(_app, this);
+        _userInfoController = new UserInfoServiceController(_app, this);
         _publisherEvent = new PublisherEventHandler();
         _app.getNetworkEvent().addEventHandler(_publisherEvent);
 
@@ -52,7 +54,6 @@ public final class TwitterServiceClient
         _statusController.updateStatusAsync(status);
     }
 
-    @SuppressWarnings({"unchecked"})
     public void getUserTimelineAsync()
     {
         _timelineController.getUserTimelineAsync();
@@ -63,6 +64,10 @@ public final class TwitterServiceClient
         return _timelineController.getStatusCache();
     }
 
+    public void getUserInfoAsync()
+    {
+        _userInfoController.getUserInfoAsync();
+    }
 
     public void configureTwitterClient(String user, String password, String apiRootUrl)
     {
@@ -96,8 +101,7 @@ public final class TwitterServiceClient
                     Intent statusIntent = new Intent(YambaApplication.getContext(), StatusUploadService.class);
                     YambaApplication.getContext().startService(statusIntent);
                     _timelineController.deployPeriodicAlarm();
-                }
-                else
+                } else
                 {
                     _timelineController.cancelPeriodicAlarm();
                 }

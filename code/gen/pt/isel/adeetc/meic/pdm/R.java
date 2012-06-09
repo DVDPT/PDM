@@ -96,6 +96,7 @@ public final class R {
         public static final int user_info=0x7f040022;
         public static final int user_info_activity=0x7f040025;
         public static final int user_info_editName=0x7f040023;
+        public static final int user_info_error=0x7f040035;
         public static final int user_info_followers=0x7f040027;
         public static final int user_info_following=0x7f040028;
         public static final int user_info_name=0x7f040024;

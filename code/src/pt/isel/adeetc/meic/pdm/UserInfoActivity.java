@@ -1,50 +1,27 @@
 package pt.isel.adeetc.meic.pdm;
 
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
+import android.app.ProgressDialog;
 import android.net.Uri;
-import android.os.*;
-import android.util.Log;
+import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import pt.isel.adeetc.meic.pdm.services.UserInfoPullService;
+import pt.isel.adeetc.meic.pdm.common.IEventHandler;
+import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
+import pt.isel.adeetc.meic.pdm.common.UiHelper;
 import pt.isel.adeetc.meic.pdm.services.YambaUserInfo;
 
 import java.util.LinkedList;
 
 
-public class UserInfoActivity extends YambaBaseActivity
+public class UserInfoActivity extends YambaBaseActivity implements IEventHandler<YambaUserInfo>
 {
-
     private TextView _userName;
     private TextView _numberOfTweets;
     private TextView _numberOfFollowers;
     private TextView _numberOfFollowings;
     private ImageView _userImage;
 
-    private Messenger _messenger;
-
-
-    private Handler _serviceResponseHandler = new Handler()
-    {
-        public void handleMessage(Message message)
-        {
-            message.getData().setClassLoader(getClassLoader());
-            YambaUserInfo info = (YambaUserInfo) message.getData().get(YambaNavigation.USER_INFO_SERVICE_PARAM_NAME);
-            changeUserInfo(
-                    info.getName(),
-                    info.getNrOfTweets(),
-                    info.getFollowers(),
-                    info.getFollowing(),
-                    info.getPhotoUri()
-            );
-        }
-    };
-
-    Messenger _callback = new Messenger(_serviceResponseHandler);
-
+    private ProgressDialog _dialog;
 
     public void onCreate(Bundle savedInstanceState)
     {
@@ -62,8 +39,9 @@ public class UserInfoActivity extends YambaBaseActivity
     protected void onResume()
     {
         super.onResume();
-        Intent serviceIntent = new Intent(this, UserInfoPullService.class);
-        bindService(serviceIntent, _userInfoPullServiceConnection, Context.BIND_AUTO_CREATE);
+        getApplicationInstance().getTwitterClient().getUserInfoEvent.setEventHandler(this);
+        getApplicationInstance().getTwitterClient().getUserInfoAsync();
+        _dialog = ProgressDialog.show(this, getString(R.string.loading), getString(R.string.user_info_activity));
 
     }
 
@@ -71,35 +49,8 @@ public class UserInfoActivity extends YambaBaseActivity
     protected void onPause()
     {
         super.onPause();
-        unbindService(_userInfoPullServiceConnection);
+        getApplicationInstance().getTwitterClient().getUserInfoEvent.removeEventHandler();
     }
-
-    ServiceConnection _userInfoPullServiceConnection = new ServiceConnection()
-    {
-
-        @Override
-        public void onServiceConnected(ComponentName componentName, IBinder iBinder)
-        {
-            _messenger = new Messenger(iBinder);
-            try
-            {
-
-                Message m = Message.obtain();
-                m.replyTo = _callback;
-                _messenger.send(m);
-            } catch (RemoteException e)
-            {
-                Log.d("LOG", e.getMessage());
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName componentName)
-        {
-            _messenger = null;
-        }
-    };
-
 
     private void changeUserInfo(String name, int nTweets, int followers, int followings, Uri urlImage)
     {
@@ -119,6 +70,24 @@ public class UserInfoActivity extends YambaBaseActivity
     }
 
 
-
-
+    @Override
+    public void invoke(Object sender, IEventHandlerArgs<YambaUserInfo> args)
+    {
+        if(_dialog != null)
+            _dialog.dismiss();
+        try
+        {
+            YambaUserInfo info = args.getData();
+            changeUserInfo(
+                    info.getName(),
+                    info.getNrOfTweets(),
+                    info.getFollowers(),
+                    info.getFollowing(),
+                    info.getPhotoUri()
+            );
+        } catch (Exception e)
+        {
+            UiHelper.showToast(R.string.user_info_error);
+        }
+    }
 }

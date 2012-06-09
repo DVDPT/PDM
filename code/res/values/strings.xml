@@ -10,7 +10,7 @@
     <string name="status_display_message">Insert Text</string>
     <string name="status_button_name">Tweet</string>
     <string name="status_error_insert_newStatus">An error ocurred when we insert a newStatus</string>
-    <string name="status_tweet_create">Tweet has Create </string>
+    <string name="status_tweet_create">Tweet has Create</string>
     <string name="preferences_title_user">Change User Name</string>
     <string name="preferences_summary_password">User Password</string>
     <string name="preferences_title_password">Change Password</string>
@@ -34,7 +34,7 @@
     <string name="timeline_activity">Timeline Activity</string>
     <string name="statusDetails_activity">Status Details Activity</string>
     <string name="preferences_activity">Preferences Activity</string>
-    <string name="user_info"> User Info</string>
+    <string name="user_info">User Info</string>
     <string name="user_info_editName">Change Name</string>
     <string name="user_info_name">User Name</string>
     <string name="user_info_activity">User Info Activity</string>
@@ -42,15 +42,16 @@
     <string name="user_info_followers">FOLLOWERS</string>
     <string name="user_info_following">FOLLOWING</string>
     <string name="menu_user_info">User Info</string>
-    <string name="preferences_title_update_timeline">TimelineUpdate </string>
+    <string name="preferences_title_update_timeline">TimelineUpdate</string>
     <string name="preferences_summary_update_timeline">Automatic Timeline Update</string>
-    <string name="preferences_name_update_period_time"> TimePeriod</string>
+    <string name="preferences_name_update_period_time">TimePeriod</string>
     <string name="preferences_summary_update_period_time">Time Period for Update</string>
-    <string name="preferences_title_update_period_time"> Time Period </string>
-    <string name="preferences_name_update_maxTweets"> UpdateMaxTweets</string>
+    <string name="preferences_title_update_period_time">Time Period</string>
+    <string name="preferences_name_update_maxTweets">UpdateMaxTweets</string>
     <string name="preferences_summary_update_maxTweets">Max tweets for update</string>
     <string name="preferences_title_update_maxTweets">Max tweets to save</string>
     <string name="status_button_send_mail">Send Email</string>
     <string name="status_tweet_delay">Status Schedules</string>
     <string name="main_activity_loading_app">Application</string>
+    <string name="user_info_error">An error occurred when fetching your user info</string>
 </resources>

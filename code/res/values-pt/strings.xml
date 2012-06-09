@@ -37,4 +37,5 @@
     <string name="status_button_send_mail">Enviar Email</string>
     <string name="status_tweet_delay">Status Agendado</string>
     <string name="main_activity_loading_app">Aplicação</string>
+    <string name="user_info_error">Ocorreu um erro a buscar a sua informação</string>
 </resources>
