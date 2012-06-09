@@ -34,6 +34,12 @@ public class GenericEvent<T> implements IEvent<T>
         return hand;
     }
 
+    @Override
+    public void setOnEventHandlerChanged(IEventHandler<IEventHandler<T>> handler)
+    {
+        _onHandlerStateChanged = handler;
+    }
+
     private void triggerEventHandlerChanged(IEventHandler<T> handler)
     {
         if (_onHandlerStateChanged != null)

@@ -51,4 +51,6 @@
     <string name="preferences_summary_update_maxTweets">Max tweets for update</string>
     <string name="preferences_title_update_maxTweets">Max tweets to save</string>
     <string name="status_button_send_mail">Send Email</string>
+    <string name="status_tweet_delay">Status Schedules</string>
+    <string name="main_activity_loading_app">Application</string>
 </resources>

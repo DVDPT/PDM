@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.common.holders.ViewHolder3;
@@ -93,7 +94,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     {
         Iterable<Twitter.ITweet> data = getTwitter().getTwitterCachedTimeline();
         getTwitter().getUserTimelineCompletedEvent.setEventHandler(this);
-        if (data != null && isResuming)
+        if (data != null && Iterables.size(data) != 0 && isResuming)
         {
             setTimelineOnUi(data);
             return;
@@ -118,7 +119,8 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     {
 
         Log.d(LOG, String.format("On event task event handler."));
-        _loadingDialog.dismiss();
+        if (_loadingDialog != null)
+            _loadingDialog.dismiss();
 
 
         if (userStatus.errorOccurred())
@@ -163,7 +165,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
         startActivity(
                 new Intent(this, StatusDetailsActivity.class)
-                        .putExtra(YambaNavigation.timelineToStatusDetailsParamName, objId)
+                        .putExtra(YambaNavigation.TIMELINE_TO_STATUS_DETAILS_PARAM_NAME, objId)
         );
     }
 

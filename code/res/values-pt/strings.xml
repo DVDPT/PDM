@@ -35,4 +35,6 @@
     <string name="statusDetails_activity">Status Details Activity</string>
     <string name="preferences_activity">Preferences Activity</string>
     <string name="status_button_send_mail">Enviar Email</string>
+    <string name="status_tweet_delay">Status Agendado</string>
+    <string name="main_activity_loading_app">Aplicação</string>
 </resources>

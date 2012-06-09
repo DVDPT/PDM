@@ -1,12 +1,10 @@
 package pt.isel.adeetc.meic.pdm.services;
 
+import android.accounts.NetworkErrorException;
 import android.content.Intent;
-import android.os.Handler;
+import pt.isel.adeetc.meic.pdm.R;
 import pt.isel.adeetc.meic.pdm.YambaApplication;
-import pt.isel.adeetc.meic.pdm.common.GenericEvent;
-import pt.isel.adeetc.meic.pdm.common.IEvent;
-import pt.isel.adeetc.meic.pdm.common.IEventHandler;
-import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
+import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import pt.isel.adeetc.meic.pdm.exceptions.Constants;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
@@ -19,44 +17,28 @@ public final class TwitterServiceClient
     public final IEvent<Integer> updateStatusCompletedEvent;
     public final IEvent<Iterable<Twitter.ITweet>> getUserTimelineCompletedEvent;
 
+    public final IEventHandler<Boolean> _publisherEvent;
+
     private final StatusEventHandler _statusEventHandler = new StatusEventHandler();
 
-    private Handler _handler;
+
     private Twitter _twitter;
     private final IDbSet<Twitter.ITweet> _tweetDb;
+    private final YambaApplication _app;
     private final TimelineServiceController _timelineController;
 
 
-    public TwitterServiceClient(IDbSet<Twitter.ITweet> tweetDb)
+
+    public TwitterServiceClient(IDbSet<Twitter.ITweet> tweetDb, YambaApplication app)
     {
         _tweetDb = tweetDb;
-        _handler = new Handler();
+        _app = app;
         updateStatusCompletedEvent = new GenericEvent<Integer>();
         getUserTimelineCompletedEvent = new GenericEvent<Iterable<Twitter.ITweet>>();
-        _timelineController = new TimelineServiceController();
-        /*
-        ThreadPool.QueueUserWorkItem(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                Iterable<Twitter.ITweet> status = _tweetDb.getAll();
-                Log.d(LOG, "Retrieved saved status.");
-                if (_statusCache != null)
-                    return;
+        _timelineController = new TimelineServiceController(this, _app.getGeneralPurposeHandler());
+        _publisherEvent = new PublisherEventHandler();
 
-                synchronized (this)
-                {
-                    if (_statusCache != null || Iterables.size(status) == 0)
-                        return;
-
-                    Log.d(LOG, "Setting on cached.");
-
-                    _statusCache = status;
-                }
-            }
-        });
-           */
+        _app.getNetworkEvent().addEventHandler(_publisherEvent);
     }
 
 
@@ -102,28 +84,50 @@ public final class TwitterServiceClient
         return _tweetDb;
     }
 
-    Handler getHandler()
-    {
-        return _handler;
-    }
 
-
-    private class StatusEventHandler implements IEventHandler<Integer>, Runnable
+    private class StatusEventHandler implements IEventHandler<Void>, Runnable
     {
-        private volatile IEventHandlerArgs<Integer> _args;
+        private volatile IEventHandlerArgs<Void> _args;
 
         @Override
-        public void invoke(Object sender, IEventHandlerArgs<Integer> statusIEventHandlerArgs)
+        public void invoke(Object sender, IEventHandlerArgs<Void> statusIEventHandlerArgs)
         {
-            _handler.post(this);
             _args = statusIEventHandlerArgs;
+            _app.getUiHandler().post(this);
+
         }
 
         @Override
         public void run()
         {
-            updateStatusCompletedEvent.invoke(this, _args);
+            int id = R.string.status_tweet_create;
 
+            if (_args.errorOccurred())
+            {
+                if (_args.getError() instanceof NetworkErrorException)
+                {
+                    id = R.string.status_tweet_delay;
+                } else
+                {
+                    id = R.string.status_error_insert_newStatus;
+                }
+            }
+
+            updateStatusCompletedEvent.invoke(this, new GenericEventArgs<Integer>(id, null));
+
+        }
+    }
+
+    private class PublisherEventHandler implements IEventHandler<Boolean>
+    {
+
+        @Override
+        public void invoke(Object sender, IEventHandlerArgs<Boolean> voidIEventHandlerArgs)
+        {
+            //Intent timelineIntent = new Intent(YambaApplication.getContext(), TimelinePullService.class);
+            Intent statusIntent = new Intent(YambaApplication.getContext(), StatusUploadService.class);
+            //YambaApplication.getContext().startService(timelineIntent);
+            YambaApplication.getContext().startService(statusIntent);
         }
     }
 }

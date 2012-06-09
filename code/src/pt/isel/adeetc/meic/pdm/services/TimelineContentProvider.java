@@ -116,7 +116,7 @@ public class TimelineContentProvider extends ContentProvider
         switch (uriType)
         {
             case STATUSES:
-                id = database.insert(StatusTable.TABLE_STATUS, null, contentValues);
+                id = database.insertWithOnConflict(StatusTable.TABLE_STATUS, null, contentValues, SQLiteDatabase.CONFLICT_IGNORE);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);

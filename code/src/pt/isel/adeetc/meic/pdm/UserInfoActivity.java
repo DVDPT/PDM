@@ -32,7 +32,7 @@ public class UserInfoActivity extends YambaBaseActivity
         public void handleMessage(Message message)
         {
             message.getData().setClassLoader(getClassLoader());
-            YambaUserInfo info = (YambaUserInfo) message.getData().get(YambaNavigation.userInfoServiceParamName);
+            YambaUserInfo info = (YambaUserInfo) message.getData().get(YambaNavigation.USER_INFO_SERVICE_PARAM_NAME);
             changeUserInfo(
                     info.getName(),
                     info.getNrOfTweets(),
@@ -117,6 +117,8 @@ public class UserInfoActivity extends YambaBaseActivity
         ret.add(R.id.menu_user_info);
         return ret;
     }
+
+
 
 
 }

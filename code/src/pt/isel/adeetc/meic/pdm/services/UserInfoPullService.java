@@ -24,7 +24,7 @@ public class UserInfoPullService extends YambaBaseService
 
             Message m = Message.obtain();
 
-            m.getData().putParcelable(YambaNavigation.userInfoServiceParamName, userInfo);
+            m.getData().putParcelable(YambaNavigation.USER_INFO_SERVICE_PARAM_NAME, userInfo);
 
             try
             {

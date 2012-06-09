@@ -33,7 +33,7 @@ public class StatusDetailsActivity extends YambaBaseActivity implements View.OnC
 
         _objId = getIntent()
                 .getExtras()
-                .getInt(YambaNavigation.timelineToStatusDetailsParamName);
+                .getInt(YambaNavigation.TIMELINE_TO_STATUS_DETAILS_PARAM_NAME);
 
         _status = (Twitter.ITweet) getNavigationMessenger().getElementAndPreserve(_objId);
 

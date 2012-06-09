@@ -42,12 +42,12 @@
                   android:label="@string/preferences_activity"/>
         <activity android:name=".UserInfoActivity"
                   android:label="@string/user_info_activity"/>
-<!--
+
         <receiver android:name=".NetworkReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>
         </receiver>
-                 -->
+
     </application>
 </manifest> 

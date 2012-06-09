@@ -1,6 +1,7 @@
 package pt.isel.adeetc.meic.pdm.services;
 
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
+import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import winterwell.jtwitter.Twitter;
 
 /**
@@ -10,13 +11,14 @@ import winterwell.jtwitter.Twitter;
  * Time: 18:07
  * To change this template use File | Settings | File Templates.
  */
-public class StatusUploadServiceMessage implements IServiceMessage<String,Integer>
+public class StatusUploadServiceMessage implements IServiceMessage<String,Void>
 {
     
-    private final IEventHandler<Integer> _callBack;
+    private final IEventHandler<Void> _callBack;
     private String _data;
+    private IDbSet<String> _dataBase;
 
-    public StatusUploadServiceMessage(IEventHandler<Integer> _callBack, String status) {
+    public StatusUploadServiceMessage(IEventHandler<Void> _callBack, String status) {
         this._callBack = _callBack;
         _data = status;
         
@@ -28,7 +30,11 @@ public class StatusUploadServiceMessage implements IServiceMessage<String,Intege
     }
 
     @Override
-    public IEventHandler<Integer> getCallback() {
+    public IEventHandler<Void> getCallback() {
         return _callBack;
+    }
+
+    public IDbSet<String> getDatabase(){
+        return _dataBase;
     }
 }
