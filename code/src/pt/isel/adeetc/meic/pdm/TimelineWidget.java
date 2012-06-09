@@ -28,8 +28,6 @@ import java.util.Date;
  */
 public class TimelineWidget extends AppWidgetProvider {
 
-
-
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds)
     {

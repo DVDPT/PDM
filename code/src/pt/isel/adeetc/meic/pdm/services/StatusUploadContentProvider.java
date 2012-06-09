@@ -1,15 +1,19 @@
 package pt.isel.adeetc.meic.pdm.services;
 
-import android.content.ContentProvider;
-import android.content.ContentUris;
-import android.content.ContentValues;
-import android.content.Context;
+import android.content.*;
+import android.database.CharArrayBuffer;
+import android.database.ContentObserver;
 import android.database.Cursor;
+import android.database.DataSetObserver;
 import android.net.Uri;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import pt.isel.adeetc.meic.pdm.YambaApplication;
+import pt.isel.adeetc.meic.pdm.common.CollectionCursor;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 
 import java.io.*;
+import java.util.LinkedList;
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,12 +31,12 @@ public class StatusUploadContentProvider extends ContentProvider
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
             + "/" + BASE_PATH);
 
-    private final String FILE_NAME="STATUS";
+    private final String FILE_NAME="status.txt";
     public static final String KEY_VALUES_STATUS = "statusMessage";
 
     private File _statusFile;
     
-    private Integer _countStatus;
+    private Integer _countStatus = new Integer(0);
 
 
     @Override
@@ -49,7 +53,8 @@ public class StatusUploadContentProvider extends ContentProvider
             if(!_statusFile.exists())
             {
             
-                _statusFile = new File(YambaApplication.getContext().getFilesDir(), FILE_NAME);
+                //_statusFile = new File(YambaApplication.getContext().getFilesDir(), FILE_NAME);
+                _statusFile.createNewFile();
                 fileOutput = new FileOutputStream(_statusFile);
                 stream = new DataOutputStream(fileOutput);
                  stream.write(_countStatus);
@@ -68,8 +73,29 @@ public class StatusUploadContentProvider extends ContentProvider
     }
 
     @Override
-    public Cursor query(Uri uri, String[] strings, String s, String[] strings1, String s1) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    public Cursor query(Uri uri, String[] strings, String s, String[] strings1, String s1) 
+    {
+        DataInputStream outData;
+        LinkedList<String> messages = new LinkedList<String>();
+        String message;
+        try {
+            
+            outData = new DataInputStream (new FileInputStream(_statusFile));
+            outData.readLine();
+
+            while((message=outData.readLine())!= null)
+            {
+                messages.add(message);
+            }
+            
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+
+        return new CollectionCursor(messages);
+
     }
 
     @Override

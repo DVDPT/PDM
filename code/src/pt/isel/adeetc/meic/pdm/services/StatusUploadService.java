@@ -1,9 +1,12 @@
 package pt.isel.adeetc.meic.pdm.services;
 
 import android.accounts.NetworkErrorException;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.IBinder;
+import pt.isel.adeetc.meic.pdm.YambaApplication;
 import pt.isel.adeetc.meic.pdm.YambaBaseIntentService;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
@@ -25,6 +28,7 @@ public class StatusUploadService extends YambaBaseIntentService {
 
     private static String LOG = "StatusUploadService";
     private static String NAMESERVICE = "ServiceUpload";
+    private static int MAX_SIZE_CONTENT = 1;
 
 
     private static LinkedList<String> _status = new LinkedList<String>();
@@ -68,24 +72,28 @@ public class StatusUploadService extends YambaBaseIntentService {
 
     private void saveStatus(String message)
     {
-        if(!_status.contains(message))
-            _status.add(message);
+        ContentValues values = new ContentValues(MAX_SIZE_CONTENT);
+        values.put(StatusUploadContentProvider.KEY_VALUES_STATUS,message);
+        YambaApplication.getContext().getContentResolver().insert(StatusUploadContentProvider.CONTENT_URI,values);
     }
 
     private void uploadSavedStatus()
     {
         LinkedList<String> statusSended = new LinkedList<String>();
-        for(String m : _status)
+        Cursor c = YambaApplication.getContext().getContentResolver().query(StatusUploadContentProvider.CONTENT_URI, null,null,null,null);
+        String message;
+        while(c.isLast())
         {
+            c.moveToNext();
+            message=c.getString(0);
             try {
-                sendStatus(m, null);
-                statusSended.add(m);
+                sendStatus(message, null);
+                statusSended.add(message);
             } catch (Exception e) {
                 break;
             }
-
         }
-        _status.removeAll(statusSended);
+        YambaApplication.getContext().getContentResolver().delete(StatusUploadContentProvider.CONTENT_URI,null, (String[]) statusSended.toArray());
     }
 
     @Override
@@ -128,7 +136,7 @@ public class StatusUploadService extends YambaBaseIntentService {
 
            try{
                status = client.setStatus(statusMessage.getData());
-               statusMessage.getCallback().invoke(this,new GenericEventArgs<Integer>(SENDED, error));
+               statusMessage.getCallback().notifyUiOfChanges(this,new GenericEventArgs<Integer>(SENDED, error));
 
            }catch (Exception ex)
            {
@@ -139,7 +147,7 @@ public class StatusUploadService extends YambaBaseIntentService {
        else
        {
             _status.add(statusMessage.getData());
-            statusMessage.getCallback().invoke(this,new GenericEventArgs<Integer>(DELAYDED, error));
+            statusMessage.getCallback().notifyUiOfChanges(this,new GenericEventArgs<Integer>(DELAYDED, error));
        }
 
        return START_STICKY;

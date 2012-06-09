@@ -12,11 +12,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.common.holders.ViewHolder3;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
-import pt.isel.adeetc.meic.pdm.services.TwitterServiceClient;
+import pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient;
 import winterwell.jtwitter.Twitter;
 
 import java.util.*;
@@ -34,7 +35,9 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         public int compare(Twitter.ITweet t1, Twitter.ITweet t2)
         {
             return (int) (t2.getCreatedAt().getTime() - t1.getCreatedAt().getTime());
+
         }
+
     };
 
 
@@ -93,7 +96,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     {
         Iterable<Twitter.ITweet> data = getTwitter().getTwitterCachedTimeline();
         getTwitter().getUserTimelineCompletedEvent.setEventHandler(this);
-        if (data != null && isResuming)
+        if (data != null && Iterables.size(data) != 0 && isResuming)
         {
             setTimelineOnUi(data);
             return;
@@ -118,7 +121,8 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
     {
 
         Log.d(LOG, String.format("On event task event handler."));
-        _loadingDialog.dismiss();
+        if (_loadingDialog != null)
+            _loadingDialog.dismiss();
 
 
         if (userStatus.errorOccurred())
@@ -163,7 +167,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
         startActivity(
                 new Intent(this, StatusDetailsActivity.class)
-                        .putExtra(YambaNavigation.timelineToStatusDetailsParamName, objId)
+                        .putExtra(YambaNavigation.TIMELINE_TO_STATUS_DETAILS_PARAM_NAME, objId)
         );
     }
 
@@ -210,7 +214,7 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         @SuppressWarnings("unchecked")
         public View getView(int pos, View cView, ViewGroup parent)
         {
-            Log.d(LOG, "On TwitterStatusAdapter drawing some element.");
+            Log.d(LOG, "On TwitterStatusAdapter drawing some element. ID:" + pos);
             View v = cView;
             ViewHolder3<TextView, TextView, TextView> holder;
             if (v == null)

@@ -35,9 +35,9 @@ public class GenericEvent<T> implements IEvent<T>
     }
 
     @Override
-    public void onEventHandlerChanged(IEventHandler<IEventHandler<T>> event)
+    public void setOnEventHandlerChanged(IEventHandler<IEventHandler<T>> handler)
     {
-        _onHandlerStateChanged = event;
+        _onHandlerStateChanged = handler;
     }
 
     private void triggerEventHandlerChanged(IEventHandler<T> handler)
