@@ -1,0 +1,9 @@
+<resources>
+    <color name="blue">#6495ed</color>
+    <color name="black">#000000</color>
+    <color name="gray">#8b8b83</color>
+    <color name="white">#fffafa</color>
+    <color name="light_sky_blue">#87cefa</color>
+    <color name="sky_blue">#87ceeb</color>
+    <color name="cornflower_blue">#6495ed</color>
+</resources>
