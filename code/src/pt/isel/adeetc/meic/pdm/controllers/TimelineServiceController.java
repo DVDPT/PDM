@@ -17,6 +17,7 @@ import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
 import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
+import pt.isel.adeetc.meic.pdm.extensions.BoundedService;
 import pt.isel.adeetc.meic.pdm.extensions.BoundedServiceClient;
 import pt.isel.adeetc.meic.pdm.services.TimelineContentProvider;
 import pt.isel.adeetc.meic.pdm.services.TimelinePullService;
@@ -57,8 +58,8 @@ final class TimelineServiceController extends ContentObserver implements SharedP
     private void initialize()
     {
         onChange(false);
-        if (_app.isTimelineRefreshedAutomatically() && !isAlarmDeployed())
-            deployPeriodicAlarm();
+
+        deployPeriodicAlarm();
     }
 
     public Iterable<Twitter.ITweet> getStatusCache()
@@ -104,8 +105,11 @@ final class TimelineServiceController extends ContentObserver implements SharedP
 
     }
 
-    private void deployPeriodicAlarm()
+    public void deployPeriodicAlarm()
     {
+        if (isAlarmDeployed() || !_app.getNetworkState() || _app.isTimelineRefreshedAutomatically())
+            return;
+
         int refreshPeriod = _app.getTimelineRefreshPeriod() * 60 * 1000;
         Log.d(LOG, "Deploying alarm");
         _alarmManager = (AlarmManager) _app.getSystemService(Application.ALARM_SERVICE);
@@ -119,8 +123,9 @@ final class TimelineServiceController extends ContentObserver implements SharedP
         return _alarmManager != null;
     }
 
-    private void cancelPeriodicAlarm()
+    public void cancelPeriodicAlarm()
     {
+        Log.d(LOG, "cancelPeriodicAlarm");
         if (_alarmManager == null)
             throw new ShouldNotHappenException("Alarm manager is null");
 
@@ -192,7 +197,7 @@ final class TimelineServiceController extends ContentObserver implements SharedP
             Exception error = null;
             int val = message.getData().getInt(YambaNavigation.TIMELINE_SERVICE_RESULT_PARAM_NAME);
 
-            if (val == TimelinePullService.SERVICE_RESPONSE_ERROR)
+            if (val == BoundedService.SERVICE_RESPONSE_ERROR)
                 error = (Exception) message.getData().getSerializable(YambaNavigation.TIMELINE_SERVICE_ERROR_PARAM_NAME);
             else
                 _statusCache = _twitterFacade.getTweetDbSet().getAll();
