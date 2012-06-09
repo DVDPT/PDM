@@ -116,7 +116,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
 
     public boolean isTimelineRefreshedAutomatically()
     {
-        return _preferences.getBoolean(YambaPreferences.timeLineFetchedAutomaticallyPropName, true);
+        return _preferences.getBoolean(YambaPreferences.timeLineFetchedAutomaticallyPropName, false);
 
     }
 
@@ -168,4 +168,6 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     {
         return _customHandler.getHandler();
     }
+
+
 }

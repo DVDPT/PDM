@@ -1,80 +1,41 @@
 package pt.isel.adeetc.meic.pdm.services;
 
 import android.content.Intent;
-import android.os.*;
+import android.os.IBinder;
+import android.os.Message;
 import android.util.Log;
 import pt.isel.adeetc.meic.pdm.YambaBaseIntentService;
-import pt.isel.adeetc.meic.pdm.YambaNavigation;
 import pt.isel.adeetc.meic.pdm.common.IterableHelper;
 import pt.isel.adeetc.meic.pdm.controllers.TimelineContentProviderClient;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
+import pt.isel.adeetc.meic.pdm.extensions.BoundedService;
 import winterwell.jtwitter.Twitter;
 
 public class TimelinePullService extends YambaBaseIntentService
 {
     private static String LOG = "TimelinePullService";
-    public static final int SERVICE_RESPONSE_OK = 0;
-    public static final int SERVICE_RESPONSE_ERROR = 1;
-
-
-    @Override
-    public void onStart(Intent i, int id)
-    {
-        super.onStart(i, id);
-
-    }
-
-    private void initializeMessenger()
-    {
-        _messenger = new Messenger(new CustomServiceHandler());
-
-    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+
         super.onStartCommand(intent, flags, startId);
         return START_STICKY;
     }
 
 
-    private class CustomServiceHandler extends Handler
+    private BoundedService _boundedImpl = new BoundedService()
     {
-        public void handleMessage(Message msg)
+        @Override
+        protected int handleClientRequest(Message cliengMsg, Message serviceResponse) throws Exception
         {
-            Log.d(LOG, "TimelinePullService.Handler: On handleMessage");
-            Exception error = null;
-            int result = SERVICE_RESPONSE_OK;
-
-            try
-            {
-                handleRequest(true);
-            } catch (Exception e)
-            {
-                error = e;
-            }
-
-            Message m = Message.obtain();
-
-            if (error != null)
-            {
-                result = SERVICE_RESPONSE_ERROR;
-                m.getData().putSerializable(YambaNavigation.TIMELINE_SERVICE_ERROR_PARAM_NAME, error);
-            }
-
-            m.getData().putInt(YambaNavigation.TIMELINE_SERVICE_RESULT_PARAM_NAME, result);
-
-            try
-            {
-                msg.replyTo.send(m);
-            } catch (RemoteException e)
-            {
-                Log.d(LOG, e.getMessage());
-            }
+            handleRequest(true);
+            return BoundedService.SERVICE_RESPONSE_OK;
         }
-    }
+    };
 
-    private Messenger _messenger;
+    private IBinder _binder = _boundedImpl.getBinder();
+
 
     public TimelinePullService()
     {
@@ -85,8 +46,8 @@ public class TimelinePullService extends YambaBaseIntentService
     @Override
     public IBinder onBind(Intent intent)
     {
-        initializeMessenger();
-        return _messenger.getBinder();
+
+        return _binder;
     }
 
 
@@ -123,10 +84,5 @@ public class TimelinePullService extends YambaBaseIntentService
         }
     }
 
-    @Override
-    public void onCreate()
-    {
-        super.onCreate();
-    }
 
 }
