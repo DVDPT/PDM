@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
+import pt.isel.adeetc.meic.pdm.YambaApplication;
 import pt.isel.adeetc.meic.pdm.YambaBaseIntentService;
 import pt.isel.adeetc.meic.pdm.common.IterableHelper;
 import pt.isel.adeetc.meic.pdm.controllers.TimelineContentProviderClient;
@@ -24,8 +25,10 @@ public class TimelinePullService extends YambaBaseIntentService
     }
 
 
-    private BoundedService _boundedImpl = new BoundedService()
+    /// use of static method because the Service on ctor dont have an aplication instance.
+    private BoundedService _boundedImpl = new BoundedService(((YambaApplication)YambaApplication.getInstance()).getCustomHandlerThread().getLooper())
     {
+
         @Override
         protected int handleClientRequest(Message cliengMsg, Message serviceResponse) throws Exception
         {
@@ -65,7 +68,10 @@ public class TimelinePullService extends YambaBaseIntentService
 
     private void handleRequest(boolean isBindedReq) throws Exception
     {
+
         Log.d(LOG, "On Handle request " + (isBindedReq ? "Binded" : "Started"));
+        Log.d(LOG, "Timeline Service running on " + Thread.currentThread().getName());
+
         TimelineContentProviderClient contentProviderClient = new TimelineContentProviderClient(getApplication());
         Exception error = null;
         try

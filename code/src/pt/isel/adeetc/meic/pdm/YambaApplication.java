@@ -5,16 +5,17 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import pt.isel.adeetc.meic.pdm.common.GenericMultipleEvent;
 import pt.isel.adeetc.meic.pdm.common.IMultipleEvent;
 import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
-import pt.isel.adeetc.meic.pdm.common.handler.CustomHandlerThread;
+import pt.isel.adeetc.meic.pdm.controllers.TimelineContentProviderClient;
+import pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient;
 import pt.isel.adeetc.meic.pdm.extensions.BaseApplication;
 import pt.isel.adeetc.meic.pdm.services.IEmailSender;
 import pt.isel.adeetc.meic.pdm.services.SimpleEmailSender;
-import pt.isel.adeetc.meic.pdm.controllers.TimelineContentProviderClient;
-import pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient;
 import winterwell.jtwitter.Twitter;
 
 public class YambaApplication extends BaseApplication
@@ -24,8 +25,8 @@ public class YambaApplication extends BaseApplication
     private IDbSet<Twitter.ITweet> _tweetDb;
     private IEmailSender _emailSender;
     private boolean _networkState;
-    private Handler _handler;
-    private CustomHandlerThread _customHandler;
+    private Handler _uiHandler, _asyncHandler;
+    private HandlerThread _customThread;
 
     private IMultipleEvent<Boolean> _networkEvent;
 
@@ -40,8 +41,12 @@ public class YambaApplication extends BaseApplication
         //StatusDatabaseDataSource tweetDb = new StatusDatabaseDataSource(getContext());
         //tweetDb.open();
         _tweetDb = new TimelineContentProviderClient(getContext());
-        _handler = new Handler();
-        _customHandler = new CustomHandlerThread();
+        _uiHandler = new Handler();
+
+        _customThread = new HandlerThread("Custom Handler Thread");
+        _customThread.start();
+
+        _asyncHandler = new Handler(_customThread.getLooper());
     }
 
     @Override
@@ -56,7 +61,7 @@ public class YambaApplication extends BaseApplication
     {
         if (_client == null)
         {
-            _client = new TwitterServiceClient(getUserName(), getPassword(), getApiRootUrl(),_tweetDb, this);
+            _client = new TwitterServiceClient(getUserName(), getPassword(), getApiRootUrl(), _tweetDb, this);
         }
         return _client;
     }
@@ -145,7 +150,7 @@ public class YambaApplication extends BaseApplication
 
     public Handler getUiHandler()
     {
-        return _handler;
+        return _uiHandler;
     }
 
     public void initialize()
@@ -155,7 +160,14 @@ public class YambaApplication extends BaseApplication
 
     public Handler getGeneralPurposeHandler()
     {
-        return _customHandler.getHandler();
+        return _asyncHandler;
+    }
+
+
+    public HandlerThread getCustomHandlerThread()
+    {
+        Log.d("YambaApplication","getCustomHandlerThread - " + (_customThread == null));
+        return _customThread;
     }
 
 
