@@ -15,7 +15,7 @@ import pt.isel.adeetc.meic.pdm.extensions.BoundedServiceClient;
 import pt.isel.adeetc.meic.pdm.services.UserInfoPullService;
 import pt.isel.adeetc.meic.pdm.services.YambaUserInfo;
 
-public class UserInfoServiceController extends BoundedServiceClient implements IEventHandler<IEventHandler<YambaUserInfo>>
+class UserInfoServiceController extends BoundedServiceClient implements IEventHandler<IEventHandler<YambaUserInfo>>
 {
     private static final String LOG = "UserInfoServiceController";
 

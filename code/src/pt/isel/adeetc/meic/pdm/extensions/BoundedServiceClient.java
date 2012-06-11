@@ -67,6 +67,9 @@ public abstract class BoundedServiceClient
 
     public void unbind(Context ctx)
     {
+        if(!isServiceConnected())
+            return;
+
         ctx.unbindService(_servinceConnection);
         _serviceMessenger = null;
     }

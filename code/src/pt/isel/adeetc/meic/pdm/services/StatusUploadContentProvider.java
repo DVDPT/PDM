@@ -1,21 +1,16 @@
 package pt.isel.adeetc.meic.pdm.services;
 
-import android.content.*;
-import android.database.CharArrayBuffer;
-import android.database.ContentObserver;
+import android.content.ContentProvider;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.net.Uri;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import pt.isel.adeetc.meic.pdm.YambaApplication;
 import pt.isel.adeetc.meic.pdm.common.CollectionCursor;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 
 import java.io.*;
-import java.math.BigInteger;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.

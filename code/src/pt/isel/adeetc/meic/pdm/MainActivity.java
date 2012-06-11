@@ -9,6 +9,8 @@ public class MainActivity extends YambaBaseActivity
 {
     private static final String LOG = "MainActivity";
     private ProgressDialog _dialog;
+    private boolean _ranned = false;
+
 
     /**
      * Called when the activity is first created.
@@ -22,8 +24,15 @@ public class MainActivity extends YambaBaseActivity
     @Override
     public void onResume()
     {
-
         super.onResume();
+        if (_ranned)
+        {
+            finish();
+            return;
+        }
+
+        _ranned = true;
+
         if (StringHelper.isNullOrEmpty(getApplicationInstance().getUserName()))
             startActivity(IntentHelper.createIntentToReorderToFrontActivity(this, PrefsActivity.class));
 
