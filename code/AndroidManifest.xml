@@ -25,7 +25,7 @@
         <activity android:name=".MainActivity"
                   android:label="@string/app_name"
                   android:theme="@android:style/Theme.NoDisplay"
-                  android:noHistory="true">
+                  >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -43,7 +43,7 @@
         <activity android:name=".UserInfoActivity"
                   android:label="@string/user_info_activity"/>
 
-        <receiver android:name=".NetworkReceiver">
+        <receiver android:name=".NetworkChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
             </intent-filter>

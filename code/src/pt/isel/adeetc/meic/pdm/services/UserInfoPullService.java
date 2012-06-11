@@ -17,10 +17,17 @@ public class UserInfoPullService extends YambaBaseService
         protected int handleClientRequest(Message cliengMsg, Message serviceResponse) throws Exception
         {
             Twitter t = getApplicationInstance().getTwitterClient().getTwitter();
-            Twitter.User user = t.getUser(getApplicationInstance().getUserName());
-            YambaUserInfo userInfo = new YambaUserInfo(user);
-            serviceResponse.getData().putParcelable(YambaNavigation.USER_INFO_SERVICE_RESPONSE_PARAM_NAME,userInfo);
-            return BoundedService.SERVICE_RESPONSE_OK;
+            try
+            {
+                Twitter.User user = t.getUser(getApplicationInstance().getUserName());
+                YambaUserInfo userInfo = new YambaUserInfo(user);
+                serviceResponse.getData().putParcelable(YambaNavigation.USER_INFO_SERVICE_RESPONSE_PARAM_NAME, userInfo);
+                return BoundedService.SERVICE_RESPONSE_OK;
+            } catch (Exception e)
+            {
+                e = getApplicationInstance().getTwitterClient().checkIfIsAuthenticationExceptionAndReplace(e);
+                throw e;
+            }
         }
     };
 

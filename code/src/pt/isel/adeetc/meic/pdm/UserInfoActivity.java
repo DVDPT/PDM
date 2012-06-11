@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import org.apache.http.auth.AuthenticationException;
 import pt.isel.adeetc.meic.pdm.common.IEventHandler;
 import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
 import pt.isel.adeetc.meic.pdm.common.UiHelper;
@@ -41,7 +42,7 @@ public class UserInfoActivity extends YambaBaseActivity implements IEventHandler
         super.onResume();
         getApplicationInstance().getTwitterClient().getUserInfoEvent.setEventHandler(this);
         getApplicationInstance().getTwitterClient().getUserInfoAsync();
-        _dialog = ProgressDialog.show(this, getString(R.string.loading), getString(R.string.user_info_activity));
+        _dialog = ProgressDialog.show(this, getString(R.string.common_loading), getString(R.string.user_info_activity));
 
     }
 
@@ -73,7 +74,7 @@ public class UserInfoActivity extends YambaBaseActivity implements IEventHandler
     @Override
     public void invoke(Object sender, IEventHandlerArgs<YambaUserInfo> args)
     {
-        if(_dialog != null)
+        if (_dialog != null)
             _dialog.dismiss();
         try
         {
@@ -87,7 +88,12 @@ public class UserInfoActivity extends YambaBaseActivity implements IEventHandler
             );
         } catch (Exception e)
         {
-            UiHelper.showToast(R.string.user_info_error);
+            int errorId = R.string.user_info_error;
+
+            if (e instanceof AuthenticationException)
+                errorId = R.string.common_authentication_error;
+
+            UiHelper.showToast(errorId);
         }
     }
 }

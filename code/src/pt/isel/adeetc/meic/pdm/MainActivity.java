@@ -33,7 +33,7 @@ public class MainActivity extends YambaBaseActivity
             _dialog = ProgressDialog.show
                     (
                             this,
-                            getString(R.string.loading),
+                            getString(R.string.common_loading),
                             getString(R.string.main_activity_loading_app)
                     );
 
@@ -64,6 +64,7 @@ public class MainActivity extends YambaBaseActivity
         public void run()
         {
             _dialog.dismiss();
+            finish();
             startActivity(IntentHelper.createIntentToReorderToFrontActivity(MainActivity.this, TimelineActivity.class));
         }
     };

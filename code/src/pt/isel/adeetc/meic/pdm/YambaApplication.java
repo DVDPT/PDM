@@ -17,7 +17,7 @@ import pt.isel.adeetc.meic.pdm.controllers.TimelineContentProviderClient;
 import pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient;
 import winterwell.jtwitter.Twitter;
 
-public class YambaApplication extends BaseApplication implements SharedPreferences.OnSharedPreferenceChangeListener
+public class YambaApplication extends BaseApplication
 {
     private TwitterServiceClient _client;
     private SharedPreferences _preferences;
@@ -34,7 +34,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     {
         super.onCreate();
         _preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        _preferences.registerOnSharedPreferenceChangeListener(this);
+
         _networkEvent = new GenericMultipleEvent<Boolean>();
 
         //StatusDatabaseDataSource tweetDb = new StatusDatabaseDataSource(getContext());
@@ -56,8 +56,7 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     {
         if (_client == null)
         {
-            _client = new TwitterServiceClient(_tweetDb, this);
-            _client.configureTwitterClient(getUserName(), getPassword(), getApiRootUrl());
+            _client = new TwitterServiceClient(getUserName(), getPassword(), getApiRootUrl(),_tweetDb, this);
         }
         return _client;
     }
@@ -74,23 +73,23 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     public String getUserName()
     {
 
-        //return _preferences.getString(YambaPreferences.userNamePropName, "");
-        return "PDM14";
+        return _preferences.getString(YambaPreferences.userNamePropName, "");
+        //eturn "PDM14";
     }
 
     public String getPassword()
     {
 
-        //return _preferences.getString(YambaPreferences.userPasswordPropName, "");
-        return "pdm14_";
+        return _preferences.getString(YambaPreferences.userPasswordPropName, "");
+        //return "pdm14_";
     }
 
     public String getApiRootUrl()
     {
 
 
-        //return _preferences.getString(YambaPreferences.apiBaseUrl, "http://yamba.marakana.com/api");
-        return "http://yamba.marakana.com/api";
+        return _preferences.getString(YambaPreferences.apiBaseUrl, "http://yamba.marakana.com/api");
+        //return "http://yamba.marakana.com/api";
     }
 
 
@@ -127,15 +126,6 @@ public class YambaApplication extends BaseApplication implements SharedPreferenc
     public int getNumberOfStatusPreserved()
     {
         return new Integer(_preferences.getString(YambaPreferences.numberOfStatusPreservedPropName, "10"));
-    }
-
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s)
-    {
-        if (s.equals(YambaPreferences.userNamePropName) || s.equals(YambaPreferences.userPasswordPropName))
-        {
-            getTwitterClient().configureTwitterClient(getUserName(), getPassword(), getApiRootUrl());
-        }
     }
 
     public boolean getNetworkState()

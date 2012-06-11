@@ -1,39 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Yamba Application</string>
-    <string name="HelloWorldString">Hello World, MainActivity</string>
+
+    <string name="common_loading">Loading</string>
+    <string name="common_authentication_error">Username or password are incorrect.</string>
+
     <string name="timeline_error_fetching_status">An error occurred when we where trying to fetch your status.</string>
     <string name="timeline_display_no_status">There are no new status on your profile.</string>
-    <string name="loading">Loading</string>
-    <string name="tineline_loading_tweets">Fetching your tweets.</string>
+    <string name="timeline_loading_tweets">Fetching your tweets.</string>
+
+
     <string name="status_name">Status</string>
     <string name="status_display_message">Insert Text</string>
     <string name="status_button_name">Tweet</string>
     <string name="status_error_insert_newStatus">An error ocurred when we insert a newStatus</string>
     <string name="status_tweet_create">Tweet has Create</string>
+
     <string name="preferences_title_user">Change User Name</string>
     <string name="preferences_summary_password">User Password</string>
     <string name="preferences_title_password">Change Password</string>
-    <string name="preferences_name_baseUri">uri</string>
-    <string name="preferences_summary_baseUri">Base Url</string>
-    <string name="preferences_title_baseUri">Change Url</string>
+    <string name="preferences_name_base_uri">uri</string>
+    <string name="preferences_summary_base_uri">Base Url</string>
+    <string name="preferences_title_base_uri">Change Url</string>
     <string name="preferences_name_user">UserName</string>
     <string name="preferences_summary_user">User Name</string>
     <string name="preferences_name_password">Pass</string>
-    <string name="preferences_name_maxCharacters">MaxCharacters</string>
-    <string name="preferences_summary_maxCharacters">Change Max Characters for Tweet</string>
-    <string name="preferences_title_maxCharacters">Change Max Characters</string>
-    <string name="preferences_name_maxTweets">MaxTweets</string>
-    <string name="preferences_summary_maxTweets">Max Tweets</string>
-    <string name="preferences_title_maxTweets">Change Max Tweets</string>
+    <string name="preferences_status_max_characters">MaxCharacters</string>
+    <string name="preferences_summary_max_characters">Change Max Characters for Tweet</string>
+
+    <string name="preferences_title_max_characters">Change Max Characters</string>
+    <string name="preferences_name_max_tweets">MaxTweets</string>
+    <string name="preferences_summary_max_tweets">Max Tweets</string>
+    <string name="preferences_title_max_tweets">Change Max Tweets</string>
+
     <string name="menu_new_status">New Status</string>
     <string name="menu_prefs">Preferences</string>
     <string name="menu_timeline">Timeline</string>
     <string name="menu_refresh">Refresh</string>
+    <string name="menu_user_info">User Info</string>
+
     <string name="status_activity">Status Activity</string>
     <string name="timeline_activity">Timeline Activity</string>
     <string name="statusDetails_activity">Status Details Activity</string>
     <string name="preferences_activity">Preferences Activity</string>
+
     <string name="user_info">User Info</string>
     <string name="user_info_editName">Change Name</string>
     <string name="user_info_name">User Name</string>
@@ -41,7 +51,8 @@
     <string name="user_info_numberOfTweets">Number Of Tweets</string>
     <string name="user_info_followers">FOLLOWERS</string>
     <string name="user_info_following">FOLLOWING</string>
-    <string name="menu_user_info">User Info</string>
+    <string name="user_info_error">An error occurred when fetching your user info</string>
+
     <string name="preferences_title_update_timeline">TimelineUpdate</string>
     <string name="preferences_summary_update_timeline">Automatic Timeline Update</string>
     <string name="preferences_name_update_period_time">TimePeriod</string>
@@ -50,8 +61,8 @@
     <string name="preferences_name_update_maxTweets">UpdateMaxTweets</string>
     <string name="preferences_summary_update_maxTweets">Max tweets for update</string>
     <string name="preferences_title_update_maxTweets">Max tweets to save</string>
+
     <string name="status_button_send_mail">Send Email</string>
-    <string name="status_tweet_delay">Status Schedules</string>
+    <string name="status_tweet_delay">Status Scheduled</string>
     <string name="main_activity_loading_app">Application</string>
-    <string name="user_info_error">An error occurred when fetching your user info</string>
 </resources>

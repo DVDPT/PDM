@@ -59,7 +59,7 @@ final class TimelineServiceController extends ContentObserver implements SharedP
     {
         onChange(false);
 
-        deployPeriodicAlarm();
+
     }
 
     public Iterable<Twitter.ITweet> getStatusCache()
@@ -125,9 +125,10 @@ final class TimelineServiceController extends ContentObserver implements SharedP
 
     public void cancelPeriodicAlarm()
     {
+
         Log.d(LOG, "cancelPeriodicAlarm");
-        if (_alarmManager == null)
-            throw new ShouldNotHappenException("Alarm manager is null");
+        if (!isAlarmDeployed())
+            return;
 
         _alarmManager.cancel(_periodicIntent);
         _periodicIntent = null;

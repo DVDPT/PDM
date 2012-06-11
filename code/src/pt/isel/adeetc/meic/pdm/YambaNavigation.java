@@ -6,7 +6,6 @@ public final class YambaNavigation
 {
 
 
-
     private YambaNavigation()
     {
     }
@@ -22,6 +21,5 @@ public final class YambaNavigation
 
     public static final String USER_INFO_SERVICE_RESULT_PARAM_NAME = BoundedService.SERVICE_STATUS_RESPONSE_PARAM_NAME;
     public static final String USER_INFO_SERVICE_ERROR_PARAM_NAME = BoundedService.SERVICE_ERROR_RESPONSE_PARAM_NAME;
-    public static final String USER_INFO_SERVICE_PARAM_NAME = "UserInfoServiceParamName";
     public static final String USER_INFO_SERVICE_RESPONSE_PARAM_NAME = "USER_INFO_SERVICE_RESPONSE_PARAM_NAME";
 }

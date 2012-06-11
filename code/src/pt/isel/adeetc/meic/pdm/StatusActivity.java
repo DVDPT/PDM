@@ -30,9 +30,9 @@ public class StatusActivity extends YambaBaseActivity implements IEventHandler<I
         super.onCreate(savedInstanceState);
         setContentView(R.layout.status);
 
-        _status = (EditText) findViewById(R.id.editText);
-        _update = (Button) findViewById(R.id.buttonUpdate);
-        _count = (TextView) findViewById(R.id.Count);
+        _status = (EditText) findViewById(R.id.status_textbox);
+        _update = (Button) findViewById(R.id.status_send_button);
+        _count = (TextView) findViewById(R.id.status_counter_text);
 
         _status.addTextChangedListener(this);
 

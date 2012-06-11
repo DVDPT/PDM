@@ -2,7 +2,6 @@ package pt.isel.adeetc.meic.pdm;
 
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
 
 
 public class PrefsActivity extends PreferenceActivity
@@ -11,5 +10,12 @@ public class PrefsActivity extends PreferenceActivity
     {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        setResult(0);
     }
 }
