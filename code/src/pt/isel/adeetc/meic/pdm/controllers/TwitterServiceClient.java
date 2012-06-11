@@ -112,10 +112,28 @@ public final class TwitterServiceClient implements SharedPreferences.OnSharedPre
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s)
     {
+        Log.d(LOG, "onSharedPreferenceChanged: " + s);
         if (s.equals(YambaPreferences.userNamePropName) || s.equals(YambaPreferences.userPasswordPropName) || s.endsWith(YambaPreferences.apiBaseUrl))
         {
             _providerCli.clearAll();
             configureTwitterClient(_app.getUserName(), _app.getPassword(), _app.getApiRootUrl());
+        } else if (s.equals(YambaPreferences.timelineRefreshPeriodPropName) || s.equals(YambaPreferences.timeLineFetchedAutomaticallyPropName))
+        {
+            if (_app.isTimelineRefreshedAutomatically())
+            {
+                if (s.equals(YambaPreferences.timelineRefreshPeriodPropName))
+                {
+                    _timelineController.cancelPeriodicAlarm();
+                    _timelineController.deployPeriodicAlarm();
+                } else
+                {
+                    _timelineController.deployPeriodicAlarm();
+                }
+            } else
+            {
+                _timelineController.cancelPeriodicAlarm();
+            }
+
         }
     }
 

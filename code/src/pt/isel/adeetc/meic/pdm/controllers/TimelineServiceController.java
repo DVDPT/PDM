@@ -107,7 +107,7 @@ final class TimelineServiceController extends ContentObserver implements SharedP
 
     public void deployPeriodicAlarm()
     {
-        if (isAlarmDeployed() || !_app.getNetworkState() || _app.isTimelineRefreshedAutomatically())
+        if (isAlarmDeployed() || !_app.getNetworkState() || !_app.isTimelineRefreshedAutomatically())
             return;
 
         int refreshPeriod = _app.getTimelineRefreshPeriod() * 60 * 1000;
@@ -118,7 +118,7 @@ final class TimelineServiceController extends ContentObserver implements SharedP
         _alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, refreshPeriod, refreshPeriod, _periodicIntent);
     }
 
-    private boolean isAlarmDeployed()
+    public boolean isAlarmDeployed()
     {
         return _alarmManager != null;
     }

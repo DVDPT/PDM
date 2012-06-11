@@ -84,10 +84,6 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
     private void onNavigatedTo()
     {
-
-        if (_status.size() != 0)
-            return;
-
         getUserTimeline(true);
     }
 
