@@ -20,9 +20,9 @@
                 />
 
         <EditTextPreference
-                android:name="@string/preferences_name_baseUri"
-                android:summary="@string/preferences_summary_baseUri"
-                android:title="@string/preferences_title_baseUri"
+                android:name="@string/preferences_name_base_uri"
+                android:summary="@string/preferences_summary_base_uri"
+                android:title="@string/preferences_title_base_uri"
                 android:key="baseUrl"
                 android:defaultValue="http://yamba.marakana.com/api"
                 />
@@ -32,18 +32,18 @@
             android:key="tweets">
 
         <EditTextPreference
-                android:name="@string/preferences_name_maxCharacters"
-                android:summary="@string/preferences_summary_maxCharacters"
-                android:title="@string/preferences_title_maxCharacters"
+                android:name="@string/preferences_status_max_characters"
+                android:summary="@string/preferences_summary_max_characters"
+                android:title="@string/preferences_title_max_characters"
                 android:key="maxCharacters"
                 android:numeric="integer"
                 />
 
         <EditTextPreference
-                android:name="@string/preferences_name_maxTweets"
+                android:name="@string/preferences_name_max_tweets"
                 android:numeric="integer"
-                android:summary="@string/preferences_summary_maxTweets"
-                android:title="@string/preferences_title_maxTweets"
+                android:summary="@string/preferences_summary_max_tweets"
+                android:title="@string/preferences_title_max_tweets"
                 android:key="maxTweets"
                 />
         <CheckBoxPreference

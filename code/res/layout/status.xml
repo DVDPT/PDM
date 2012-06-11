@@ -11,27 +11,27 @@
     android:text="@string/status_name"
     />
     <EditText
-            android:id="@+id/editText"
+            android:id="@+id/status_textbox"
             android:layout_width="fill_parent" android:layout_height="wrap_content"
             android:layout_weight="1" android:gravity="top|left"
             android:hint="@string/status_display_message" />
 
     <LinearLayout
-            android:id="@+id/Layout"
+            android:id="@+id/status_layout"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             >
 
         <Button
-                android:id="@+id/buttonUpdate"
+                android:id="@+id/status_send_button"
                 android:layout_width="100sp" android:layout_height="50sp"
                 android:text="@string/status_button_name" android:textSize="20sp"
 
                 />
 
         <TextView
-                android:id="@+id/Count"
+                android:id="@+id/status_counter_text"
                 android:layout_width="wrap_content"  android:layout_height="fill_parent"
                 android:layout_margin="10dp" android:gravity="center"
                 android:textSize="20sp"

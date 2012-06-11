@@ -7,8 +7,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
-import android.widget.ListView;
 import android.widget.RemoteViews;
 import pt.isel.adeetc.meic.pdm.common.DateHelper;
 import pt.isel.adeetc.meic.pdm.db.StatusTable;

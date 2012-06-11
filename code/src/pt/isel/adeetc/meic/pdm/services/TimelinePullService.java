@@ -74,7 +74,7 @@ public class TimelinePullService extends YambaBaseIntentService
             contentProviderClient.addAll(statuses);
         } catch (Exception err)
         {
-            error = err;
+            error = getApplicationInstance().getTwitterClient().checkIfIsAuthenticationExceptionAndReplace(err);
         }
 
         if (error != null)

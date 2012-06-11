@@ -18,9 +18,9 @@ public class StatusDetailsActivity extends YambaBaseActivity implements View.OnC
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.status_details);
-        //_sendEmailButton = (Button) findViewById(R.id.status_detail_button);
+        _sendEmailButton = (Button) findViewById(R.id.status_detail_button);
 
-        //_sendEmailButton.setOnClickListener(this);
+        _sendEmailButton.setOnClickListener(this);
     }
 
     @Override

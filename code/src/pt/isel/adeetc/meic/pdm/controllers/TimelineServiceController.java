@@ -59,7 +59,7 @@ final class TimelineServiceController extends ContentObserver implements SharedP
     {
         onChange(false);
 
-        deployPeriodicAlarm();
+
     }
 
     public Iterable<Twitter.ITweet> getStatusCache()
@@ -107,7 +107,7 @@ final class TimelineServiceController extends ContentObserver implements SharedP
 
     public void deployPeriodicAlarm()
     {
-        if (isAlarmDeployed() || !_app.getNetworkState() || _app.isTimelineRefreshedAutomatically())
+        if (isAlarmDeployed() || !_app.getNetworkState() || !_app.isTimelineRefreshedAutomatically())
             return;
 
         int refreshPeriod = _app.getTimelineRefreshPeriod() * 60 * 1000;
@@ -118,16 +118,17 @@ final class TimelineServiceController extends ContentObserver implements SharedP
         _alarmManager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, refreshPeriod, refreshPeriod, _periodicIntent);
     }
 
-    private boolean isAlarmDeployed()
+    public boolean isAlarmDeployed()
     {
         return _alarmManager != null;
     }
 
     public void cancelPeriodicAlarm()
     {
+
         Log.d(LOG, "cancelPeriodicAlarm");
-        if (_alarmManager == null)
-            throw new ShouldNotHappenException("Alarm manager is null");
+        if (!isAlarmDeployed())
+            return;
 
         _alarmManager.cancel(_periodicIntent);
         _periodicIntent = null;

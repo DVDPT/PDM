@@ -52,7 +52,7 @@ public class StatusUploadContentProvider extends ContentProvider
                _statusFile.createNewFile();
             }
         } catch (IOException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+
         }
         return true;
     }

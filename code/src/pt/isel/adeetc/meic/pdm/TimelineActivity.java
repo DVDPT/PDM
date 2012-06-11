@@ -14,6 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import org.apache.http.auth.AuthenticationException;
 import pt.isel.adeetc.meic.pdm.common.*;
 import pt.isel.adeetc.meic.pdm.common.holders.ViewHolder3;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
@@ -85,10 +86,6 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
     private void onNavigatedTo()
     {
-
-        if (_status.size() != 0)
-            return;
-
         getUserTimeline(true);
     }
 
@@ -107,8 +104,8 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
             _loadingDialog = ProgressDialog.show
                     (
                             this,
-                            getString(R.string.loading),
-                            getString(R.string.tineline_loading_tweets)
+                            getString(R.string.common_loading),
+                            getString(R.string.timeline_loading_tweets)
                     );
         } else
             _loadingDialog.show();
@@ -127,7 +124,13 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
 
         if (userStatus.errorOccurred())
         {
-            UiHelper.showToast(R.string.timeline_error_fetching_status);
+
+            int errorId = R.string.timeline_error_fetching_status;
+
+            if (userStatus.getError() instanceof AuthenticationException)
+                errorId = R.string.common_authentication_error;
+
+            UiHelper.showToast(errorId);
             Log.w(LOG, userStatus.getError());
             return;
         }
