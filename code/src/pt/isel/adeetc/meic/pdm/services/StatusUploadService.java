@@ -32,7 +32,7 @@ public class StatusUploadService extends YambaBaseIntentService
 
     private static LinkedList<String> _status = new LinkedList<String>();
 
-    private BoundedService _boundedImpl = new BoundedService(((YambaApplication)YambaApplication.getInstance()).getCustomHandlerThread().getLooper())
+    private BoundedService _boundedImpl = new BoundedService(((YambaApplication) YambaApplication.getInstance()).getCustomHandlerThread().getLooper())
     {
         @Override
         protected int handleClientRequest(Message cliengMsg, Message serviceResponse) throws Exception
@@ -68,20 +68,24 @@ public class StatusUploadService extends YambaBaseIntentService
             saveStatus(message);
             throw new NetworkErrorException();
 
-        } else
+        }
+        try
         {
             client.setStatus(message);
+        } catch (Exception e)
+        {
+            e = getApplicationInstance().getTwitterClient().checkIfIsAuthenticationExceptionAndReplace(e);
+            throw e;
         }
-
 
     }
 
     private void saveStatus(String message)
     {
         ContentValues values = new ContentValues(MAX_SIZE_CONTENT);
-        values.put(StatusUploadContentProvider.KEY_VALUES_STATUS,message);
+        values.put(StatusUploadContentProvider.KEY_VALUES_STATUS, message);
 
-        YambaApplication.getContext().getContentResolver().insert(StatusUploadContentProvider.CONTENT_URI,values);
+        YambaApplication.getContext().getContentResolver().insert(StatusUploadContentProvider.CONTENT_URI, values);
     }
 
     private void uploadSavedStatus()
@@ -89,12 +93,12 @@ public class StatusUploadService extends YambaBaseIntentService
         Log.d(LOG, "uploadSavedStatus");
         LinkedList<String> statusSended = new LinkedList<String>();
 
-        Cursor c= YambaApplication.getContext().getContentResolver().query(StatusUploadContentProvider.CONTENT_URI, null, null, null, null);
+        Cursor c = YambaApplication.getContext().getContentResolver().query(StatusUploadContentProvider.CONTENT_URI, null, null, null, null);
         String m;
-        while(!c.isLast())
+        while (!c.isLast())
         {
             c.moveToNext();
-            m=c.getString(0);
+            m = c.getString(0);
             try
             {
                 sendStatus(m);
@@ -104,9 +108,9 @@ public class StatusUploadService extends YambaBaseIntentService
                 Log.d(LOG, "Error occurred");
                 break;
             }
-            
+
         }
-       YambaApplication.getContext().getContentResolver().delete(StatusUploadContentProvider.CONTENT_URI,null, statusSended.toArray(new String[statusSended.size()]));
+        YambaApplication.getContext().getContentResolver().delete(StatusUploadContentProvider.CONTENT_URI, null, statusSended.toArray(new String[statusSended.size()]));
 
     }
 
