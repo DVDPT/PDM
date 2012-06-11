@@ -17,7 +17,7 @@ import pt.isel.adeetc.meic.pdm.extensions.BoundedService;
 import pt.isel.adeetc.meic.pdm.extensions.BoundedServiceClient;
 import pt.isel.adeetc.meic.pdm.services.StatusUploadService;
 
-public class StatusServiceController extends BoundedServiceClient implements IEventHandler<IEventHandler<Integer>>
+class StatusServiceController extends BoundedServiceClient implements IEventHandler<IEventHandler<Integer>>
 {
     private static final String LOG = "StatusServiceController";
     private final YambaApplication _app;
@@ -113,7 +113,8 @@ public class StatusServiceController extends BoundedServiceClient implements IEv
             if (args.getData() == null)
             {
                 Log.d(LOG, "Unbinding");
-                unbind(_app);
+
+                    unbind(_app);
             }
         } catch (Exception e)
         {

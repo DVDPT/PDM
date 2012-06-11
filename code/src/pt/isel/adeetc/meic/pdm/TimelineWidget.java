@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.widget.RemoteViews;
 import pt.isel.adeetc.meic.pdm.common.DateHelper;
+import pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient;
 import pt.isel.adeetc.meic.pdm.db.StatusTable;
 import pt.isel.adeetc.meic.pdm.db.YambaTweet;
 import pt.isel.adeetc.meic.pdm.services.TimelineContentProvider;

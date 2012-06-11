@@ -1,21 +1,16 @@
 package pt.isel.adeetc.meic.pdm.services;
 
-import android.content.*;
-import android.database.CharArrayBuffer;
-import android.database.ContentObserver;
+import android.content.ContentProvider;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.net.Uri;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import pt.isel.adeetc.meic.pdm.YambaApplication;
 import pt.isel.adeetc.meic.pdm.common.CollectionCursor;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 
 import java.io.*;
-import java.math.BigInteger;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -52,7 +47,7 @@ public class StatusUploadContentProvider extends ContentProvider
                _statusFile.createNewFile();
             }
         } catch (IOException e) {
-
+            throw new ShouldNotHappenException(e);
         }
         return true;
     }
@@ -73,7 +68,7 @@ public class StatusUploadContentProvider extends ContentProvider
             }
             outData.close();
         } catch (Exception e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new ShouldNotHappenException(e);
         }
 
 
@@ -83,7 +78,7 @@ public class StatusUploadContentProvider extends ContentProvider
 
     @Override
     public String getType(Uri uri) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -106,7 +101,7 @@ public class StatusUploadContentProvider extends ContentProvider
 
             id = _countStatus++;
         } catch (Exception e) {
-           //
+            throw new ShouldNotHappenException(e);
         }
         return ContentUris.withAppendedId(uri,id);
 
@@ -139,7 +134,7 @@ public class StatusUploadContentProvider extends ContentProvider
                 }
                 if(!deleteLine)
                 {
-                    stringBuffer.append(message);
+                    stringBuffer.append(String.format("%s \n",message));
                 }
                 deleteLine=false;
             }
@@ -160,7 +155,7 @@ public class StatusUploadContentProvider extends ContentProvider
 
 
         } catch (Exception e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            throw new ShouldNotHappenException(e);
         }
 
         return strings.length ;
@@ -168,6 +163,6 @@ public class StatusUploadContentProvider extends ContentProvider
 
     @Override
     public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
-        throw new ShouldNotHappenException();
+        throw new UnsupportedOperationException();
     }
 }

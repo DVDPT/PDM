@@ -10,6 +10,7 @@ import android.util.Log;
 import pt.isel.adeetc.meic.pdm.YambaApplication;
 import pt.isel.adeetc.meic.pdm.YambaBaseIntentService;
 import pt.isel.adeetc.meic.pdm.YambaNavigation;
+import pt.isel.adeetc.meic.pdm.controllers.TimelineContentProviderClient;
 import pt.isel.adeetc.meic.pdm.extensions.BoundedService;
 import winterwell.jtwitter.Twitter;
 
@@ -71,7 +72,9 @@ public class StatusUploadService extends YambaBaseIntentService
         }
         try
         {
-            client.setStatus(message);
+            Twitter.ITweet result = client.setStatus(message);
+
+            new TimelineContentProviderClient(getApplication()).add(result);
         } catch (Exception e)
         {
             e = getApplicationInstance().getTwitterClient().checkIfIsAuthenticationExceptionAndReplace(e);
