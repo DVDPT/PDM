@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
 import android.util.Log;
+import org.apache.http.auth.AuthenticationException;
 import pt.isel.adeetc.meic.pdm.R;
 import pt.isel.adeetc.meic.pdm.YambaApplication;
 import pt.isel.adeetc.meic.pdm.YambaNavigation;
@@ -71,7 +72,11 @@ public class StatusServiceController extends BoundedServiceClient implements IEv
             if (error instanceof NetworkErrorException)
             {
                 id = R.string.status_tweet_delay;
-            } else
+            }else if(error instanceof AuthenticationException)
+            {
+                id = R.string.common_authentication_error;
+            }
+            else
             {
                 id = R.string.status_error_insert_newStatus;
             }
