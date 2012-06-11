@@ -107,6 +107,7 @@ public final class R {
         public static final int timeline_display_no_status=0x7f050004;
         public static final int timeline_error_fetching_status=0x7f050003;
         public static final int timeline_loading_tweets=0x7f050005;
+        public static final int timeline_widget_error=0x7f050036;
         public static final int user_info=0x7f050023;
         public static final int user_info_activity=0x7f050026;
         public static final int user_info_editName=0x7f050024;

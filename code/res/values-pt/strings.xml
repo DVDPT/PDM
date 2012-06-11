@@ -65,4 +65,6 @@
     <string name="status_button_send_mail">Enviar email</string>
     <string name="status_tweet_delay">Status agendado</string>
     <string name="main_activity_loading_app">Aplicação</string>
+
+    <string name="timeline_widget_error"> Não existe Tweets</string>
 </resources>

@@ -18,13 +18,6 @@ import winterwell.jtwitter.Twitter;
 
 import java.util.Date;
 
-/**
- * Created by IntelliJ IDEA.
- * User: Sorcha
- * Date: 08-06-2012
- * Time: 16:27
- * To change this template use File | Settings | File Templates.
- */
 public class TimelineWidget extends AppWidgetProvider {
 
     @Override
@@ -32,40 +25,52 @@ public class TimelineWidget extends AppWidgetProvider {
     {
 
         Cursor c = context.getContentResolver().query(TimelineContentProvider.CONTENT_URI, StatusTable.COLUMN_ALL, null, null, null);
+        Twitter.ITweet tweet = null;
         try{
-        if(c.moveToFirst())
+
+        if(c.moveToLast())
         {
-            Twitter.ITweet tweet =  new YambaTweet
+
+
+            tweet =  new YambaTweet
                     (
                             c.getLong(StatusTable.COLUMN_ID_INDEX),
                             new Date(c.getLong(StatusTable.COLUMN_DATE_INDEX)),
                             c.getString(StatusTable.COLUMN_MESSAGE_INDEX),
                             c.getString(StatusTable.COLUMN_USERNAME_INDEX)
                     );
-              
+        }     
             for(int id:appWidgetIds)
             {
-
-
                 RemoteViews widget=new RemoteViews(context.getPackageName(),
                         R.layout.timeline_widget_layout);
                 
-                widget.setTextViewText(R.id.timeline_widget_tweet_user,tweet.getUser().getName());
 
-                widget.setTextViewText(R.id.timeline_widget_tweet_status, tweet.getText());
                 
-                widget.setTextViewText(R.id.timeline_widget_tweet_date, DateHelper.stringifyDifference(new Date(System.currentTimeMillis()), tweet.getCreatedAt()));
+                if(tweet == null)
+                {
+                    widget.setTextViewText(R.id.timeline_widget_tweet_user,"Not exist tweets");
+                }
                 
-                
+                else{
+
+                    widget.setTextViewText(R.id.timeline_widget_tweet_user,tweet.getUser().getName());
+
+                    widget.setTextViewText(R.id.timeline_widget_tweet_status, tweet.getText());
+
+                    widget.setTextViewText(R.id.timeline_widget_tweet_date, DateHelper.stringifyDifference(new Date(System.currentTimeMillis()), tweet.getCreatedAt()));
+                }
+
                 widget.setOnClickPendingIntent(R.id.timeline_widget_tweet_linear,
-                                        PendingIntent.getActivity(
-                                                context,0,new Intent(
-                                                context,TimelineActivity.class),
-                                                PendingIntent.FLAG_UPDATE_CURRENT));
+                        PendingIntent.getActivity(
+                                context,0,new Intent(
+                                context,TimelineActivity.class),
+                                PendingIntent.FLAG_UPDATE_CURRENT));
 
                 appWidgetManager.updateAppWidget(id,widget);
+               
             }
-        }   
+           
         }finally {
             c.close();
         }

@@ -15,7 +15,6 @@
             android:id="@+id/timeline_widget_tweet_user"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Ana correia"
             android:textSize="20px"
             android:textColor="@color/black"
 
@@ -28,7 +27,6 @@
         <TextView android:id="@+id/timeline_widget_tweet_status"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Ola mundo td bem es bue fine hsnanksajksadddd jasnn sjksjkj"
                   android:textSize="15px"
                   android:textColor="@color/white"
                   android:paddingTop="7px"
@@ -44,7 +42,6 @@
             <TextView android:id="@+id/timeline_widget_tweet_date"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      android:text="10 december 2010"
                       android:textSize="10px"
                       android:textColor="@color/gray"
                       android:paddingTop="9px"
