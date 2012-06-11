@@ -12,8 +12,25 @@ public abstract class BoundedService
     public static final String SERVICE_STATUS_RESPONSE_PARAM_NAME = "SERVICE_STATUS_RESPONSE_PARAM_NAME";
     public static final String SERVICE_ERROR_RESPONSE_PARAM_NAME = "SERVICE_ERROR_RESPONSE_PARAM_NAME";
 
+    public final Looper _looper;
+
+    public BoundedService(Looper l)
+    {
+        _looper = l;
+    }
+
+    public BoundedService()
+    {
+        _looper = null;
+    }
+
     private class BoundedServiceHandler extends Handler
     {
+        public BoundedServiceHandler()
+        {
+            super(_looper);
+        }
+
         public void handleMessage(Message msg)
         {
             Exception error = null;

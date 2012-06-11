@@ -1,6 +1,5 @@
 package pt.isel.adeetc.meic.pdm.controllers;
 
-
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;

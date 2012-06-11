@@ -32,7 +32,7 @@ public class StatusUploadService extends YambaBaseIntentService
 
     private static LinkedList<String> _status = new LinkedList<String>();
 
-    private BoundedService _boundedImpl = new BoundedService()
+    private BoundedService _boundedImpl = new BoundedService(((YambaApplication)YambaApplication.getInstance()).getCustomHandlerThread().getLooper())
     {
         @Override
         protected int handleClientRequest(Message cliengMsg, Message serviceResponse) throws Exception

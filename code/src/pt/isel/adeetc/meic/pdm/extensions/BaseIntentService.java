@@ -1,7 +1,7 @@
 package pt.isel.adeetc.meic.pdm.extensions;
 
 import android.app.IntentService;
-import android.app.Service;
+import android.util.Log;
 import pt.isel.adeetc.meic.pdm.common.NavigationMessenger;
 
 /**
@@ -21,6 +21,7 @@ public abstract class BaseIntentService<T extends BaseApplication> extends Inten
 
     public final T getApplicationInstance()
     {
+        Log.d("BaseIntentService","getApplicationInstance " + (getApplication() == null));
         return (T) getApplication();
     }
 

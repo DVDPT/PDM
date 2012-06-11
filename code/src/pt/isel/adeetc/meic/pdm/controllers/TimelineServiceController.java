@@ -70,7 +70,7 @@ final class TimelineServiceController extends ContentObserver implements SharedP
     @Override
     public void onChange(boolean ignore)
     {
-        Log.d(LOG, "On Content Observer");
+        Log.d(LOG, "On Content Observer " + Thread.currentThread().getName());
 
         if (_boundedRequestActive)
             return;
@@ -82,9 +82,6 @@ final class TimelineServiceController extends ContentObserver implements SharedP
 
     public void getUserTimelineAsync()
     {
-        if (_app.isTimelineRefreshedAutomatically() && !isAlarmDeployed())
-            deployPeriodicAlarm();
-
         Log.d(LOG, "Getting timeline");
         _boundedRequestActive = true;
         if (!_boundedServiceClient.isServiceConnected())
@@ -194,7 +191,7 @@ final class TimelineServiceController extends ContentObserver implements SharedP
         protected void onServiceResponse(Message message)
         {
 
-            Log.d(LOG, "onServiceResponse");
+            Log.d(LOG, "onServiceResponse, Thread:" + Thread.currentThread().getName());
             Exception error = null;
             int val = message.getData().getInt(YambaNavigation.TIMELINE_SERVICE_RESULT_PARAM_NAME);
 
