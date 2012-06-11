@@ -29,7 +29,6 @@ public abstract class BoundedService
         public BoundedServiceHandler()
         {
             super(_looper);
-            Log.d(LOG, "Looper instance = " + (_looper == null));
         }
 
         public void handleMessage(Message msg)

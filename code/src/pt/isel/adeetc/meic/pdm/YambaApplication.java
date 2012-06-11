@@ -28,6 +28,7 @@ public class YambaApplication extends BaseApplication
     private Handler _uiHandler, _asyncHandler;
     private HandlerThread _customThread;
 
+
     private IMultipleEvent<Boolean> _networkEvent;
 
     @Override

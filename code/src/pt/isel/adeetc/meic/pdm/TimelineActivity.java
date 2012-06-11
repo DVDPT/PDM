@@ -36,7 +36,9 @@ public class TimelineActivity extends YambaBaseActivity implements IEventHandler
         public int compare(Twitter.ITweet t1, Twitter.ITweet t2)
         {
             return (int) (t2.getCreatedAt().getTime() - t1.getCreatedAt().getTime());
+
         }
+
     };
 
 
