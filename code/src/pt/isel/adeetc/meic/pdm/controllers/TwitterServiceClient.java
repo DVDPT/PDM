@@ -1,6 +1,5 @@
 package pt.isel.adeetc.meic.pdm.controllers;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -14,7 +13,6 @@ import pt.isel.adeetc.meic.pdm.common.IEventHandlerArgs;
 import pt.isel.adeetc.meic.pdm.common.db.IDbSet;
 import pt.isel.adeetc.meic.pdm.exceptions.Constants;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
-import pt.isel.adeetc.meic.pdm.services.StatusUploadService;
 import pt.isel.adeetc.meic.pdm.services.YambaUserInfo;
 import winterwell.jtwitter.Twitter;
 
@@ -25,7 +23,7 @@ public final class TwitterServiceClient implements SharedPreferences.OnSharedPre
 
     public final IEvent<Integer> updateStatusCompletedEvent;
     public final IEvent<Iterable<Twitter.ITweet>> getUserTimelineCompletedEvent;
-    public final IEvent<YambaUserInfo> getUserInfoEvent;
+    public final IEvent<YambaUserInfo> userInfoServiceReqCompleted;
 
     public final IEventHandler<Boolean> _publisherEvent;
 
@@ -46,7 +44,7 @@ public final class TwitterServiceClient implements SharedPreferences.OnSharedPre
 
         updateStatusCompletedEvent = new GenericEvent<Integer>();
         getUserTimelineCompletedEvent = new GenericEvent<Iterable<Twitter.ITweet>>();
-        getUserInfoEvent = new GenericEvent<YambaUserInfo>();
+        userInfoServiceReqCompleted = new GenericEvent<YambaUserInfo>();
 
         _timelineController = new TimelineServiceController(this, _app.getGeneralPurposeHandler());
         _statusController = new StatusServiceController(_app, this);
@@ -148,9 +146,11 @@ public final class TwitterServiceClient implements SharedPreferences.OnSharedPre
             {
                 if (_app.getNetworkState())
                 {
-                    Intent statusIntent = new Intent(YambaApplication.getContext(), StatusUploadService.class);
-                    YambaApplication.getContext().startService(statusIntent);
-                    _timelineController.deployPeriodicAlarm();
+
+                    _statusController.updatedSavedStatues();
+
+                    if(_app.isTimelineRefreshedAutomatically())
+                        _timelineController.deployPeriodicAlarm();
                 } else
                 {
 

@@ -40,7 +40,7 @@ public class UserInfoActivity extends YambaBaseActivity implements IEventHandler
     protected void onResume()
     {
         super.onResume();
-        getApplicationInstance().getTwitterClient().getUserInfoEvent.setEventHandler(this);
+        getApplicationInstance().getTwitterClient().userInfoServiceReqCompleted.setEventHandler(this);
         getApplicationInstance().getTwitterClient().getUserInfoAsync();
         _dialog = ProgressDialog.show(this, getString(R.string.common_loading), getString(R.string.user_info_activity));
 
@@ -50,7 +50,7 @@ public class UserInfoActivity extends YambaBaseActivity implements IEventHandler
     protected void onPause()
     {
         super.onPause();
-        getApplicationInstance().getTwitterClient().getUserInfoEvent.removeEventHandler();
+        getApplicationInstance().getTwitterClient().userInfoServiceReqCompleted.removeEventHandler();
     }
 
     private void changeUserInfo(String name, int nTweets, int followers, int followings, Uri urlImage)

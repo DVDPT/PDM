@@ -28,7 +28,7 @@ public class UserInfoServiceController extends BoundedServiceClient implements I
         _app = app;
         _twitterFacade = cli;
 
-        cli.getUserInfoEvent.setOnEventHandlerChanged(this);
+        cli.userInfoServiceReqCompleted.setOnEventHandlerChanged(this);
         setCallServiceWhenConnected(true);
     }
 
@@ -86,7 +86,7 @@ public class UserInfoServiceController extends BoundedServiceClient implements I
             @Override
             public void run()
             {
-                _twitterFacade.getUserInfoEvent.invoke(UserInfoServiceController.this, data);
+                _twitterFacade.userInfoServiceReqCompleted.invoke(UserInfoServiceController.this, data);
             }
         });
 
