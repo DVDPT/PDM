@@ -14,8 +14,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80885f38-dac8-4565-8bc5-af0dd5f35b4d" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../docs/trab3/reltrab3.docx" afterPath="$PROJECT_DIR$/../docs/trab3/reltrab3.docx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/UserInfoActivity.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/UserInfoActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/StatusServiceController.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/StatusServiceController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/StatusUploadService.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/StatusUploadService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/TwitterServiceClient.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/TwitterServiceClient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/UserInfoServiceController.java" afterPath="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/UserInfoServiceController.java" />
     </list>
     <ignored path="code.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -78,46 +82,7 @@
         <option name="CONDITION" value="" />
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/TwitterServiceClient.java" line="115" class="pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient" package="pt.isel.adeetc.meic.pdm.controllers">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/TwitterServiceClient.java" line="123" class="pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient" package="pt.isel.adeetc.meic.pdm.controllers">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
       <breakpoint url="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/TimelineServiceController.java" line="106" class="pt.isel.adeetc.meic.pdm.controllers.TimelineServiceController" package="pt.isel.adeetc.meic.pdm.controllers">
-        <option name="ENABLED" value="true" />
-        <option name="LOG_ENABLED" value="false" />
-        <option name="LOG_EXPRESSION_ENABLED" value="false" />
-        <option name="SUSPEND_POLICY" value="SuspendAll" />
-        <option name="COUNT_FILTER_ENABLED" value="false" />
-        <option name="COUNT_FILTER" value="0" />
-        <option name="CONDITION_ENABLED" value="false" />
-        <option name="CLASS_FILTERS_ENABLED" value="false" />
-        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
-        <option name="CONDITION" value="" />
-        <option name="LOG_MESSAGE" value="" />
-      </breakpoint>
-      <breakpoint url="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/TwitterServiceClient.java" line="129" class="pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient" package="pt.isel.adeetc.meic.pdm.controllers">
         <option name="ENABLED" value="true" />
         <option name="LOG_ENABLED" value="false" />
         <option name="LOG_EXPRESSION_ENABLED" value="false" />
@@ -184,51 +149,47 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="UserInfoPullService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/UserInfoPullService.java">
+      <file leaf-file-name="TwitterServiceClient.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/TwitterServiceClient.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="154" selection-start="584" selection-end="584" vertical-scroll-proportion="0.0">
+            <state line="149" column="46" selection-start="5478" selection-end="5478" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StatusUploadService.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/StatusUploadService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="19" selection-start="2174" selection-end="2174" vertical-scroll-proportion="0.45614034">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BoundedService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/extensions/BoundedService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="27" selection-start="815" selection-end="815" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StatusServiceController.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="StatusServiceController.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/StatusServiceController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="58" selection-start="2873" selection-end="2873" vertical-scroll-proportion="0.0">
+            <state line="102" column="5" selection-start="3508" selection-end="3508" vertical-scroll-proportion="0.40137222">
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3134#3355#0" expanded="true" />
-                <element signature="e#3344#3345#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TimelinePullService.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelinePullService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="148" selection-start="1003" selection-end="1090" vertical-scroll-proportion="0.0">
-              <folding />
+      <file leaf-file-name="JAVA/pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient" pinned="false" current="false" current-in-tab="false">
+        <entry file="uml://JAVA/pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient">
+          <provider selected="true" editor-type-id="UmlEditorProvider">
+            <state>
+              <ID>JAVA</ID>
+              <OriginalElement>pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient</OriginalElement>
+              <nodes>
+                <node x="-254.0" y="-53.0">pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient</node>
+              </nodes>
+              <notes />
+              <edges />
+              <settings layout="Hierarchic Group" zoom="1.0" x="-128.0" y="156.0" />
+              <SelectedNodes>
+                <node>pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient</node>
+              </SelectedNodes>
+              <Categories>
+                <Category>Methods</Category>
+                <Category>Fields</Category>
+              </Categories>
+              <SCOPE>All</SCOPE>
+              <VISIBILITY>private</VISIBILITY>
             </state>
           </provider>
         </entry>
@@ -253,15 +214,15 @@
         <option value="$PROJECT_DIR$/res/values-pt/strings.xml" />
         <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/UserInfoActivity.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/TimelineActivity.java" />
-        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/TwitterServiceClient.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/TimelineServiceController.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/YambaApplication.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/extensions/BaseIntentService.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelinePullService.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/UserInfoPullService.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/extensions/BoundedService.java" />
-        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/StatusServiceController.java" />
         <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/StatusUploadService.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/TwitterServiceClient.java" />
+        <option value="$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/StatusServiceController.java" />
       </list>
     </option>
   </component>
@@ -805,13 +766,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/PrefsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="39" selection-start="147" selection-end="147" vertical-scroll-proportion="0.17152658">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="uml://JAVA/pt.isel.adeetc.meic.pdm.extensions.BaseActivity">
       <provider selected="true" editor-type-id="UmlEditorProvider">
         <state>
@@ -926,13 +880,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/TwitterServiceClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="83" selection-start="2295" selection-end="2295" vertical-scroll-proportion="-1.0977701">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/extensions/BaseIntentService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="101" selection-start="409" selection-end="409" vertical-scroll-proportion="0.2109777">
@@ -956,7 +903,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/TimelinePullService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="148" selection-start="1003" selection-end="1090" vertical-scroll-proportion="0.0">
+        <state line="28" column="148" selection-start="1003" selection-end="1090" vertical-scroll-proportion="0.03508772">
           <folding />
         </state>
       </provider>
@@ -970,7 +917,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/extensions/BoundedService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="27" selection-start="815" selection-end="815" vertical-scroll-proportion="0.0">
+        <state line="30" column="27" selection-start="815" selection-end="815" vertical-scroll-proportion="0.4116638">
           <folding />
         </state>
       </provider>
@@ -982,14 +929,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/StatusServiceController.java">
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/services/YambaUserInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="58" selection-start="2873" selection-end="2873" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3134#3355#0" expanded="true" />
-            <element signature="e#3344#3345#0" expanded="true" />
-          </folding>
+        <state line="14" column="32" selection-start="379" selection-end="379" vertical-scroll-proportion="0.3773585">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -997,6 +940,45 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="74" column="19" selection-start="2174" selection-end="2174" vertical-scroll-proportion="0.45614034">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="uml://JAVA/pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient">
+      <provider selected="true" editor-type-id="UmlEditorProvider">
+        <state>
+          <ID>JAVA</ID>
+          <OriginalElement>pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient</OriginalElement>
+          <nodes>
+            <node x="-254.0" y="-53.0">pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient</node>
+          </nodes>
+          <notes />
+          <edges />
+          <settings layout="Hierarchic Group" zoom="1.0" x="-128.0" y="156.0" />
+          <SelectedNodes>
+            <node>pt.isel.adeetc.meic.pdm.controllers.TwitterServiceClient</node>
+          </SelectedNodes>
+          <Categories>
+            <Category>Methods</Category>
+            <Category>Fields</Category>
+          </Categories>
+          <SCOPE>All</SCOPE>
+          <VISIBILITY>private</VISIBILITY>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/TwitterServiceClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="149" column="46" selection-start="5478" selection-end="5478" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/pt/isel/adeetc/meic/pdm/controllers/StatusServiceController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="102" column="5" selection-start="3508" selection-end="3508" vertical-scroll-proportion="0.40137222">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

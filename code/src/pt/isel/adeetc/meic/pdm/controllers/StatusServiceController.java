@@ -72,11 +72,10 @@ public class StatusServiceController extends BoundedServiceClient implements IEv
             if (error instanceof NetworkErrorException)
             {
                 id = R.string.status_tweet_delay;
-            }else if(error instanceof AuthenticationException)
+            } else if (error instanceof AuthenticationException)
             {
                 id = R.string.common_authentication_error;
-            }
-            else
+            } else
             {
                 id = R.string.status_error_insert_newStatus;
             }
@@ -98,6 +97,11 @@ public class StatusServiceController extends BoundedServiceClient implements IEv
     public Intent getServiceIntent()
     {
         return new Intent(_app, StatusUploadService.class);
+    }
+
+    public void updatedSavedStatues()
+    {
+        _app.startService(getServiceIntent());
     }
 
 
