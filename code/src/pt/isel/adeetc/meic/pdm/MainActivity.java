@@ -34,7 +34,7 @@ public class MainActivity extends YambaBaseActivity
                     (
                             this,
                             getString(R.string.loading),
-                            getString(R.string.main_activity_loading_app)
+                            getString(/*R.string.main_activity_loading_app*/ R.string.HelloWorldString)
                     );
 
             getApplicationInstance().getGeneralPurposeHandler().post(new Runnable()
@@ -64,7 +64,7 @@ public class MainActivity extends YambaBaseActivity
         public void run()
         {
             _dialog.dismiss();
-            startActivity(IntentHelper.createIntentToReorderToFrontActivity(MainActivity.this, TimelineActivity.class));
+            startActivity(IntentHelper.createIntentToReorderToFrontActivity(MainActivity.this, StatusActivity.class));
         }
     };
 

@@ -13,7 +13,9 @@ import pt.isel.adeetc.meic.pdm.common.CollectionCursor;
 import pt.isel.adeetc.meic.pdm.exceptions.ShouldNotHappenException;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -36,7 +38,7 @@ public class StatusUploadContentProvider extends ContentProvider
 
     private File _statusFile;
     
-    private Integer _countStatus = new Integer(0);
+    private static Integer _countStatus = new Integer(0);
 
 
     @Override
@@ -44,29 +46,12 @@ public class StatusUploadContentProvider extends ContentProvider
     {
         _statusFile = YambaApplication.getContext().getFileStreamPath(FILE_NAME);
 
-        FileOutputStream fileOutput;
-
-        DataOutputStream stream;
-
-        DataInputStream  outData;
         try {
             if(!_statusFile.exists())
             {
-            
-                //_statusFile = new File(YambaApplication.getContext().getFilesDir(), FILE_NAME);
-                _statusFile.createNewFile();
-                fileOutput = new FileOutputStream(_statusFile);
-                stream = new DataOutputStream(fileOutput);
-                 stream.write(_countStatus);
-                stream.writeChars("\n");
-                stream.flush();  
+               _statusFile.createNewFile();
             }
-            else
-            {
-                outData = new DataInputStream (new FileInputStream(_statusFile));
-                _countStatus = outData.readInt();
-            }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         return true;
@@ -81,18 +66,16 @@ public class StatusUploadContentProvider extends ContentProvider
         try {
             
             outData = new DataInputStream (new FileInputStream(_statusFile));
-            outData.readLine();
 
             while((message=outData.readLine())!= null)
             {
                 messages.add(message);
             }
-            
-            
-            
+            outData.close();
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
+
 
         return new CollectionCursor(messages);
 
@@ -107,20 +90,21 @@ public class StatusUploadContentProvider extends ContentProvider
     public Uri insert(Uri uri, ContentValues contentValues) {
 
         int id = 0;
-        BufferedOutputStream stream;
+        FileWriter stream;
         
         try {
 
-            stream = new BufferedOutputStream(new FileOutputStream(_statusFile));
+            stream = new FileWriter(_statusFile,true);
+            BufferedWriter bufferedWriter = new BufferedWriter(stream);
 
-            String status = String.format("%s\n", contentValues.getAsString(KEY_VALUES_STATUS));
+            bufferedWriter.write(contentValues.getAsString(KEY_VALUES_STATUS));
+            bufferedWriter.newLine();
 
-            stream.write(status.getBytes());
+            bufferedWriter.close();
+
+            stream.close();
 
             id = _countStatus++;
-
-            stream.write(_countStatus.toString().getBytes(),0,_countStatus.toString().length());
-
         } catch (Exception e) {
            //
         }
@@ -140,8 +124,6 @@ public class StatusUploadContentProvider extends ContentProvider
 
             reader = new BufferedReader(new InputStreamReader(new FileInputStream(_statusFile)));
 
-            writer = new FileWriter(_statusFile,false);
-
             stringBuffer = new StringBuffer();
 
             while((message=reader.readLine())!=null)
@@ -155,16 +137,27 @@ public class StatusUploadContentProvider extends ContentProvider
                         break;
                     }
                 }
-                if(deleteLine)
+                if(!deleteLine)
                 {
-                    stringBuffer.append(String.format("%s \n",message));
-                    deleteLine=false;
+                    stringBuffer.append(message);
                 }
+                deleteLine=false;
             }
 
-            StringBuffer aux = new StringBuffer(String.format("%d \n %s", _countStatus,stringBuffer.toString()));
+            _statusFile.delete();
+            _statusFile.createNewFile();
 
-            writer.write(aux.toString(), 0, aux.length());
+            writer = new FileWriter(_statusFile,true);
+
+            if(stringBuffer.toString().length()>0)
+            {
+                writer.write(stringBuffer.toString());
+                writer.flush();
+            }
+
+            writer.close();
+            reader.close();
+
 
         } catch (Exception e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -177,5 +170,4 @@ public class StatusUploadContentProvider extends ContentProvider
     public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
         throw new ShouldNotHappenException();
     }
-
 }

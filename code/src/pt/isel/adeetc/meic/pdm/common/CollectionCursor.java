@@ -22,7 +22,7 @@ public class CollectionCursor<T> implements Cursor{
 
     public CollectionCursor(Collection<T> collection){
         _collection=collection;
-        _array=_collection.toArray(_array);
+        _array= (T[]) _collection.toArray();
 
     }
 

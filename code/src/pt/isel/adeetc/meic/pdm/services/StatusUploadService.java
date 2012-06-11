@@ -1,10 +1,13 @@
 package pt.isel.adeetc.meic.pdm.services;
 
 import android.accounts.NetworkErrorException;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
+import pt.isel.adeetc.meic.pdm.YambaApplication;
 import pt.isel.adeetc.meic.pdm.YambaBaseIntentService;
 import pt.isel.adeetc.meic.pdm.YambaNavigation;
 import pt.isel.adeetc.meic.pdm.extensions.BoundedService;
@@ -24,6 +27,7 @@ public class StatusUploadService extends YambaBaseIntentService
 
     private static String LOG = "StatusUploadService";
     private static String NAMESERVICE = "ServiceUpload";
+    private static int MAX_SIZE_CONTENT = 1;
 
 
     private static LinkedList<String> _status = new LinkedList<String>();
@@ -74,16 +78,23 @@ public class StatusUploadService extends YambaBaseIntentService
 
     private void saveStatus(String message)
     {
-        if (!_status.contains(message))
-            _status.add(message);
+        ContentValues values = new ContentValues(MAX_SIZE_CONTENT);
+        values.put(StatusUploadContentProvider.KEY_VALUES_STATUS,message);
+
+        YambaApplication.getContext().getContentResolver().insert(StatusUploadContentProvider.CONTENT_URI,values);
     }
 
     private void uploadSavedStatus()
     {
         Log.d(LOG, "uploadSavedStatus");
         LinkedList<String> statusSended = new LinkedList<String>();
-        for (String m : _status)
+
+        Cursor c= YambaApplication.getContext().getContentResolver().query(StatusUploadContentProvider.CONTENT_URI, null, null, null, null);
+        String m;
+        while(!c.isLast())
         {
+            c.moveToNext();
+            m=c.getString(0);
             try
             {
                 sendStatus(m);
@@ -93,9 +104,10 @@ public class StatusUploadService extends YambaBaseIntentService
                 Log.d(LOG, "Error occurred");
                 break;
             }
-
+            
         }
-        _status.removeAll(statusSended);
+       YambaApplication.getContext().getContentResolver().delete(StatusUploadContentProvider.CONTENT_URI,null, statusSended.toArray(new String[statusSended.size()]));
+
     }
 
     @Override
