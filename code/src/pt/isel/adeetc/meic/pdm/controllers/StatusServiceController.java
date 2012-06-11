@@ -1,11 +1,11 @@
 package pt.isel.adeetc.meic.pdm.controllers;
 
+import android.R;
 import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
 import android.util.Log;
-import pt.isel.adeetc.meic.pdm.R;
 import pt.isel.adeetc.meic.pdm.YambaApplication;
 import pt.isel.adeetc.meic.pdm.YambaNavigation;
 import pt.isel.adeetc.meic.pdm.common.GenericEventArgs;

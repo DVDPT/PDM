@@ -28,6 +28,7 @@
     <string name="preferences_status_max_characters">MaxCharacters</string>
     <string name="preferences_summary_max_characters">Change Max Characters for Tweet</string>
 
+
     <string name="preferences_title_max_characters">Change Max Characters</string>
     <string name="preferences_name_max_tweets">MaxTweets</string>
     <string name="preferences_summary_max_tweets">Max Tweets</string>
